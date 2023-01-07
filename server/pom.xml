@@ -29,6 +29,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <mybatis.version>3.0.1</mybatis.version>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <druid.version>1.2.15</druid.version>
         <lombok.version>1.18.24</lombok.version>
         <pagehelper.version>1.4.6</pagehelper.version>
@@ -79,6 +80,12 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>${pagehelper.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
+
 
 
 
