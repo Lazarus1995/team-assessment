@@ -13,12 +13,12 @@ import lombok.Data;
  */
 @TableName(value ="sys_law")
 @Data
-public class SysLaw extends SuperEntry implements Serializable {
+public class SysLaw extends BaseEntity implements Serializable {
     /**
      * 小立法 ID
      */
     @TableId
-    private Long lawId;
+    private Long id;
 
     /**
      * 小立法分数

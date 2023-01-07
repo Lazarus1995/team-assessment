@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @TableName(value ="sys_department")
 @Data
-public class SysDepartment extends SuperEntry implements Serializable {
+public class SysDepartment extends BaseEntity implements Serializable {
     /**
      * 主键 id
      */

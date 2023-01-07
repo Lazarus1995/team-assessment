@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @TableName(value ="sys_user")
 @Data
-public class SysUser extends SuperEntry implements Serializable {
+public class SysUser extends BaseEntity implements Serializable {
     /**
      * 用户 ID
      */

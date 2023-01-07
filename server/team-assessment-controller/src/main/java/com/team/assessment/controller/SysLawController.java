@@ -2,11 +2,12 @@ package com.team.assessment.controller;
 
 import com.team.assessment.SysLawService;
 import com.team.assessment.dto.response.BaseResponse;
+import com.team.assessment.vo.request.SysLawRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/law")
@@ -15,33 +16,30 @@ public class SysLawController {
     @Autowired
     private SysLawService sysLawService;
 
-    @GetMapping("/get")
-    public BaseResponse getLaw() {
-
-        return BaseResponse.success();
+    @GetMapping("/get/{id}")
+    public BaseResponse getLaw(@PathVariable("id") Long id) {
+        return BaseResponse.success(sysLawService.getLaw(id));
     }
 
-    @GetMapping("/list")
-    public BaseResponse getLawList() {
-
-        return BaseResponse.success();
+    @GetMapping("/list/{departmentId}")
+    public BaseResponse getLawList(@PathVariable("departmentId") Long departmentId) {
+        return BaseResponse.success(sysLawService.getLawList(departmentId));
     }
 
     @PostMapping("/add")
-    public BaseResponse addLaw() {
-
+    public BaseResponse addLaw(@RequestBody @Validated SysLawRequest sysLawRequest) {
+        sysLawService.addLaw(sysLawRequest);
         return BaseResponse.success();
     }
 
     @PostMapping("/update")
-    public BaseResponse updateLaw() {
+    public BaseResponse updateLaw(@RequestBody @Validated SysLawRequest sysLawRequest) {
 
         return BaseResponse.success();
     }
 
     @PostMapping("/delete")
-    public BaseResponse deleteLaw() {
-
-        return BaseResponse.success();
+    public BaseResponse deleteLaw(@RequestBody List<Long> idList) {
+        return BaseResponse.success(sysLawService.removeBatchByIds(idList));
     }
 }

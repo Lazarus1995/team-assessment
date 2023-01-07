@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
 @SpringBootApplication
-@MapperScan("com.ta.mapper")
+@MapperScan("com.team.assessment.mapper")
 public class TeamAssessmentApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(TeamAssessmentApplication.class, args);

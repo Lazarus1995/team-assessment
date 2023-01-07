@@ -1,7 +1,8 @@
 package com.team.assessment.dto.response;
 
 
-import com.ta.enums.ErrorCode;
+
+import com.team.assessment.enums.ErrorCode;
 
 import java.io.Serializable;
 

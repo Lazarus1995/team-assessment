@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @TableName(value ="sys_log")
 @Data
-public class SysLog extends SuperEntry implements Serializable {
+public class SysLog extends BaseEntity implements Serializable {
     /**
      * 主键 ID
      */
