@@ -3,6 +3,7 @@ package com.ta.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ta.entry.SysDepartment;
+import org.springframework.stereotype.Repository;
 
 /**
 * @author qu
@@ -10,6 +11,7 @@ import com.ta.entry.SysDepartment;
 * @createDate 2023-01-07 12:21:27
 * @Entity generator.domain.SysDepartment
 */
+@Repository
 public interface SysDepartmentMapper extends BaseMapper<SysDepartment> {
 
 }

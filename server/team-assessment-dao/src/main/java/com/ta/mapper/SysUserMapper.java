@@ -2,6 +2,7 @@ package com.ta.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ta.entry.SysUser;
+import org.springframework.stereotype.Repository;
 
 /**
 * @author qu
@@ -9,6 +10,7 @@ import com.ta.entry.SysUser;
 * @createDate 2023-01-07 12:20:13
 * @Entity generator.domain.SysUser
 */
+@Repository
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
 }

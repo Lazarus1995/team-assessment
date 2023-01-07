@@ -10,13 +10,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @SpringBootApplication
 @MapperScan("com.ta.mapper")
-public class Application extends SpringBootServletInitializer {
+public class TeamAssessmentApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(TeamAssessmentApplication.class, args);
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(Application.class);
+        return application.sources(TeamAssessmentApplication.class);
     }
 }

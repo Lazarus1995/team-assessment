@@ -2,6 +2,7 @@ package com.ta.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ta.entry.SysRole;
+import org.springframework.stereotype.Repository;
 
 /**
 * @author qu
@@ -9,6 +10,7 @@ import com.ta.entry.SysRole;
 * @createDate 2023-01-07 12:21:14
 * @Entity generator.domain.SysRole
 */
+@Repository
 public interface SysRoleMapper extends BaseMapper<SysRole> {
 
 }

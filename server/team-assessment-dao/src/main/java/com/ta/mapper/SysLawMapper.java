@@ -2,6 +2,7 @@ package com.ta.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ta.entry.SysLaw;
+import org.springframework.stereotype.Repository;
 
 /**
 * @author qu
@@ -9,6 +10,7 @@ import com.ta.entry.SysLaw;
 * @createDate 2023-01-07 12:26:43
 * @Entity generator.domain.SysLaw
 */
+@Repository
 public interface SysLawMapper extends BaseMapper<SysLaw> {
 
 }
