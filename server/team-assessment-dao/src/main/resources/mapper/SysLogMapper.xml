@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ta.mapper.SysLogMapper">
+<mapper namespace="com.team.assessment.mapper.SysLogMapper">
 
-    <resultMap id="BaseResultMap" type="com.ta.entry.SysLog">
+    <resultMap id="BaseResultMap" type="com.team.assessment.entry.SysLog">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="logTime" column="log_time" jdbcType="TIMESTAMP"/>
             <result property="logUserId" column="log_user_id" jdbcType="BIGINT"/>
