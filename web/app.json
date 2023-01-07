@@ -1,0 +1,70 @@
+{
+  "pages": [
+    "pages/team/team",
+    "pages/task/task",
+    "pages/mine/mine",
+    "pages/distribution/distribution",
+    "pages/laws/laws",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/message/message"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#000000",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "position": "bottom",
+    "selectedColor": "#1677FF",
+    "list": [
+      {
+        "pagePath": "pages/team/team",
+        "text": "组织结构",
+        "iconPath": "icons/team.png",
+        "selectedIconPath": "icons/_team.png"
+      },
+      {
+        "pagePath": "pages/laws/laws",
+        "text": "小立法",
+        "iconPath": "icons/laws.png",
+        "selectedIconPath": "icons/_laws.png"
+      },
+      {
+        "pagePath": "pages/distribution/distribution",
+        "text": "分配",
+        "iconPath": "icons/distribution.png",
+        "selectedIconPath": "icons/_distribution.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "icons/mine.png",
+        "selectedIconPath": "icons/_mine.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-tabbar": "@vant/weapp/tabbar/index",
+    "van-tabbar-item": "@vant/weapp/tabbar-item/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-card": "@vant/weapp/card/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-grid-item": "@vant/weapp/grid-item/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-empty": "@vant/weapp/empty/index",
+    "van-panel": "@vant/weapp/panel/index"
+  }
+}

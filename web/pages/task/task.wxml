@@ -1,0 +1,25 @@
+<!--pages/task/task.wxml-->
+<view class="task-container">
+  <van-tabs active="{{ active }}">
+    <van-tab title="待完成({{ waitCount }})">
+      <van-card
+        wx:for="{{ waitList }}"
+        wx:key="index"
+        tag="待完成"
+        title="{{item.taskName}}"
+        desc="{{item.taskTime}}"
+        custom-class="task"
+        title-class="title"
+        desc-class="desc"
+      >
+      <view slot="price-top">
+        已过期，不能执行
+      </view>
+      </van-card>
+    </van-tab>
+    <van-tab title="进行中({{ doing }})">
+      <van-empty image="https://img.yzcdn.cn/vant/custom-empty-image.png" description="暂无任务" />
+    </van-tab>
+    <van-tab title="已完成({{ finish }})">内容 3</van-tab>
+  </van-tabs>
+</view>

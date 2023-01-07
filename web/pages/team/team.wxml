@@ -1,0 +1,5 @@
+<!--pages/team/team.wxml-->
+<view class="intro">{{numA}} + {{numB}} = {{sum}}</view>
+<view class="intro">
+  <button bind:tap="update_user">update</button>
+</view>

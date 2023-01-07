@@ -1,0 +1,24 @@
+/* pages/distribution/distribution.wxss */
+.table {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.table-header {
+  height: 100rpx;
+  line-height: 100rpx;
+  display: flex;
+  background-color: #f1ecec;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  /* border-radius: 10rpx 10rpx 0 0; */
+}
+
+.table-body {
+  height: 100rpx;
+  line-height: 100rpx;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  border-bottom: 1rpx solid #c0c0c0;
+}

@@ -1,0 +1,5 @@
+/* custom-tab-bar/index.wxss */
+
+.van-tabbar-item__icon {
+  --tabbar-item-margin-bottom: 0
+}
