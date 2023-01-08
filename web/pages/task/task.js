@@ -9,20 +9,24 @@ Page({
     waitList: [
       {
         taskName: '组员评分',
-        taskTime: '2023-01-07 07:00 - 2023-01-07 23:59'
+        taskTime: '2023-01-07 07:00 - 2023-01-07 23:59',
+        status: '待完成'
       },
       {
         taskName: '组员评分',
-        taskTime: '2023-01-07 07:00 - 2023-01-07 23:59'
+        taskTime: '2023-01-07 07:00 - 2023-01-07 23:59',
+        status: '待完成'
       },
       {
         taskName: '组员评分',
-        taskTime: '2023-01-07 07:00 - 2023-01-07 23:59'
+        taskTime: '2023-01-07 07:00 - 2023-01-07 23:59',
+        status: '待完成'
       }
     ],
     doing: 0,
     doingList: [],
     finish: 20,
+    finishList: [],
     active: 0,
   },
 
@@ -44,7 +48,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    let list = []
+    for (let i = 0; i < this.data.finish; i++) {
+      list.push(
+        {
+          taskName: '组员评分',
+          taskTime: '2023-01-07 07:00 - 2023-01-07 23:59',
+          status: '已完成'
+        }
+      )
+    }
+    this.setData({
+      finishList: list
+    })
   },
 
   /**

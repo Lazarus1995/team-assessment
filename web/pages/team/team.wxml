@@ -1,5 +1,41 @@
 <!--pages/team/team.wxml-->
-<view class="intro">{{numA}} + {{numB}} = {{sum}}</view>
-<view class="intro">
-  <button bind:tap="update_user">update</button>
+<view>
+    <view>
+      <swiper
+        indicator-dots
+        autoplay
+        circular
+        interval="5000"
+        duration="600"
+      >
+        <block wx:for="{{ swiperList }}" wx:key="index">
+          <swiper-item>
+            <view class="swiper-item {{item}}">
+              <image src="../../images/swiper-1.png" mode="aspectFill"/>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view>
+      <van-divider
+        contentPosition="center"
+        customStyle="font-size: 18px;"
+      >
+        项目介绍
+      </van-divider>
+      <view class="project-description">
+        <text>
+        结合青岛地铁打造世界一流地铁建设目标体系，针对班组管理短板弱项改进提升，以“两进三环四管五保”为工作主线，优化班组组织架构与管理模式，全加强班组建设，实现施工总承包单位对一线作业班组的直接、有效管理，实现班组建设的科学化、制度化、规范化。打造“岗位有职责、作业有程序、操作有标准、过程有记录、绩效有考核、改进有保障”的专业型、技能型现代化企业班组，保障青岛地铁建设运营高质量发展。
+      </text>
+      </view>
+    </view>
+    <view>
+      <van-divider
+        contentPosition="center"
+        customStyle="font-size: 18px;"
+      >
+        组织结构
+      </van-divider>
+    </view>
 </view>

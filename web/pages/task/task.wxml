@@ -5,7 +5,7 @@
       <van-card
         wx:for="{{ waitList }}"
         wx:key="index"
-        tag="待完成"
+        tag="{{item.status}}"
         title="{{item.taskName}}"
         desc="{{item.taskTime}}"
         custom-class="task"
@@ -18,8 +18,19 @@
       </van-card>
     </van-tab>
     <van-tab title="进行中({{ doing }})">
-      <van-empty image="https://img.yzcdn.cn/vant/custom-empty-image.png" description="暂无任务" />
+      <van-empty description="暂无任务" />
     </van-tab>
-    <van-tab title="已完成({{ finish }})">内容 3</van-tab>
+    <van-tab title="已完成({{ finish }})">
+      <van-card
+        wx:for="{{ finishList }}"
+        wx:key="index"
+        tag="{{item.status}}"
+        title="{{item.taskName}}"
+        desc="{{item.taskTime}}"
+        custom-class="task"
+        title-class="title"
+        desc-class="desc"
+      />
+    </van-tab>
   </van-tabs>
 </view>

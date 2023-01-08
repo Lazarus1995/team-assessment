@@ -1,0 +1,35 @@
+<!--pages/mine/mine.wxml-->
+<view style="margin-top: 20rpx;">
+  <van-card
+    desc="{{userInfo.apartment}}"
+    title="{{userInfo.username}}"
+    thumb="{{userInfo.userAvatar}}"
+    thumb-mode="scaleToFill"
+    title-class="name"
+    desc-class="apartment"
+  >
+    <view slot="price-top">
+      <van-tag type="success">{{userInfo.status}}</van-tag>
+    </view>
+  </van-card>
+  <van-grid
+    column-num="2"
+    custom-class="grid"
+    border="{{false}}"
+  >
+    <van-grid-item
+      icon="todo-list-o"
+      text="待办任务"
+      badge="{{ task }}"
+      link-type="navigateTo"
+      url="/pages/task/task"
+    />
+    <van-grid-item
+      icon="comment-o"
+      text="系统通知"
+      badge="{{ message }}"
+      link-type="navigateTo"
+      url="/pages/message/message"
+    />
+  </van-grid>
+</view>

@@ -38,7 +38,7 @@ Page({
         "text": "我的",
         "iconPath": "../icons/mine.png",
         "selectedIconPath": "../icons/_mine.png",
-        "info": ""
+        "info": "3"
       }
     ]
   },
