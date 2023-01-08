@@ -2,7 +2,11 @@ package com.team.assessment;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.team.assessment.entry.SysDepartment;
+import com.team.assessment.vo.request.SysDepartmentRequest;
+import com.team.assessment.vo.response.SysDepartmentResponse;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
 * @author qu
@@ -12,4 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface SysDepartmentService extends IService<SysDepartment> {
 
+    SysDepartmentResponse getDepartment(Long departmentId);
+
+    List<SysDepartmentResponse> getDepartmentList(SysDepartmentRequest sysDepartmentRequest);
 }

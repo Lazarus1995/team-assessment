@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ta</groupId>
+    <groupId>com.team.assessment</groupId>
     <artifactId>server</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -12,7 +12,7 @@
         <module>team-assessment-common</module>
         <module>team-assessment-dao</module>
         <module>team-assessment-service</module>
-        <module>team-assessment-controller</module>
+        <module>team-assessment-web</module>
         <module>team-assessment-model</module>
         <module>team-assessment-config</module>
     </modules>
