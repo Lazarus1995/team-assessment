@@ -1,1 +1,60 @@
 /* pages/laws/laws.wxss */
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.input-label {
+  color: #000000;
+}
+
+.input-content {
+  color: rgba(69, 90, 100, 0.6);
+}
+
+.input-label, .input-content {
+  margin: 0;
+  padding: 16px 16px 0 16px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+label {
+  margin-right: 20px;
+}
+
+.submit-container {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.submit-container button {
+  border-radius: 0;
+  width: 100%;
+}
+
+.left {
+  background-color: #07c160;
+}
+
+.right {
+  background-color: #ee0a24;
+}
+
+.left, .right {
+  height: inherit;
+  width: 60px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.submitbtn::after {
+  border: none
+}

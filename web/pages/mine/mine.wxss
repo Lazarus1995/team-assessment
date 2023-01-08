@@ -1,0 +1,14 @@
+/* pages/mine/mine.wxss */
+
+.name {
+  font-size: large;
+  margin-bottom: 10rpx;
+}
+
+.apartment {
+  font-size: small;
+}
+
+.grid {
+  margin: 20rpx 0;
+}
