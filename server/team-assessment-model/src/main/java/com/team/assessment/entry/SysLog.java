@@ -1,24 +1,31 @@
 package com.team.assessment.entry;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
- * 
  * @TableName sys_log
  */
-@TableName(value ="sys_log")
 @Data
+@EqualsAndHashCode(callSuper = true)
+@TableName(value = "sys_log")
 public class SysLog extends BaseEntity implements Serializable {
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
+
     /**
      * 主键 ID
      */
-    @TableId
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
@@ -32,11 +39,9 @@ public class SysLog extends BaseEntity implements Serializable {
     private Long logUserId;
 
     /**
-     * 日志类型:0打分日志，1 导出日志
+     * 日志类型
+     * @see com.team.assessment.enums.SysLogTypeEnum
      */
     private Integer logType;
-
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
 
 }
