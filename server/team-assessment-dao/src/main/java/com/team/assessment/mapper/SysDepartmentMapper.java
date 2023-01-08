@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.team.assessment.entry.SysDepartment;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
 * @author qu
 * @description 针对表【sys_department】的数据库操作Mapper
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Repository;
 */
 @Repository
 public interface SysDepartmentMapper extends BaseMapper<SysDepartment> {
+
 
 }
 

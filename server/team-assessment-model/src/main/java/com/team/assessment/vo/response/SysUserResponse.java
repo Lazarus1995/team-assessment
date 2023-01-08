@@ -1,24 +1,21 @@
-package com.team.assessment.entry;
+package com.team.assessment.vo.response;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
 import java.util.Date;
 
-import lombok.Data;
-
-/**
- * 系统用户表
- * @TableName sys_user
- */
-@TableName(value ="sys_user")
 @Data
-public class SysUser extends BaseEntity implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+@Accessors(chain = true)
+public class SysUserResponse {
     /**
      * 用户 ID
      */
-    @TableId
     private Long userId;
 
     /**
@@ -42,6 +39,11 @@ public class SysUser extends BaseEntity implements Serializable {
     private Long departmentId;
 
     /**
+     * 从属部门名称
+     */
+    private String departmentName;
+
+    /**
      * 状态：-1 删除，0 禁用，1 在岗
      */
     private Integer status;
@@ -49,9 +51,6 @@ public class SysUser extends BaseEntity implements Serializable {
     /**
      * 最后登录时间
      */
-    private Date lastLoginTime;
-
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+    private String lastLoginTime;
 
 }

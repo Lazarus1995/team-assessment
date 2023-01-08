@@ -2,6 +2,10 @@ package com.team.assessment;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.team.assessment.entry.SysUser;
+import com.team.assessment.vo.request.SysUserRequest;
+import com.team.assessment.vo.response.SysUserResponse;
+
+import java.util.List;
 
 /**
 * @author qu
@@ -9,5 +13,9 @@ import com.team.assessment.entry.SysUser;
 * @createDate 2023-01-07 12:20:13
 */
 public interface SysUserService extends IService<SysUser> {
+
+    SysUserResponse getUser(Long userId);
+
+    List<SysUserResponse> getUserList(SysUserRequest sysUserRequest);
 
 }
