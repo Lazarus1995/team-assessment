@@ -8,7 +8,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    totalAmount: '',
     average: 0,
     queryData: {
       userInfo: MockData,
@@ -19,13 +18,46 @@ Page({
 
   onChange(event) {
     this.setData({
-      totalAmount: event.detail
+      average: this.toFix(event.detail / this.data.queryData.totalScore, 5)
     })
   },
 
+  toFix(num, val) {
+    return Math.floor(num * Math.pow(10, val)) / Math.pow(10, val)
+  },
+
   handleCalculation() {
+    this.data.queryData['userInfo'].forEach((item, index) => {
+      this.setData({
+        ["queryData.userInfo[" + index + "].issued_amount"]: this.toFix(item.score * this.data.average, 2)
+      })
+    })
     this.setData({
-      average: Math.ceil(this.totalAmount / this.queryData.totalScore)
+      visible: true
+    })
+  },
+
+  downloadFile() {
+    wx.downloadFile({
+      url: 'https://www.gjtool.cn/pdfh5/git.pdf',
+      header: header,
+      timeout: 0,
+      success: (result) => {
+        if (result.statusCode === 200) {
+          const filePath = res.temFilePath
+          wx.openDocument({
+            filePath: filePath,
+            showMenu: true,
+            success: function(res) {
+              console.log('Open file success!')
+            }
+          })
+        }
+      },
+      fail: (res) => {
+        wx.hideLoading();
+      },
+      complete: (res) => {},
     })
   },
 

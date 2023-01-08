@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    swiperList: ['red', 'yellow', 'blue'],
     teamStructure: {
       name: "二建分",
       children: [

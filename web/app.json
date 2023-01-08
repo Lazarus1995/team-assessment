@@ -1,10 +1,10 @@
 {
   "pages": [
+    "pages/laws/laws",
     "pages/team/team",
     "pages/task/task",
     "pages/mine/mine",
     "pages/distribution/distribution",
-    "pages/laws/laws",
     "pages/index/index",
     "pages/logs/logs",
     "pages/message/message"
@@ -65,6 +65,18 @@
     "van-tabs": "@vant/weapp/tabs/index",
     "van-tab": "@vant/weapp/tab/index",
     "van-empty": "@vant/weapp/empty/index",
-    "van-panel": "@vant/weapp/panel/index"
+    "van-panel": "@vant/weapp/panel/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-index-bar": "@vant/weapp/index-bar/index",
+    "van-index-anchor": "@vant/weapp/index-anchor/index",
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-radio": "@vant/weapp/radio/index",
+    "van-radio-group": "@vant/weapp/radio-group/index",
+    "van-uploader": "@vant/weapp/uploader/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "van-sidebar": "@vant/weapp/sidebar/index",
+    "van-sidebar-item": "@vant/weapp/sidebar-item/index",
+    "van-swipe-cell": "@vant/weapp/swipe-cell/index",
+    "van-stepper": "@vant/weapp/stepper/index"
   }
 }

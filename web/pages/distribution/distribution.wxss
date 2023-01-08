@@ -1,4 +1,6 @@
 /* pages/distribution/distribution.wxss */
+
+
 .table {
   width: 100%;
   margin: 10px 0;
@@ -10,8 +12,11 @@
   display: flex;
   background-color: #f1ecec;
   flex-flow: row wrap;
-  justify-content: space-around;
-  /* border-radius: 10rpx 10rpx 0 0; */
+}
+
+.table-header view {
+  width: calc(100% / 3);
+  text-align: center;
 }
 
 .table-body {
@@ -19,6 +24,17 @@
   line-height: 100rpx;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
   border-bottom: 1rpx solid #c0c0c0;
+  padding: 0 6rpx;
+}
+
+.table-body view {
+  width: calc(100% / 3);
+  word-wrap: normal;
+  overflow: hidden;
+  text-align: center;
+}
+
+.van-empty {
+  height: calc(100vh - 100px);
 }

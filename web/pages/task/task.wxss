@@ -24,3 +24,7 @@
   font-size: large;
   margin-bottom: 20rpx;
 }
+
+.van-empty {
+  height: calc(100vh - 100px);
+}
