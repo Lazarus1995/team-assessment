@@ -18,4 +18,6 @@ public interface SysUserService extends IService<SysUser> {
 
     List<SysUserResponse> getUserList(SysUserRequest sysUserRequest);
 
+    List<SysUserResponse> getUserListChildren(Long userId);
+
 }

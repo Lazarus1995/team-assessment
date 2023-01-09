@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.assessment.mapper.LogLawProcessMapper">
+
+    <resultMap id="BaseResultMap" type="com.team.assessment.entry.LogLawProcess">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="lawId" column="law_id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="lawType" column="law_type" jdbcType="TINYINT"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="picUrl" column="pic_url" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="createUserId" column="create_user_id" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="updateUserId" column="update_user_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,law_id,user_id,
+        law_type,content,pic_url,
+        create_time,create_user_id,update_time,
+        update_user_id
+    </sql>
+</mapper>
