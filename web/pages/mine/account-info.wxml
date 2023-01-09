@@ -1,0 +1,5 @@
+<van-cell wx:if="{{ userMobile }}" title="绑定手机" value="{{ userMobile }}" />
+<van-cell wx:else title="绑定手机" center>
+  <van-button type="primary" size="small" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">立即绑定</van-button>
+</van-cell>
+<van-cell title="修改资料" is-link url="/pages/mine/info" />

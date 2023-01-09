@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "tree": "../../component/tree/index"
+  },
   "navigationBarTitleText": "组织结构"
 }

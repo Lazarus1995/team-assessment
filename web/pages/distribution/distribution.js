@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    sortStatus: true,
     average: 0,
     queryData: {
       userInfo: MockData,
@@ -58,6 +59,12 @@ Page({
         wx.hideLoading();
       },
       complete: (res) => {},
+    })
+  },
+
+  sortList() {
+    this.setData({
+      sortStatus: !this.data.sortStatus
     })
   },
 

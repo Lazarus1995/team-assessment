@@ -12,9 +12,9 @@
         title-class="title"
         desc-class="desc"
       >
-      <view slot="price-top">
+      <!-- <view slot="price-top">
         已过期，不能执行
-      </view>
+      </view> -->
       </van-card>
     </van-tab>
     <van-tab title="进行中({{ doing }})">

@@ -34,7 +34,7 @@ Page({
         "info": ""
       },
       {
-        "pagePath": "/pages/mine/mine",
+        "pagePath": "/pages/mine/index",
         "text": "我的",
         "iconPath": "../icons/mine.png",
         "selectedIconPath": "../icons/_mine.png",

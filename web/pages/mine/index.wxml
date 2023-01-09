@@ -1,0 +1,42 @@
+<!--pages/mine/mine.wxml-->
+<view wx:if="{{ loginStatus }}" style="margin-top: 20rpx;">
+  <van-card
+    desc="{{ userInfo.departmentName }}"
+    title="{{ userInfo.userName }}"
+    thumb="{{ userInfo.avatarUrl }}"
+    thumb-mode="scaleToFill"
+    title-class="name"
+    desc-class="apartment"
+  >
+    <view slot="price-top">
+      <van-tag type="success">{{ userInfo.status }}</van-tag>
+    </view>
+  </van-card>
+  <van-grid
+    column-num="2"
+    custom-class="grid"
+    border="{{false}}"
+  >
+    <van-grid-item
+      icon="todo-list-o"
+      text="待办任务"
+      badge="{{ task }}"
+      link-type="navigateTo"
+      url="/pages/task/task"
+    />
+    <van-grid-item
+      icon="comment-o"
+      text="系统通知"
+      badge="{{ message }}"
+      link-type="navigateTo"
+      url="/pages/message/message"
+    />
+  </van-grid>
+  <van-cell-group title="其他功能">
+    <van-cell title="活动日志" is-link url="/pages/activity/index" />
+    <van-cell title="个人信息" is-link url="/pages/mine/account-info" />
+    <van-cell title="系统设置" is-link url="/pages/mine/setting" />
+    <van-cell title="退出登录" is-link bind:click="signOut" />
+  </van-cell-group>
+</view>
+

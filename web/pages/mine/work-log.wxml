@@ -1,0 +1,28 @@
+<!--pages/mine/work-log.wxml-->
+<view>
+  <van-tabs>
+    <van-tab title="新建日志">
+      <form catchsubmit="formSubmit">
+        <van-field
+          label="部门"
+          model:value="{{ department }}"
+          placeholder="请输入所属部门"
+          clearable
+          input-align="right"
+        />
+      </form>
+    </van-tab>
+    <van-tab title="历史记录">
+      <van-card
+        wx:for="{{ finishList }}"
+        wx:key="index"
+        tag="{{item.status}}"
+        title="{{item.taskName}}"
+        desc="{{item.taskTime}}"
+        custom-class="task"
+        title-class="title"
+        desc-class="desc"
+      />
+    </van-tab>
+  </van-tabs>
+</view>
