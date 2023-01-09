@@ -1,6 +1,7 @@
 package com.team.assessment.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.team.assessment.SysLawService;
@@ -8,10 +9,12 @@ import com.team.assessment.entry.SysLaw;
 import com.team.assessment.mapper.SysLawMapper;
 import com.team.assessment.mapper.SysUserMapper;
 import com.team.assessment.vo.request.SysLawRequest;
+import com.team.assessment.vo.response.SysLawResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author qu
@@ -34,8 +37,11 @@ public class SysLawServiceImpl extends ServiceImpl<SysLawMapper, SysLaw>
     }
 
     @Override
-    public List<SysLaw> getLawList(Long departmentId) {
-        return sysLawMapper.selectList(Wrappers.lambdaQuery(SysLaw.class).eq(SysLaw::getDepartmentId, departmentId));
+    public List<SysLawResponse> getLawList(SysLawRequest sysLawRequest) {
+        return sysLawMapper.selectList(Wrappers.lambdaQuery(SysLaw.class)
+                        .eq(SysLaw::getDepartmentId, sysLawRequest.getDepartmentId())
+                        .orderBy(sysLawRequest.getOrderByFrequency(), sysLawRequest.getAesOrder(), SysLaw::getLawMonthCount))
+                .stream().map(SysLawResponse::convert).collect(Collectors.toList());
     }
 
     @Override

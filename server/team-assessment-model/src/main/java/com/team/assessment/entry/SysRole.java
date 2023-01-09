@@ -7,18 +7,24 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 系统角色表
  * @TableName sys_role
  */
-@TableName(value ="sys_role")
 @Data
+@EqualsAndHashCode(callSuper = true)
+@TableName(value ="sys_role")
 public class SysRole extends BaseEntity implements Serializable {
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
+
     /**
      * 角色 ID
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.ASSIGN_ID)
     private Integer roleId;
 
     /**
@@ -30,9 +36,5 @@ public class SysRole extends BaseEntity implements Serializable {
      * 备注
      */
     private String remark;
-
-
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
 
 }

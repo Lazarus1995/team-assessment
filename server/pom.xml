@@ -9,12 +9,12 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
+        <module>team-assessment-config</module>
         <module>team-assessment-common</module>
+        <module>team-assessment-model</module>
         <module>team-assessment-dao</module>
         <module>team-assessment-service</module>
         <module>team-assessment-web</module>
-        <module>team-assessment-model</module>
-        <module>team-assessment-config</module>
     </modules>
 
     <parent>
@@ -34,6 +34,8 @@
         <druid.version>1.2.15</druid.version>
         <lombok.version>1.18.24</lombok.version>
         <pagehelper.version>1.4.6</pagehelper.version>
+        <joda.time.version>2.9.9</joda.time.version>
+        <commons-lang-version>2.6</commons-lang-version>
     </properties>
 
 
@@ -93,8 +95,16 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus.version}</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda.time.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons-lang-version}</version>
+        </dependency>
     </dependencies>
 
     <build>

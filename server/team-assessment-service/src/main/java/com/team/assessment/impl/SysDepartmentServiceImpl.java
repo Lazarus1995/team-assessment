@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -50,6 +51,37 @@ public class SysDepartmentServiceImpl extends ServiceImpl<SysDepartmentMapper, S
             return sysDepartmentResponse;
         }).collect(Collectors.toList());
         return sysDepartmentResponseList;
+    }
+
+    @Override
+    public List<SysDepartmentResponse> getDepartmentListChildren(Long departmentId) {
+        //查出所有部门
+        List<SysDepartment> sysDepartmentList = sysDepartmentMapper.selectList(null);
+        //递归查出所有子部门
+        List<SysDepartmentResponse> sysDepartmentListChildren = getChildren(sysDepartmentList, departmentId);
+        return sysDepartmentListChildren;
+    }
+
+    private List<SysDepartmentResponse> getChildren(List<SysDepartment> sysDepartmentList, Long departmentId) {
+        List<SysDepartmentResponse> result = sysDepartmentList.stream()
+                .filter(sysDepartment -> sysDepartment.getParentId().equals(departmentId)).map(sysDepartment -> {
+                    SysDepartmentResponse sysDepartmentResponse = SysDepartmentResponse.convert(sysDepartment);
+                    return sysDepartmentResponse;
+                }).collect(Collectors.toList());
+        for (SysDepartmentResponse sysDepartmentResponse : result) {
+            List<SysDepartmentResponse> children = getChildren(sysDepartmentList, sysDepartmentResponse.getId());
+            if(Objects.nonNull(children)){
+                sysDepartmentResponse.setChildren(children);
+                sysDepartmentResponse.setLeaf(false);
+            }else{
+                sysDepartmentResponse.setChildren(null);
+                sysDepartmentResponse.setLeaf(true);
+            }
+        }
+        if (result.size() == 0) {
+            return null;
+        }
+        return result;
     }
 }
 

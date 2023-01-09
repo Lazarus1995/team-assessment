@@ -1,12 +1,15 @@
 package com.team.assessment.vo.response;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.team.assessment.entry.SysUser;
+import com.team.assessment.utils.DateUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -44,7 +47,8 @@ public class SysUserResponse {
     private String departmentName;
 
     /**
-     * 状态：-1 删除，0 禁用，1 在岗
+     * 状态
+     * @see com.team.assessment.enums.SysUserStatusEnum
      */
     private Integer status;
 
@@ -52,5 +56,23 @@ public class SysUserResponse {
      * 最后登录时间
      */
     private String lastLoginTime;
+
+    /**
+     * 下属用户
+     */
+    private List<SysUserResponse> children;
+
+
+    public static SysUserResponse convert(SysUser sysUser){
+        SysUserResponse sysUserResponse = new SysUserResponse();
+        sysUserResponse.setUserId(sysUser.getUserId())
+                .setUserName(sysUser.getUserName())
+                .setPhone(sysUser.getPhone())
+                .setAvatarUrl(sysUser.getAvatarUrl())
+                .setDepartmentId(sysUser.getDepartmentId())
+                .setStatus(sysUser.getStatus())
+                .setLastLoginTime(DateUtils.formatDateTime(sysUser.getLastLoginTime()));
+        return sysUserResponse;
+    }
 
 }

@@ -21,6 +21,11 @@ public class SysDepartmentController {
         return BaseResponse.success();
     }
 
+    @GetMapping("/listChildren/{departmentId}")
+    public BaseResponse getDepartmentListChildren(@PathVariable Long departmentId){
+        return BaseResponse.success(sysDepartmentService.getDepartmentListChildren(departmentId));
+    }
+
     @PostMapping("/add")
     public BaseResponse addDepartment(){
         return BaseResponse.success();

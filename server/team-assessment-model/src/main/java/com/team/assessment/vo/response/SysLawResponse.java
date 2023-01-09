@@ -1,30 +1,28 @@
-package com.team.assessment.entry;
+package com.team.assessment.vo.response;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
-
+import com.team.assessment.entry.BaseEntity;
+import com.team.assessment.entry.SysLaw;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 /**
  * @TableName sys_law
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName(value = "sys_law")
-public class SysLaw extends BaseEntity implements Serializable {
+public class SysLawResponse extends BaseEntity implements Serializable {
 
-    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     /**
      * 小立法 ID
      */
-    @TableId(type = IdType.ASSIGN_ID)
     private Long lawId;
 
     /**
@@ -52,4 +50,15 @@ public class SysLaw extends BaseEntity implements Serializable {
      * 小立法类型
      */
     private Integer lawType;
+
+    public static SysLawResponse convert(SysLaw sysLaw) {
+        SysLawResponse sysLawResponse = new SysLawResponse();
+        sysLawResponse.setLawId(sysLaw.getLawId());
+        sysLawResponse.setLawScore(sysLaw.getLawScore());
+        sysLawResponse.setLawContent(sysLaw.getLawContent());
+        sysLawResponse.setDepartmentId(sysLaw.getDepartmentId());
+        sysLawResponse.setLawMonthCount(sysLaw.getLawMonthCount());
+        sysLawResponse.setLawType(sysLaw.getLawType());
+        return sysLawResponse;
+    }
 }

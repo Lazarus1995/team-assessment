@@ -4,20 +4,15 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-/**
- * @TableName sys_department
- */
+import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName(value = "sys_department")
-public class SysDepartment extends BaseEntity implements Serializable {
+@TableName(value = "log_law_process")
+public class LogLawProcess extends BaseEntity implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -29,14 +24,28 @@ public class SysDepartment extends BaseEntity implements Serializable {
     private Long id;
 
     /**
-     * 部门名称
+     * 小立法 ID
      */
-    private String departmentName;
+    private Long lawId;
 
     /**
-     * 上级部门 id
+     * 被评分用户ID
      */
-    private Long parentId;
+    private Long userId;
 
+    /**
+     * 小立法类型
+     * @see com.team.assessment.enums.SysLawTypeEnum
+     */
+    private Integer lawType;
 
+    /**
+     * 补充说明
+     */
+    private String content;
+
+    /**
+     * 图片地址
+     */
+    private String picUrl;
 }

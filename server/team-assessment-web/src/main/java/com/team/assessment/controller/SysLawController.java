@@ -21,9 +21,9 @@ public class SysLawController {
         return BaseResponse.success(sysLawService.getLaw(id));
     }
 
-    @GetMapping("/list/{departmentId}")
-    public BaseResponse getLawList(@PathVariable("departmentId") Long departmentId) {
-        return BaseResponse.success(sysLawService.getLawList(departmentId));
+    @GetMapping("/list")
+    public BaseResponse getLawList(@RequestBody @Validated SysLawRequest sysLawRequest) {
+        return BaseResponse.success(sysLawService.getLawList(sysLawRequest));
     }
 
     @PostMapping("/add")

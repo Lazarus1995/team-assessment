@@ -3,6 +3,7 @@ package com.team.assessment;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.team.assessment.entry.SysLaw;
 import com.team.assessment.vo.request.SysLawRequest;
+import com.team.assessment.vo.response.SysLawResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface SysLawService extends IService<SysLaw> {
 
     SysLaw getLaw(Long id);
 
-    List<SysLaw> getLawList(Long departmentId);
+    List<SysLawResponse> getLawList(SysLawRequest sysLawRequest);
 
     void addLaw(SysLawRequest sysLawRequest);
 }

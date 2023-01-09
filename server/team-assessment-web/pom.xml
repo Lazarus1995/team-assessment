@@ -11,12 +11,8 @@
 
     <artifactId>team-assessment-web</artifactId>
     <packaging>jar</packaging>
+
     <dependencies>
-        <dependency>
-            <groupId>com.team.assessment</groupId>
-            <artifactId>team-assessment-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>com.team.assessment</groupId>
             <artifactId>team-assessment-config</artifactId>
@@ -24,7 +20,12 @@
         </dependency>
         <dependency>
             <groupId>com.team.assessment</groupId>
-            <artifactId>team-assessment-service</artifactId>
+            <artifactId>team-assessment-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.team.assessment</groupId>
+            <artifactId>team-assessment-model</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -34,7 +35,7 @@
         </dependency>
         <dependency>
             <groupId>com.team.assessment</groupId>
-            <artifactId>team-assessment-model</artifactId>
+            <artifactId>team-assessment-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

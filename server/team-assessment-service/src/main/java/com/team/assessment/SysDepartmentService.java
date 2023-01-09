@@ -19,4 +19,6 @@ public interface SysDepartmentService extends IService<SysDepartment> {
     SysDepartmentResponse getDepartment(Long departmentId);
 
     List<SysDepartmentResponse> getDepartmentList(SysDepartmentRequest sysDepartmentRequest);
+
+    List<SysDepartmentResponse> getDepartmentListChildren(Long departmentId);
 }

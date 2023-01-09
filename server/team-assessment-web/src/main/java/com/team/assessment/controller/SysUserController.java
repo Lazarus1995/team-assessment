@@ -15,14 +15,20 @@ public class SysUserController {
     private SysUserService sysUserService;
 
 
-    @GetMapping("/get/{id}")
-    public BaseResponse getUser(@PathVariable Long id){
-        return BaseResponse.success(sysUserService.getUser(id));
+    @GetMapping("/get/{userId}")
+    public BaseResponse getUser(@PathVariable Long userId){
+        return BaseResponse.success(sysUserService.getUser(userId));
     }
 
     @GetMapping("/list")
     public BaseResponse getUserList(@Validated @RequestBody SysUserRequest sysUserRequest){
         return BaseResponse.success(sysUserService.getUserList(sysUserRequest));
+    }
+
+    @GetMapping("/listChildren/{userId}")
+    public BaseResponse getUserListChildren(@PathVariable Long userId){
+        //todo 还有 bug
+        return BaseResponse.success(sysUserService.getUserListChildren(userId));
     }
 
     @PostMapping("add")

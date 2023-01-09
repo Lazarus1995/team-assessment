@@ -4,52 +4,57 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
- * @TableName sys_law
+ * 系统用户表
+ * @TableName sys_department_user
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName(value = "sys_law")
-public class SysLaw extends BaseEntity implements Serializable {
+@TableName(value ="sys_department_user")
+public class SysDepartmentUser extends BaseEntity implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     /**
-     * 小立法 ID
+     * 主键 id
      */
     @TableId(type = IdType.ASSIGN_ID)
-    private Long lawId;
+    private Long id;
 
     /**
-     * 小立法分数
+     * 用户 ID
      */
-    private Integer lawScore;
+    private Long userId;
 
     /**
-     * 小立法内容
-     */
-    private String lawContent;
-
-    /**
-     * 所属部门 ID
+     * 部门 ID
      */
     private Long departmentId;
 
     /**
-     * 当月出现次数
+     * 创建时间
      */
-    private Integer lawMonthCount;
-
+    private Date createTime;
 
     /**
-     * 小立法类型
+     * 创建者 ID
      */
-    private Integer lawType;
+    private Long createUserId;
+
+    /**
+     * 更新者 ID
+     */
+    private Long updateUserId;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
 }
