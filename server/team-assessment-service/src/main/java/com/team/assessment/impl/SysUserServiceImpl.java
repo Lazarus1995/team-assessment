@@ -71,8 +71,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         List<SysUser> userList = sysUserMapper.selectList(Wrappers.lambdaQuery(SysUser.class)
                 .eq(SysUser::getDepartmentId, sysUserRequest.getDepartmentId()));
         List<SysUserResponse> result = userList.stream().map(item -> {
-            SysUserResponse sysUserResponse = new SysUserResponse();
-            BeanUtils.copyProperties(item, sysUserResponse);
+            SysUserResponse sysUserResponse = SysUserResponse.convert(item);
             sysUserResponse.setDepartmentName(sysDepartmentList.stream()
                     .filter(m -> item.getDepartmentId().equals(m.getId())).findFirst().orElse(null).getDepartmentName());
             return sysUserResponse;
