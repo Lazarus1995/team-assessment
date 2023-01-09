@@ -1,6 +1,7 @@
 package com.team.assessment.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.team.assessment.SysLawService;
@@ -34,8 +35,10 @@ public class SysLawServiceImpl extends ServiceImpl<SysLawMapper, SysLaw>
     }
 
     @Override
-    public List<SysLaw> getLawList(Long departmentId) {
-        return sysLawMapper.selectList(Wrappers.lambdaQuery(SysLaw.class).eq(SysLaw::getDepartmentId, departmentId));
+    public List<SysLaw> getLawList(SysLawRequest sysLawRequest) {
+        return sysLawMapper.selectList(Wrappers.lambdaQuery(SysLaw.class)
+                .eq(SysLaw::getDepartmentId, sysLawRequest.getDepartmentId())
+                .orderBy(sysLawRequest.getOrderByFrequency(),sysLawRequest.getAesOrder(),SysLaw::getLawMonthCount));
     }
 
     @Override

@@ -17,7 +17,7 @@ public interface SysLawService extends IService<SysLaw> {
 
     SysLaw getLaw(Long id);
 
-    List<SysLaw> getLawList(Long departmentId);
+    List<SysLaw> getLawList(SysLawRequest sysLawRequest);
 
     void addLaw(SysLawRequest sysLawRequest);
 }

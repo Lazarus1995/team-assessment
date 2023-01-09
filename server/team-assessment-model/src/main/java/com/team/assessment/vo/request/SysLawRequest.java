@@ -39,10 +39,10 @@ public class SysLawRequest {
     /**
      * 是否根据分数排名
      */
-    private Boolean orderByScore;
+    private Boolean orderByFrequency;
 
     /**
      * 分数排序：aes 正序，desc 倒序
      */
-    private String scoreOrder;
+    private Boolean aesOrder;
 }
