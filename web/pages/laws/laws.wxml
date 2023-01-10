@@ -2,6 +2,31 @@
 <view class="page-container">
   <van-tabs active="{{ active }}">
     <van-tab title="小立法项">
+      <view class="law-productNav">
+        <view class="law-left">
+          <view class="{{ teamNumber == 0 ?'law-selected':'law-normal'}}" id="0" bindtap='switchNav'>班组一</view>
+          <view class="{{ teamNumber == 1 ?'law-selected':'law-normal'}}" id="1" bindtap='switchNav'>班组二</view>
+          <view class="{{ teamNumber == 2 ?'law-selected':'law-normal'}}" id="2" bindtap='switchNav'>班组三</view>
+        </view>
+        <view class='law-right'>
+          <view class='law-type'>
+            <!-- current:当前所在滑块的 index -->
+            <!-- vertical:滑动方向是否为纵向 -->
+            <swiper current='{{ currentTab }}' vertical='{{ true }}'>
+              <!-- catchtouchmove 阻止弹窗后滚动穿透 -->
+              <swiper-item id="0" catchtouchmove="false">
+                为您推荐
+              </swiper-item>
+              <swiper-item id="1" catchtouchmove="false">
+                手机
+              </swiper-item>
+              <swiper-item id="2" catchtouchmove="false">
+                电脑
+              </swiper-item>
+            </swiper> 
+          </view>
+        </view>
+      </view>
       <van-collapse value="{{ activeCollapse }}" bind:change="changeCollapse">
         <van-collapse-item wx:for="{{ rl }}" wx:for-item="item" wx:key="index" name="{{ index }}">
           <view slot="title">

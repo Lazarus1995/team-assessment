@@ -13,14 +13,14 @@ Page({
   data: {
     "list": [
       {
-        "pagePath": "/pages/team/team",
+        "pagePath": "/pages/team/index",
         "text": "组织结构",
         "iconPath": "../icons/team.png",
         "selectedIconPath": "../icons/_team.png",
         "info": ""
       },
       {
-        "pagePath": "/pages/laws/laws",
+        "pagePath": "/pages/laws/index",
         "text": "小立法",
         "iconPath": "../icons/laws.png",
         "selectedIconPath": "../icons/_laws.png",

@@ -1,17 +1,19 @@
 {
-  "name": "teamrating",
+  "name": "teamration",
   "version": "1.0.0",
-  "description": "A team management Wechat applet",
+  "description": "Qingdao Metro team member scoring management",
   "main": ".eslintrc.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/wszdf/teamration.git"
   },
   "author": "wxg",
   "license": "ISC",
   "dependencies": {
     "@vant/weapp": "^1.10.11",
-    "apifm-wxapi": "^3.61.0",
-    "mathjs": "^11.5.0",
     "miniprogram-sm-crypto": "^0.3.11",
     "mobx-miniprogram": "^4.13.2",
     "mobx-miniprogram-bindings": "^2.1.5"

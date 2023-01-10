@@ -22,6 +22,7 @@ Component({
    */
   methods: {
     tapTreeItem: function(e) { // 点击项
+      console.log(e)
       var item = e.currentTarget.dataset.item;
       if (item.children !== undefined) { // 其下有子节点，可折叠展开操作
         this.setData({ // 折叠展开操作

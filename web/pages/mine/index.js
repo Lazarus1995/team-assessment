@@ -30,7 +30,7 @@ Page({
   onLoad(options) {
     let _status = ""
     wx.request({
-      url: 'http://192.168.101.2:80/api/user/get/1',
+      url: 'http://192.168.101.4:8090/api/user/get/1',
       success: (res) => {
         let _data = res.data.result
         if (_data.status == 0) {

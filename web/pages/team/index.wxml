@@ -1,0 +1,90 @@
+<view>
+  <view class="ontainer-block">
+    <view class="tree-box" style="display: {{ visible ? '' : 'none' }}">
+      <tree treeList="{{ treeList }}" bind:treeTap="treeTap"></tree>
+    </view>
+    <movable-area style="position: relative; top: 0; left: 0; z-index: 999;">
+      <movable-view>
+        <van-icon wx:if="{{ visible }}" size="30px" color="#ee0a24" name="clear" bindtap="changeTreeVisible" />
+        <van-icon wx:else="" size="30px" color="#ee0a24" name="add" bindtap="changeTreeVisible" />
+      </movable-view>
+    </movable-area>
+    <scroll-view scroll-y style="height: 80vh;">
+      <view>
+        <van-divider
+          contentPosition="center"
+          customStyle="font-size: 16px; padding: 10px"
+        >
+          <van-icon color="#EE0A24" name="manager" size="20px" class="divider-icon"/>
+          两季管理
+        </van-divider>
+        <view class="team-member">
+          <van-grid gutter="{{ 10 }}" column-num="3">
+            <van-grid-item use-slot wx:for="{{ teamMember['quarterly'] }}" wx:key="index">
+              <image
+                style="width: 100%; height: 90px;"
+                src=""
+              />
+              <view class="grid-text">
+                {{ item.title }}
+              </view>
+              <view class="grid-text">
+                {{ item.name }}
+              </view>
+            </van-grid-item>
+          </van-grid>
+        </view>
+      </view>
+      <view>
+        <van-divider
+          contentPosition="center"
+          customStyle="font-size: 16px; padding: 10px"
+        >
+          <van-icon color="#EE0A24" name="manager" size="20px" class="divider-icon"/>
+          班组管理
+        </van-divider>
+        <view class="team-member">
+          <van-grid gutter="{{ 10 }}" column-num="3">
+            <van-grid-item use-slot wx:for="{{ teamMember['manager'] }}" wx:key="index">
+              <image
+                style="width: 100%; height: 90px;"
+                src=""
+              />
+              <view class="grid-text">
+                {{ item.title }}
+              </view>
+              <view class="grid-text">
+                {{ item.name }}
+              </view>
+            </van-grid-item>
+          </van-grid>
+        </view>
+      </view>
+      <view>
+        <van-divider
+          contentPosition="center"
+          customStyle="font-size: 16px; padding: 10px"
+        >
+          <van-icon color="#EE0A24" name="manager" size="20px" class="divider-icon"/>
+          班组成员
+        </van-divider>
+        <view class="team-member">
+          <van-grid gutter="{{ 10 }}" column-num="3">
+            <van-grid-item use-slot wx:for="{{ teamMember['member'] }}" wx:key="index">
+              <image
+                style="width: 100%; height: 90px;"
+                src=""
+              />
+              <view class="grid-text">
+                {{ item.title }}
+              </view>
+              <view class="grid-text">
+                {{ item.name }}
+              </view>
+            </van-grid-item>
+          </van-grid>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

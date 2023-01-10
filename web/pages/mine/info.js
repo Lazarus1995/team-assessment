@@ -1,6 +1,6 @@
 // pages/mine/info.js
 import WXAPI from 'apifm-wxapi'
-const AUTH = require('../../utils/auth')
+// const AUTH = require('../../utils/auth')
 Page({
 
   /**

@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/team/index",
+    "pages/laws/index",
     "pages/laws/laws",
     "pages/mine/index",
-    "pages/team/team",
     "pages/task/task",
     "pages/distribution/distribution",
     "pages/index/index",
@@ -17,8 +18,7 @@
     "pages/history-log/index",
     "pages/activity/index",
     "pages/activity/create",
-    "pages/activity/history",
-    "component/tree/index"
+    "pages/activity/history"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -35,13 +35,13 @@
     "selectedColor": "#1677FF",
     "list": [
       {
-        "pagePath": "pages/team/team",
+        "pagePath": "pages/team/index",
         "text": "组织结构",
         "iconPath": "icons/team.png",
         "selectedIconPath": "icons/_team.png"
       },
       {
-        "pagePath": "pages/laws/laws",
+        "pagePath": "pages/laws/index",
         "text": "小立法",
         "iconPath": "icons/laws.png",
         "selectedIconPath": "icons/_laws.png"
@@ -93,6 +93,8 @@
     "van-collapse": "@vant/weapp/collapse/index",
     "van-collapse-item": "@vant/weapp/collapse-item/index",
     "van-row": "@vant/weapp/row/index",
-    "van-col": "@vant/weapp/col/index"
+    "van-col": "@vant/weapp/col/index",
+    "van-search": "@vant/weapp/search/index",
+    "van-notice-bar": "@vant/weapp/notice-bar/index"
   }
 }
