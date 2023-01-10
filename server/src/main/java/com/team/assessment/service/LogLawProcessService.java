@@ -15,5 +15,5 @@ public interface LogLawProcessService extends IService<LogLawProcess> {
      */
     void addPorcess(Long createUserId, Long userId, Long lawID, SysLawTypeEnum sysLawTypeEnum,String picUrl);
 
-    String download(Long userId);
+    void download(Long userId);
 }

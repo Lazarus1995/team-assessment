@@ -8,12 +8,15 @@ import com.team.assessment.dao.SysUserMapper;
 import com.team.assessment.model.entry.SysDepartment;
 import com.team.assessment.model.entry.SysLaw;
 import com.team.assessment.model.vo.request.SysLawRequest;
+import com.team.assessment.model.vo.response.SysDepartmentResponse;
 import com.team.assessment.model.vo.response.SysLawResponse;
 import com.team.assessment.service.SysLawService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -41,6 +44,7 @@ public class SysLawServiceImpl extends ServiceImpl<SysLawMapper, SysLaw>
 
     /**
      * 查询小立法列表
+     *
      * @param departmentId
      * @return
      */
@@ -48,22 +52,54 @@ public class SysLawServiceImpl extends ServiceImpl<SysLawMapper, SysLaw>
     public List<SysLawResponse> getLawList(Long departmentId) {
         SysDepartment sysDepartment = sysDepartmentMapper.selectById(departmentId);
 
-
         //获取部门信息
         List<SysDepartment> tempDepartmentList = sysDepartmentMapper.selectList(null);
 
         //完整部门信息
-        StringBuilder stringBuilder = new StringBuilder();
-        String departmentStr = getParentDepartment(stringBuilder,tempDepartmentList,departmentId);
 
-        return sysLawMapper.selectList(Wrappers.lambdaQuery(SysLaw.class)
-                        .eq(SysLaw::getDepartmentId, departmentId))
-                .stream().map(item -> {
-                    SysLawResponse sysLawResponse = SysLawResponse.convert(item);
-                    sysLawResponse.setDepartmentName(sysDepartment.getDepartmentName());
+
+        List<Long> tempList = getChildren(tempDepartmentList, departmentId, new ArrayList<>());
+        List<SysLawResponse> result = new ArrayList<>();
+        for(Long tempDepartmentId : tempList){
+            List<SysLaw> tempSysLawTemp = sysLawMapper.selectList(Wrappers.lambdaQuery(SysLaw.class)
+                    .eq(SysLaw::getDepartmentId, tempDepartmentId));
+            if(tempSysLawTemp.size() > 0){
+                //当前小立法所属部门的完整结构,取数组第一个
+                Long tempId = tempSysLawTemp.get(0).getDepartmentId();
+                StringBuilder stringBuilder = new StringBuilder();
+                String departmentStr = getParentDepartment(stringBuilder, tempDepartmentList, tempId);
+                String departmentName = sysDepartmentMapper.selectById(tempId).getDepartmentName();
+
+                List<SysLawResponse> tempSysLawResponseList = tempSysLawTemp.stream().map(tempSysLaw -> {
+                    SysLawResponse sysLawResponse = SysLawResponse.convert(tempSysLaw);
+                    sysLawResponse.setDepartmentName(departmentName);
                     sysLawResponse.setBelong(departmentStr);
+                    result.add(sysLawResponse);
                     return sysLawResponse;
                 }).collect(Collectors.toList());
+            }
+        }
+        return result;
+    }
+
+
+    private List<Long> getChildren(List<SysDepartment> sysDepartmentList, Long departmentId, List<Long> tempDepartmentList) {
+
+        List<SysDepartmentResponse> result = sysDepartmentList.stream()
+                .filter(sysDepartment -> sysDepartment.getParentId().equals(departmentId)).map(sysDepartment -> {
+                    SysDepartmentResponse sysDepartmentResponse = SysDepartmentResponse.convert(sysDepartment);
+                    return sysDepartmentResponse;
+                }).collect(Collectors.toList());
+        for (SysDepartmentResponse sysDepartmentResponse : result) {
+            List<Long> children = getChildren(sysDepartmentList, sysDepartmentResponse.getId(), tempDepartmentList);
+            if (Objects.isNull(children)) {
+                tempDepartmentList.add(sysDepartmentResponse.getId());
+            }
+        }
+        if (result.size() == 0) {
+            return null;
+        }
+        return tempDepartmentList;
     }
 
     @Override
@@ -79,36 +115,38 @@ public class SysLawServiceImpl extends ServiceImpl<SysLawMapper, SysLaw>
     @Override
     public void updateLaw(SysLawRequest sysLawRequest) {
         SysLaw sysLaw = new SysLaw();
-        sysLaw.setLawId(sysLawRequest.getLawId());
+        sysLaw.setLawId(Long.parseLong(sysLawRequest.getLawId()));
         sysLaw.setLawScore(sysLawRequest.getLawScore());
         sysLaw.setLawContent(sysLawRequest.getLawContent());
-        sysLaw.setDepartmentId(sysLawRequest.getDepartmentId());
-        sysLaw.setLawType(sysLawRequest.getLawType());
+//        sysLaw.setDepartmentId(sysLawRequest.getDepartmentId());
+        sysLaw.setUpdateUserId(sysLawRequest.getUserId());
+//        sysLaw.setLawType(sysLawRequest.getLawType());
         sysLawMapper.updateById(sysLaw);
     }
 
 
     /**
      * 获取上级部门信息
+     *
      * @param sysDepartmentList
      * @param departmentId
      * @return
      */
-    private String getParentDepartment(StringBuilder stringBuilder,List<SysDepartment> sysDepartmentList,Long departmentId){
+    private String getParentDepartment(StringBuilder stringBuilder, List<SysDepartment> sysDepartmentList, Long departmentId) {
         //获取当前部门 ID 的 parentID
         SysDepartment sysDepartmentTemp = sysDepartmentList
                 .stream().filter(sysDepartment -> sysDepartment.getId().equals(departmentId)).findFirst().get();
 
         List<SysDepartment> result = sysDepartmentList.stream()
                 .filter(sysDepartment -> sysDepartment.getId().equals(sysDepartmentTemp.getParentId())).collect(Collectors.toList());
-        for(SysDepartment sysDepartment:result){
+        for (SysDepartment sysDepartment : result) {
             //添加叶子部门
-            if(stringBuilder.length() == 0){
+            if (stringBuilder.length() == 0) {
                 stringBuilder.append(sysDepartmentTemp.getDepartmentName());
             }
-            stringBuilder.insert(0,sysDepartment.getDepartmentName() + "/");
-            if(sysDepartment.getParentId()!=0){
-                getParentDepartment(stringBuilder,sysDepartmentList,sysDepartment.getParentId());
+            stringBuilder.insert(0, sysDepartment.getDepartmentName() + "/");
+            if (sysDepartment.getParentId() != 0) {
+                getParentDepartment(stringBuilder, sysDepartmentList, sysDepartment.getParentId());
             }
         }
         return stringBuilder.toString();

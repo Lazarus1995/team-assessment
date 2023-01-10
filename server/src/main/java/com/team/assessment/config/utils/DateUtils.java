@@ -241,4 +241,30 @@ public class DateUtils {
         cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);
         return cal.getTime();
     }
+
+    /**
+     * 获取本月第一天
+     * @return
+     */
+    public static Date getFirstDay() {
+        Calendar cale = Calendar.getInstance();
+
+        int lastDay = cale.getActualMaximum(Calendar.DAY_OF_MONTH);//获取月最大天数
+        cale.set(Calendar.DAY_OF_MONTH, lastDay);//设置日历中月份的最大天数
+        return cale.getTime();
+    }
+
+    /**
+     * 获取本月最后一天
+     * @return
+     */
+    public static Date getLastDay() {
+        Calendar cale = Calendar.getInstance();
+
+        int lastDay = cale.getActualMinimum(Calendar.DAY_OF_MONTH);//获取月最大天数
+        cale.set(Calendar.DAY_OF_MONTH, lastDay);//设置日历中月份的最大天数
+
+        return cale.getTime();
+    }
+
 }

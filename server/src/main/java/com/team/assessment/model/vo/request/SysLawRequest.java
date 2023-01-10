@@ -12,7 +12,7 @@ public class SysLawRequest {
     /**
      * 小立法 ID
      */
-    private Long lawId;
+    private String lawId;
 
     /**
      * 小立法分数

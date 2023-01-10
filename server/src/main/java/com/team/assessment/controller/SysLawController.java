@@ -5,10 +5,7 @@ import com.team.assessment.common.response.BaseResponse;
 import com.team.assessment.model.vo.request.SysLawRequest;
 import com.team.assessment.service.SysLawService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/law")
@@ -28,19 +25,19 @@ public class SysLawController {
     }
 
     @PostMapping("/add")
-    public BaseResponse addLaw(@RequestBody @Validated SysLawRequest sysLawRequest) {
+    public BaseResponse addLaw(@RequestBody SysLawRequest sysLawRequest) {
         sysLawService.addLaw(sysLawRequest);
         return BaseResponse.success();
     }
 
     @PostMapping("/update")
-    public BaseResponse updateLaw(@RequestBody @Validated SysLawRequest sysLawRequest) {
+    public BaseResponse updateLaw(@RequestBody SysLawRequest sysLawRequest) {
         sysLawService.updateLaw(sysLawRequest);
         return BaseResponse.success();
     }
 
     @PostMapping("/delete")
-    public BaseResponse deleteLaw(@RequestBody List<Long> idList) {
-        return BaseResponse.success(sysLawService.removeBatchByIds(idList));
+    public BaseResponse deleteLaw(@RequestBody SysLawRequest sysLawRequest) {
+        return BaseResponse.success(sysLawService.removeById(Long.parseLong(sysLawRequest.getLawId())));
     }
 }

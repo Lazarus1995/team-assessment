@@ -16,6 +16,7 @@ public enum ErrorCode {
 
     FILE_UPLOAD_ERROR(10003, "文件上传失败"),
     FILE_NULL(10004, "文件为空"),
+    PIC_ERROR(10005, "图片出错"),
 
     // 功能辅助错误类型 20000
     SUPPORT_VERIFICATION_CODE_INVALID(20001, "验证码不正确"),

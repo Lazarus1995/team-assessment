@@ -27,19 +27,4 @@ public enum SysLawTypeEnum {
         }
         return null;
     }
-
-    /**
-     * 使用 code 返回枚举
-     */
-    public static SysLawTypeEnum getByCode(String code) {
-        if (null == code) {
-            return null;
-        }
-        for (SysLawTypeEnum ele : values()) {
-            if (ele.code.equals(code)) {
-                return ele;
-            }
-        }
-        return null;
-    }
 }

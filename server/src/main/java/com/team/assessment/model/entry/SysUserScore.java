@@ -1,6 +1,5 @@
 package com.team.assessment.model.entry;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -11,31 +10,43 @@ import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 
 /**
- * 系统用户表
- * @TableName sys_department_user
+ * 
+ * @TableName sys_user_score
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName(value ="sys_department_user")
-public class SysDepartmentUser extends BaseEntity implements Serializable {
+@TableName(value ="sys_user_score")
+public class SysUserScore extends BaseEntity implements Serializable {
+
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键 id
+     * 主键
      */
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId
     private Long id;
 
     /**
-     * 用户 ID
+     * 用户 id
      */
     private Long userId;
 
     /**
-     * 部门 ID
+     * 分数
      */
-    private Long departmentId;
+    private Integer score;
+
+    /**
+     * 月份
+     */
+    private Integer month;
+
+    /**
+     * 年份
+     */
+    private Integer year;
+
 
 }

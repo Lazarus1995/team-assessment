@@ -20,7 +20,7 @@ public class SysLawResponse implements Serializable {
     /**
      * 小立法 ID
      */
-    private Long lawId;
+    private String lawId;
 
     /**
      * 小立法分数
@@ -60,7 +60,7 @@ public class SysLawResponse implements Serializable {
 
     public static SysLawResponse convert(SysLaw sysLaw) {
         SysLawResponse sysLawResponse = new SysLawResponse();
-        sysLawResponse.setLawId(sysLaw.getLawId());
+        sysLawResponse.setLawId(sysLaw.getLawId().toString());
         sysLawResponse.setLawScore(sysLaw.getLawScore());
         sysLawResponse.setLawContent(sysLaw.getLawContent());
         sysLawResponse.setDepartmentId(sysLaw.getDepartmentId());

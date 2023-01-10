@@ -5,6 +5,8 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDateTime;
+
 /**
  * 配置 MyBatis Plus 自动填充功能
  */
@@ -15,22 +17,15 @@ public class MybatisConfig {
         return new MetaObjectHandler() {
             @Override
             public void insertFill(MetaObject metaObject) {
-                long current = System.currentTimeMillis();
+                LocalDateTime current = LocalDateTime.now();
                 this.setFieldValByName("create_time", current, metaObject);
                 this.setFieldValByName("update_time", current, metaObject);
-//                if(metaObject.hasSetter("creatorId")) {
-//                    Class clazz = metaObject.getSetterType("creatorId");
-//                    if (clazz == String.class) {
-//                        this.setFieldValByName("creatorId", "", metaObject);
-//                    } else {
-//                        this.setFieldValByName("creatorId", UserUtils.getUid(), metaObject);
-//                    }
-//                }
+
             }
 
             @Override
             public void updateFill(MetaObject metaObject) {
-                this.setFieldValByName("updateTime", System.currentTimeMillis(), metaObject);
+                this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
             }
         };
     }
