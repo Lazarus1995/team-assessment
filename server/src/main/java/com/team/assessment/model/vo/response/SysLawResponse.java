@@ -38,6 +38,16 @@ public class SysLawResponse implements Serializable {
     private Long departmentId;
 
     /**
+     * 所属部门名称
+     */
+    private String departmentName;
+
+    /**
+     * 小立法所属部门完整结构
+     */
+    private String belong;
+
+    /**
      * 当月出现次数
      */
     private Integer lawMonthCount;
