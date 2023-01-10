@@ -1,4 +1,4 @@
-package com.team.assessment.config.enums;
+package com.team.assessment.common.enums;
 
 /**
  * 用户状态

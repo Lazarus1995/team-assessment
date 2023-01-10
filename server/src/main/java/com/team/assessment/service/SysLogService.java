@@ -1,6 +1,7 @@
 package com.team.assessment.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.team.assessment.common.enums.SysLawTypeEnum;
 import com.team.assessment.model.entry.SysLog;
 
 /**
@@ -9,5 +10,7 @@ import com.team.assessment.model.entry.SysLog;
 * @createDate 2023-01-07 12:21:22
 */
 public interface SysLogService extends IService<SysLog> {
+
+
 
 }

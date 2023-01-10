@@ -36,7 +36,7 @@ public class LogLawProcess extends BaseEntity implements Serializable {
 
     /**
      * 小立法类型
-     * @see com.team.assessment.enums.SysLawTypeEnum
+     * @see com.team.assessment.common.enums.SysLawTypeEnum
      */
     private Integer lawType;
 
