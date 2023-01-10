@@ -1,7 +1,7 @@
 package com.team.assessment.model.vo.response;
 
+import com.team.assessment.config.utils.DateUtils;
 import com.team.assessment.model.entry.SysUser;
-import com.team.assessment.utils.DateUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -67,7 +67,7 @@ public class SysUserResponse {
                 .setUserName(sysUser.getUserName())
                 .setPhone(sysUser.getPhone())
                 .setAvatarUrl(sysUser.getAvatarUrl())
-                .setDepartmentId(sysUser.getDepartmentId())
+                //.setDepartmentId(sysUser.getDepartmentId())
                 .setStatus(sysUser.getStatus())
                 .setLastLoginTime(DateUtils.formatDateTime(sysUser.getLastLoginTime()));
         return sysUserResponse;

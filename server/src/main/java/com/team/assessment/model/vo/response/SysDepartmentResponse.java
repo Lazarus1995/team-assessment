@@ -1,6 +1,5 @@
 package com.team.assessment.model.vo.response;
 
-import com.team.assessment.entry.BaseEntity;
 import com.team.assessment.model.entry.SysDepartment;
 import lombok.AllArgsConstructor;
 import lombok.Data;

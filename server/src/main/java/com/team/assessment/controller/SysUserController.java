@@ -19,6 +19,11 @@ public class SysUserController {
     private SysUserService sysUserService;
 
 
+    /**
+     * 查询用户信息
+     * @param userId
+     * @return
+     */
     @GetMapping("/get/{userId}")
     public BaseResponse getUser(@PathVariable Long userId) {
         return BaseResponse.success(sysUserService.getUser(userId));

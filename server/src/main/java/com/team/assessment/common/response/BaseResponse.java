@@ -1,8 +1,7 @@
 package com.team.assessment.common.response;
 
 
-
-import com.team.assessment.enums.ErrorCode;
+import com.team.assessment.config.enums.ErrorCode;
 
 import java.io.Serializable;
 

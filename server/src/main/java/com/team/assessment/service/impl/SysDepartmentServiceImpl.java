@@ -83,6 +83,23 @@ public class SysDepartmentServiceImpl extends ServiceImpl<SysDepartmentMapper, S
         }
         return result;
     }
+
+//     public String getParentDepartment(StringBuilder stringBuilder,List<SysDepartment> sysDepartmentList,Long departmentId){
+//        //获取当前部门 ID 的 parentID
+//        Long parentId = sysDepartmentList
+//                .stream().filter(sysDepartment -> sysDepartment.getId().equals(departmentId)).findFirst().get().getParentId();
+//
+//        List<SysDepartment> result = sysDepartmentList.stream()
+//                .filter(sysDepartment -> sysDepartment.getId().equals(departmentId)).collect(Collectors.toList());
+//        for(SysDepartment sysDepartment:result){
+//            stringBuilder.append(sysDepartment.getDepartmentName());
+//            if(sysDepartment.getParentId()!=0){
+//                getParentDepartment(stringBuilder,sysDepartmentList,sysDepartment.getParentId());
+//            }
+//        }
+//        return stringBuilder.toString();
+//     }
+
 }
 
 

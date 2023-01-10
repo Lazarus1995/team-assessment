@@ -2,6 +2,7 @@ package com.team.assessment.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.team.assessment.model.entry.SysDepartmentUser;
+import org.springframework.stereotype.Repository;
 
 /**
 * @author qu
@@ -9,6 +10,7 @@ import com.team.assessment.model.entry.SysDepartmentUser;
 * @createDate 2023-01-09 16:48:24
 * @Entity generator.domain.SysDepartmentUser
 */
+@Repository
 public interface SysDepartmentUserMapper extends BaseMapper<SysDepartmentUser> {
 
 }

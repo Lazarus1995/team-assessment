@@ -23,7 +23,8 @@ public enum ErrorCode {
     // 系统用户信息错误相关类型 30000
     SYS_USER_AUTHENTICATION_FAILED(30001, "身份认证失败，请登录"),
     SYS_USER_NOT_FOUND(30002, "用户不存在"),
-    SYS_USER_PASSWORD_ERROR(30003, "用户名或密码错误"),
+    SYS_USER_DEPARTMENT_NOT_FOUND(30003, "用户部门不存在"),
+//    SYS_USER_PASSWORD_ERROR(30003, "用户名或密码错误"),
     SYS_USER_LOCKED(30004, "账号已被锁定，请联系管理员"),
     SYS_USER_UNAUTHORIZED(30005, "未经授权，请联系管理员授权"),
     SYS_USER_NAME_EXISTED(30006, "用户名已存在"),

@@ -1,9 +1,9 @@
 package com.team.assessment.model.vo.response;
 
-import com.team.assessment.entry.BaseEntity;
 import com.team.assessment.model.entry.SysLaw;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -11,8 +11,9 @@ import java.io.Serializable;
  * @TableName sys_law
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class SysLawResponse extends BaseEntity implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+public class SysLawResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

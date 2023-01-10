@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
 @SpringBootApplication
-@MapperScan("com.team.assessment.mapper")
+@MapperScan("com.team.assessment.dao")
 public class TeamAssessmentApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(TeamAssessmentApplication.class, args);

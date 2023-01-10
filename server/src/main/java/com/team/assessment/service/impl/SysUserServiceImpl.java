@@ -13,7 +13,6 @@ import com.team.assessment.model.entry.SysUser;
 import com.team.assessment.model.vo.request.SysUserRequest;
 import com.team.assessment.model.vo.response.SysUserResponse;
 import com.team.assessment.service.SysUserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,52 +39,88 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     private SysDepartmentUserMapper sysDepartmentUserMapper;
 
 
+    /**
+     * 查询用户信息
+     *
+     * @param userId
+     * @return
+     */
     @Override
     public SysUserResponse getUser(Long userId) {
+        //获取用户基础信息
         SysUser sysUser = sysUserMapper.selectById(userId);
         if (sysUser == null) {
             throw new CustomException(ErrorCode.SYS_USER_NOT_FOUND.getCode(), ErrorCode.SYS_USER_NOT_FOUND.getMessage());
         }
-        SysUserResponse sysUserResponse = new SysUserResponse();
-        BeanUtils.copyProperties(sysUser, sysUserResponse);
+        //获取用户对应部门信息
+        SysDepartmentUser sysDepartmentUser = sysDepartmentUserMapper.selectOne(Wrappers.<SysDepartmentUser>lambdaQuery()
+                .eq(SysDepartmentUser::getUserId, userId));
+        if(sysDepartmentUser == null){
+            throw new CustomException(ErrorCode.SYS_USER_DEPARTMENT_NOT_FOUND.getCode(), ErrorCode.SYS_USER_DEPARTMENT_NOT_FOUND.getMessage());
+        }
 
-        List<SysDepartment> sysDepartmentList = sysDepartmentMapper.selectList(null);
-        SysDepartment sysDepartment = sysDepartmentList.stream().filter(item -> item.getId().equals(sysUser.getDepartmentId())).findFirst().orElse(null);
-        //todo 权限树状图处理
-//        StringBuilder stringBuilder = new StringBuilder();
-//        stringBuilder = sysDepartmentList.stream().filter(m->sysDepartment.getParentId().equals(m.getId()))
-//
-//
-//        list.stream().filter(m->user.getParent().equals(m.getParentId())
-//                .map(m->{
-//                    StringBuilder .insert(0,m.getname())
-//                }
-        sysUserResponse.setDepartmentName("暂时占位");
+        SysUserResponse sysUserResponse = SysUserResponse.convert(sysUser);
+
+        //获取部门信息
+        List<SysDepartment> tempDepartmentList = sysDepartmentMapper.selectList(null);
+
+        //完整部门信息
+        StringBuilder stringBuilder = new StringBuilder();
+        String departmentStr = getParentDepartment(stringBuilder,tempDepartmentList,sysDepartmentUser.getDepartmentId());
+        sysUserResponse.setDepartmentName(departmentStr);
         return sysUserResponse;
+    }
+
+    /**
+     * 获取上级部门信息
+     * @param sysDepartmentList
+     * @param departmentId
+     * @return
+     */
+    private String getParentDepartment(StringBuilder stringBuilder,List<SysDepartment> sysDepartmentList,Long departmentId){
+        //获取当前部门 ID 的 parentID
+        SysDepartment sysDepartmentTemp = sysDepartmentList
+                .stream().filter(sysDepartment -> sysDepartment.getId().equals(departmentId)).findFirst().get();
+
+        List<SysDepartment> result = sysDepartmentList.stream()
+                .filter(sysDepartment -> sysDepartment.getId().equals(sysDepartmentTemp.getParentId())).collect(Collectors.toList());
+        for(SysDepartment sysDepartment:result){
+            //添加叶子部门
+            if(stringBuilder.length() == 0){
+                stringBuilder.append(sysDepartmentTemp.getDepartmentName());
+            }
+            stringBuilder.insert(0,sysDepartment.getDepartmentName() + "/");
+            if(sysDepartment.getParentId()!=0){
+                getParentDepartment(stringBuilder,sysDepartmentList,sysDepartment.getParentId());
+            }
+        }
+        return stringBuilder.toString();
     }
 
     @Override
     public List<SysUserResponse> getUserList(SysUserRequest sysUserRequest) {
-        List<SysDepartment> sysDepartmentList = sysDepartmentMapper.selectList(null);
-        List<SysUser> userList = sysUserMapper.selectList(Wrappers.lambdaQuery(SysUser.class)
-                .eq(SysUser::getDepartmentId, sysUserRequest.getDepartmentId()));
-        List<SysUserResponse> result = userList.stream().map(item -> {
-            SysUserResponse sysUserResponse = SysUserResponse.convert(item);
-            sysUserResponse.setDepartmentName(sysDepartmentList.stream()
-                    .filter(m -> item.getDepartmentId().equals(m.getId())).findFirst().orElse(null).getDepartmentName());
-            return sysUserResponse;
-        }).collect(Collectors.toList());
-        return result;
+//        List<SysDepartment> sysDepartmentList = sysDepartmentMapper.selectList(null);
+//        List<SysUser> userList = sysUserMapper.selectList(Wrappers.lambdaQuery(SysUser.class)
+//                .eq(SysUser::getDepartmentId, sysUserRequest.getDepartmentId()));
+//        List<SysUserResponse> result = userList.stream().map(item -> {
+//            SysUserResponse sysUserResponse = SysUserResponse.convert(item);
+//            sysUserResponse.setDepartmentName(sysDepartmentList.stream()
+//                    .filter(m -> item.getDepartmentId().equals(m.getId())).findFirst().orElse(null).getDepartmentName());
+//            return sysUserResponse;
+//        }).collect(Collectors.toList());
+//        return result;
+        return null;
     }
 
     @Override
     public List<SysUserResponse> getUserListChildren(Long userId) {
-        Long departmentId = sysUserMapper.selectById(userId).getDepartmentId();
+       // Long departmentId = sysUserMapper.selectById(userId).getDepartmentId();
 
         List<SysDepartment> sysDepartmentList = sysDepartmentMapper.selectList(null);
-        List<SysUserResponse> sysUserResponseChildrenList = getChildren(sysDepartmentList, departmentId);
+        //List<SysUserResponse> sysUserResponseChildrenList = getChildren(sysDepartmentList, departmentId);
 
-        return sysUserResponseChildrenList;
+       // return sysUserResponseChildrenList;
+        return null;
     }
 
     private List<SysUserResponse> getChildren(List<SysDepartment> sysDepartmentList, Long departmentId) {
@@ -105,7 +140,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
                     }
                     return sysUserResponse;
                 }).collect(Collectors.toList());
-        for(SysUserResponse sysUserResponse : sysUserResponseChildrenList){
+        for (SysUserResponse sysUserResponse : sysUserResponseChildrenList) {
             sysUserResponse.setChildren(getChildren(sysDepartmentList, sysUserResponse.getDepartmentId()));
         }
         return sysUserResponseChildrenList;

@@ -4,10 +4,13 @@ spring:
     username: root
     password: Gguu2342nITcC49
 
-logging:
-  config: classpath:logback-spring.xml
-  level:
-    com.trade.training: info
-
-swagger:
-  enable: false
+#logging:
+#  config: classpath:logback-spring.xml
+#  level:
+#    com.trade.training: info
+#
+#swagger:
+#  enable: false
+WeChat:
+  appid: wxac25927737cf3994
+  secret: 8b40663cdfa970926cd8f6fafdf56597
