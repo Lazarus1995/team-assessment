@@ -1,5 +1,5 @@
 <!--pages/mine/mine.wxml-->
-<view wx:if="{{ loginStatus }}" style="margin-top: 20rpx;">
+<view wx:if="{{ !loginStatus }}" style="margin-top: 20rpx;">
   <van-card
     desc="{{ userInfo.departmentName }}"
     title="{{ userInfo.userName }}"

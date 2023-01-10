@@ -1,4 +1,41 @@
-/* pages/laws/laws.wxss */
+/* pages/laws/index.wxss */
+.law-sider-tab {
+  display: flex;
+  flex-direction: row;
+  font-family: "Microsoft YaHei"
+}
+.law-sider-content {
+  width: 15%;
+  font-size: 24rpx;
+  background-color: #f7f8fa;
+}
+.law-sider-content view {
+  text-align: center;
+  height: 90rpx;
+  line-height: 90rpx;
+}
+.law-selected {
+  background-color: #fff;
+  border-left: 2px solid #E54847;
+  font-weight: bold;
+  color: #E54847;
+}
+.law-normal {
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #f2f2f2;
+}
+.law-container {
+  width: 85%;
+  margin: 0;
+}
+
+swiper {
+  height: 100vh;
+}
+
+.law-container {
+  height: 100vh;
+}
 
 .input-container {
   display: flex;
@@ -53,37 +90,4 @@ label {
   align-items: center;
   justify-content: center;
   font-size: 14px;
-}
-
-.law-productNav{
-  display: flex;
-  flex-direction: row;
-  font-family: "Microsoft YaHei"
-}
-.law-left{
-  width: 25%;
-  font-size: 30rpx;
-  background-color: #f4f4f4;
-}
-.law-left view{
-  text-align: center;
-  height: 90rpx;
-  line-height: 90rpx;
-}
-.law-selected{
-  background-color: #fff;
-  border-left: 2px solid #E54847;
-  font-weight: bold;
-  color: #E54847;
-}
-.law-normal{
-  background-color: #f4f4f4;
-  border-bottom: 1px solid #f2f2f2;
-}
-.law-right{
-  width:75%;
-  margin: 0;
-}
-swiper {
-  height: 500px;
 }

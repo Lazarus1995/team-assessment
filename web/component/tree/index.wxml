@@ -1,7 +1,7 @@
 <!--component/tree/index.wxml-->
 <view>
   <!-- 一级菜单 -->
-  <view style="padding-left: {{ treeListIndex * 8 }}rpx">
+  <view style="padding-left: {{ treeListIndex * 10 }}rpx;">
     <view bindtap='tapTreeItem' data-item="{{ treeList }}">
       <view>
           <van-icon wx:if="{{ !treeList.leaf }}" name="play" size="10px" class="{{ collapse ? '' : 'nocollapse-icon'}}" />

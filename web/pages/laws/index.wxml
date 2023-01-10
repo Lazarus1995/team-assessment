@@ -1,0 +1,212 @@
+<!--pages/laws/index.wxml-->
+<view class="page-container">
+  <van-tabs active="{{ active }}">
+    <van-tab title="小立法项">
+      <view class="law-sider-tab">
+        <view class="law-sider-content">
+          <view wx:for="{{ lawsList }}" wx:key="index" class="{{ siderTabActive == index ? 'law-selected' : 'law-normal' }}" id="{{ index }}" bindtap="switchTab">班组{{ index + 1 }}</view>
+        </view>
+        <view class="law-container">
+          <view>
+            <swiper current="{{ siderTabCurrent }}" vertical="{{ true }}">
+              <swiper-item wx:for="{{ lawsList }}" wx:for-item="item" wx:key="index" id="{{ index }}" catchtouchmove="false">
+                <van-notice-bar mode="closeable" text="班组所属: {{ item.belong }}" />
+                <van-collapse value="{{ activeCollapse }}" bind:change="changeCollapse">
+                  <van-collapse-item wx:for="{{ item.children }}" wx:for-item="val" wx:key="idx" name="{{ idx }}">
+                    <view slot="title">
+                      {{ val.type }}
+                      <van-icon name="{{ val.icon }}" color="{{ val.color }}" />
+                    </view>
+                    <van-cell-group wx:if="{{ val.children.length == 0 }}">
+                      <van-cell title="暂无记录" />
+                    </van-cell-group>
+                    <van-cell-group wx:else="">
+                      <van-cell
+                        wx:for="{{ val.children }}"
+                        wx:for-item="v"
+                        wx:key="i"
+                        value="{{ v.lawScore }}"
+                      >
+                        <view slot="title">
+                          <view>{{ v.lawContent }}</view>
+                          <van-icon wx:if="{{ v.lawMonthCount > 0 }}" name="fire" size="{{ v.lawMonthCount }} + px" color="rgb(238, 10, 36)" />
+                        </view>
+                      </van-cell>
+                    </van-cell-group>
+                  </van-collapse-item>
+                </van-collapse>
+              </swiper-item>
+            </swiper> 
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="每日评分">
+      <view class="law-sider-tab">
+        <view class="law-sider-content">
+          <view wx:for="{{ membersList }}" wx:key="index" class="{{ siderTabActive == index ? 'law-selected' : 'law-normal' }}" id="{{ index }}" bindtap="switchTab">班组{{ index + 1 }}</view>
+        </view>
+        <view class="law-container">
+          <view>
+            <swiper current="{{ siderTabCurrent }}" vertical="{{ true }}">
+              <swiper-item wx:for="{{ membersList }}" wx:for-item="item" wx:key="index" id="{{ index }}" catchtouchmove="false">
+                <van-notice-bar mode="closeable" text="班组所属: {{ item.belong }}" />
+                <van-cell
+                  wx:for="{{ item.children }}"
+                  wx:for-item="val"
+                  wx:key="idx"
+                  data-name="{{ val.memberName }}"
+                  data-status="{{ val.vetoStatus }}"
+                  is-link="{{ !val.vetoStatus }}"
+                  bind:click="showScoreDialog">
+                  <view slot="title">
+                    <view class="van-cell-text">{{ val.memberName }}</view>
+                    <van-tag wx:if="{{ val.vetoStatus }}" type="danger">已否决</van-tag>
+                  </view>
+                </van-cell>
+              </swiper-item>
+            </swiper> 
+          </view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="项目修改">
+      <view class="law-sider-tab">
+        <view class="law-sider-content">
+          <view wx:for="{{ lawsList }}" wx:key="index" class="{{ siderTabActive == index ? 'law-selected' : 'law-normal' }}" id="{{ index }}" bindtap="switchTab">班组{{ index + 1 }}</view>
+        </view>
+        <view class="law-container">
+          <view>
+            <swiper current="{{ siderTabCurrent }}" vertical="{{ true }}">
+              <swiper-item wx:for="{{ lawsList }}" wx:for-item="item" wx:key="index" id="{{ index }}" catchtouchmove="false">
+                <van-notice-bar mode="closeable" text="班组所属: {{ item.belong }}" />
+                <van-collapse value="{{ activeCollapse }}" bind:change="changeCollapse">
+                  <van-collapse-item wx:for="{{ item.children }}" wx:for-item="val" wx:key="idx" name="{{ idx }}">
+                    <view slot="title">
+                      {{ val.type }}
+                      <van-icon name="{{ val.icon }}" color="{{ val.color }}" />
+                    </view>
+                    <van-cell-group wx:if="{{ val.children.length == 0 }}">
+                      <van-cell title="暂无记录" />
+                    </van-cell-group>
+                    <van-swipe-cell
+                      wx:for="{{ val.children }}"
+                      wx:for-item="v"
+                      wx:key="i"
+                      right-width="{{ 60 }}"
+                      left-width="{{ 60 }}"
+                    >
+                      <view slot="left" class="left" data-index="{{ i }}" data-content="{{ v.lawContent }}"  data-score="{{ v.lawScore }}" data-id="{{ v.lawId }}" bindtap="showModifyPopup">修改</view>
+                      <van-cell-group>
+                        <van-cell title="{{ v.lawContent }}" value="{{ v.lawScore }}" />
+                      </van-cell-group>
+                      <view slot="right" class="right" data-index="{{ i }}" data-id="{{ v.lawId }}" bindtap="deleteLaw">删除</view>
+                    </van-swipe-cell>
+                  </van-collapse-item>
+                </van-collapse>
+              </swiper-item>
+            </swiper> 
+          </view>
+        </view>
+      </view>
+      <movable-area style="position: fixed; bottom: 15vh; right: 30px; z-index: 999;">
+        <movable-view>
+          <van-icon name="add" color="green" size="{{ 30 }}" bind:click="addLaw" />
+        </movable-view>
+    </movable-area>
+    </van-tab>
+  </van-tabs>
+  <van-dialog
+    id="van-dialog"
+    show="{{ dialogVisible }}"
+    title="组员评分"
+    width="90%"
+    show-confirm-button="{{ false }}"
+    use-slot
+  >
+    <view class="input-container">
+      <view class="input-label">
+        <text>组员</text>
+      </view>
+      <view class="input-content">
+        <input model:value="{{ memberName }}" placeholder="请输入组员姓名" />
+      </view>
+    </view>
+    <view class="input-container">
+      <view class="input-label">
+        <text>类型</text>
+      </view>
+      <view class="input-content">
+        <radio-group model:value="{{ scoreType }}">
+          <label><radio value="add"/>加分</label>
+          <label><radio value="deduct"/>扣分</label>
+          <label><radio value="remove"/>否决</label>
+        </radio-group>
+      </view>
+    </view>
+    <view>
+      <view class="input-label">
+        <text>规章条例</text>
+      </view>
+      <view class="input-content">
+        <input model:value="{{ lawInfo }}" placeholder="请输入扣分条例" />
+      </view>
+    </view>
+    <view>
+      <view class="input-label">
+        <text>补充描述</text>
+      </view>
+      <view class="input-content">
+        <textarea model:value="{{ supDescription }}" placeholder="填写补充说明" auto-height></textarea>
+      </view>
+    </view>
+    <view>
+      <view class="input-label">
+        <text>图片上传</text>
+      </view>
+      <view class="input-content">
+        <van-uploader
+          max-count="1"
+          accept="image"
+          upload-text="图片"
+          image-fit="aspectFill"
+          file-list="{{ pictureList }}"
+          bind:after-read="afterPicRead"
+          bind:delete="afterPicDel"
+        />
+      </view>
+    </view>
+    <view class="submit-container">
+      <van-button bind:click="closeScoreDialog" color="#c0c0c0" style="width: 50%;">取消</van-button>
+      <van-button bind:click="submitScore" color="#1989fa" style="width: 50%;">提交</van-button>
+    </view>
+  </van-dialog>
+  <!-- 小立法修改 -->
+  <van-popup
+    show="{{ modifyPopup }}"
+    bind:close="closePopup"
+    custom-style="height: 60%;"
+    position="bottom"
+  >
+    <view class="input-container">
+        <view class="input-label">
+          <text>规则分值</text>
+        </view>
+        <view class="input-content">
+          <van-stepper model:value="{{ modeifyLawScore }}" bind:change="modifyScore" />
+        </view>
+      </view>
+      <view>
+        <view class="input-label">
+          <text>规则信息</text>
+        </view>
+        <view class="input-content">
+          <textarea placeholder="具体修改内容" model:value="{{ modifyLawContent }}" bindinput="modifyInfo"></textarea>
+        </view>
+      </view>
+      <van-button bind:click="handleModifyLaw" type="primary" block>提交</van-button>
+  </van-popup>
+
+  <!-- 小立法 -->
+</view>
+
