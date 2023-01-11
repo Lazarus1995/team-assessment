@@ -56,8 +56,6 @@ public class SysLawServiceImpl extends ServiceImpl<SysLawMapper, SysLaw>
         List<SysDepartment> tempDepartmentList = sysDepartmentMapper.selectList(null);
 
         //完整部门信息
-
-
         List<Long> tempList = getChildren(tempDepartmentList, departmentId, new ArrayList<>());
         List<SysLawResponse> result = new ArrayList<>();
         for(Long tempDepartmentId : tempList){

@@ -3,6 +3,7 @@ package com.team.assessment.model.vo.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 
@@ -29,6 +30,8 @@ public class LogLawProcessRequest implements Serializable {
      */
     private Integer lawType;
 
+    private Integer lawScore;
+
     /**
      * 补充说明
      */
@@ -38,4 +41,6 @@ public class LogLawProcessRequest implements Serializable {
      * 创建者 ID
      */
     private Long createUserId;
+
+    private MultipartFile file;
 }

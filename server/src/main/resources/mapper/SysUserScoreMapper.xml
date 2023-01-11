@@ -5,15 +5,15 @@
 <mapper namespace="com.team.assessment.dao.SysUserScoreMapper">
 
     <resultMap id="BaseResultMap" type="com.team.assessment.model.entry.SysUserScore">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="userId" column="user_id" jdbcType="BIGINT"/>
-            <result property="score" column="score" jdbcType="INTEGER"/>
-            <result property="month" column="month" jdbcType="INTEGER"/>
-            <result property="year" column="year" jdbcType="INTEGER"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="createUserId" column="create_user_id" jdbcType="BIGINT"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="updateUserId" column="update_user_id" jdbcType="BIGINT"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="userId" column="user_id" jdbcType="BIGINT"/>
+        <result property="score" column="score" jdbcType="INTEGER"/>
+        <result property="month" column="month" jdbcType="INTEGER"/>
+        <result property="year" column="year" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="createUserId" column="create_user_id" jdbcType="BIGINT"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUserId" column="update_user_id" jdbcType="BIGINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -21,4 +21,24 @@
         month,year,create_time,
         create_user_id,update_time,update_user_id
     </sql>
+
+    <select id="getTotleScore" resultType="java.lang.Integer">
+        SELECT SUM(score)
+        FROM sys_user_score s
+                 left join sys_user u on s.user_id = u.user_id
+                 left join sys_department_user sdu on s.user_id = sdu.user_id
+        where sdu.department_id = #{departmentId}
+          and s.year = #{year}
+          and s.month = #{month}
+    </select>
+
+    <select id="getUserScoreList" resultType="map">
+        select s.user_id as userId, s.score as score, u.user_name as userName
+        from sys_user_score s
+                 left join sys_user u on s.user_id = u.user_id
+                 left join sys_department_user sdu on s.user_id = sdu.user_id
+        where sdu.department_id = #{departmentId}
+          and s.year = #{year}
+          and s.month = #{month}
+    </select>
 </mapper>

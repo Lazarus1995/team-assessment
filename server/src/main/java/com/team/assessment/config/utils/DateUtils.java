@@ -267,4 +267,14 @@ public class DateUtils {
         return cale.getTime();
     }
 
+    public static String getNowYear(){
+        java.time.LocalDate date = java.time.LocalDate.now();
+        return date.getYear()+"";
+    }
+
+    public static String getNowMonth(){
+        java.time.LocalDate date = java.time.LocalDate.now();
+        return date.getMonthValue()+"";
+    }
+
 }
