@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -30,6 +31,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -77,7 +79,7 @@ public class LogLawProcessServiceImpl extends ServiceImpl<LogLawProcessMapper, L
             System.out.println(webroot);
             File saveDir = new File(webroot);
             if (!saveDir.exists()) {
-                saveDir.mkdir();
+                saveDir.mkdirs();
             }
             //  新图片相对路径
             String filepath = UUID.randomUUID()
@@ -86,9 +88,12 @@ public class LogLawProcessServiceImpl extends ServiceImpl<LogLawProcessMapper, L
             realpath = new File(webroot + filepath);
             try {
                 //  将内存中的数据写入磁盘
-                file.transferTo(realpath);
+                //file.transferTo(realpath);
+
+                FileCopyUtils.copy(file.getInputStream(), Files.newOutputStream(realpath.toPath()));
             } catch (Exception e) {
-                new CustomException(ErrorCode.FILE_UPLOAD_ERROR.getCode(), ErrorCode.FILE_UPLOAD_ERROR.getMessage());
+                e.printStackTrace();
+                //throw new CustomException(ErrorCode.FILE_UPLOAD_ERROR.getCode(), ErrorCode.FILE_UPLOAD_ERROR.getMessage());
             }
         } else {
             throw new CustomException(ErrorCode.FILE_NULL.getCode(), ErrorCode.FILE_NULL.getMessage());

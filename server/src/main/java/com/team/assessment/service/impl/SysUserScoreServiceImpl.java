@@ -1,6 +1,7 @@
 package com.team.assessment.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.team.assessment.config.utils.DateUtils;
 import com.team.assessment.dao.SysDepartmentMapper;
 import com.team.assessment.dao.SysUserMapper;
 import com.team.assessment.dao.SysUserScoreMapper;
@@ -44,9 +45,14 @@ public class SysUserScoreServiceImpl extends ServiceImpl<SysUserScoreMapper, Sys
         //完整部门信息
         List<Long> tempList = getChildren(tempDepartmentList, departmentId, new ArrayList<>());
 
-        Long year = 0L, month = 0L;
+        Long year = Long.parseLong(DateUtils.getNowYear()), month = Long.parseLong(DateUtils.getNowMonth());
         Integer totleScore = sysUserScoreMapper.getTotleScore(departmentId, year, month);
-        Double scoreMoney = (double) (totalSalary / totleScore);
+        Double scoreMoney;
+        if (totalSalary != null && totleScore != null) {
+            scoreMoney = (double) (totalSalary / totleScore);
+        } else {
+            scoreMoney = 0.0;
+        }
 
         List<Map<String, Object>> userScoreList = sysUserScoreMapper.getUserScoreList(departmentId, year, month);
         List<SysScoreResponse> result = userScoreList.stream().map(item -> {
@@ -55,7 +61,7 @@ public class SysUserScoreServiceImpl extends ServiceImpl<SysUserScoreMapper, Sys
             sysScoreResponse.setUserName(item.get("userName").toString());
             int score = Integer.valueOf(item.get("score").toString());
             sysScoreResponse.setCurrentScore(score);
-            sysScoreResponse.setIssuedAmount(scoreMoney * score);
+            sysScoreResponse.setIssuedAmount(totalSalary != null && totleScore != null ? scoreMoney * score : 0.0);
             return sysScoreResponse;
         }).collect(Collectors.toList());
 

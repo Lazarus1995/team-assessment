@@ -4,10 +4,10 @@ spring:
     username: root
     password: 9dd5237efb33fbb2
 
-#logging:
-#  config: classpath:logback-spring.xml
-#  level:
-#    com.trade.training: debug
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    com.trade.training: debug
 ## swagger
 #swagger:
 #  enable: true
