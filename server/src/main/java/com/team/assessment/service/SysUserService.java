@@ -1,5 +1,6 @@
 package com.team.assessment.service;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.team.assessment.model.entry.SysUser;
 import com.team.assessment.model.vo.request.SysUserRequest;
@@ -23,4 +24,5 @@ public interface SysUserService extends IService<SysUser> {
 
     List<SysUserResponse> getUserListChildren(Long userId);
 
+    JSONObject WXLogin(JSONObject jsonObject);
 }

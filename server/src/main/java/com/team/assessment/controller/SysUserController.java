@@ -57,10 +57,9 @@ public class SysUserController {
 
     @GetMapping("/WXLogin")
     public BaseResponse WXLogin(String code) throws IOException {
-        System.out.println(code);
+
         JSONObject jsonObject = WechatUtil.getSessionKeyOrOpenId(code);
-        jsonObject.put("appid", "wxac25927737cf3994");
-        jsonObject.put("token", "ttookkeenn");
+
 
         //jsonObject.put("token", TokenUtils.createToken(jsonObject.get("session_key").toString(), jsonObject.get("openid").toString(), "wxac25927737cf3994"));
         return BaseResponse.success(jsonObject);

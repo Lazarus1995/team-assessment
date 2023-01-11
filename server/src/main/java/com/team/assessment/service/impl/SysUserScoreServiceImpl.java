@@ -49,7 +49,7 @@ public class SysUserScoreServiceImpl extends ServiceImpl<SysUserScoreMapper, Sys
         Integer totleScore = sysUserScoreMapper.getTotleScore(departmentId, year, month);
         Double scoreMoney;
         if (totalSalary != null && totleScore != null) {
-            scoreMoney = (double) (totalSalary / totleScore);
+            scoreMoney = (double) (totleScore / totalSalary);
         } else {
             scoreMoney = 0.0;
         }

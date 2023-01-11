@@ -48,6 +48,11 @@ public class WechatUtil {
         requestUrlParam.put("grant_type", "authorization_code");
         //发送post请求读取调用微信接口获取openid用户唯一标识
         JSONObject jsonObject = JSON.parseObject(HttpClientUtil.doPost(requestUrl, requestUrlParam));
+        jsonObject.put("appid", addidStatic);
+        if(jsonObject.getString("session_key") == null || jsonObject.getString("openid") == null){
+            return null;
+        }
+        jsonObject.put("token", TokenUtils.createToken(jsonObject.getString("session_key"), jsonObject.getString("openid")));
         return jsonObject;
     }
 }

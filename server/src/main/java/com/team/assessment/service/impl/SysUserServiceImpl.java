@@ -1,5 +1,6 @@
 package com.team.assessment.service.impl;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.team.assessment.common.exception.CustomException;
@@ -120,6 +121,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         //List<SysUserResponse> sysUserResponseChildrenList = getChildren(sysDepartmentList, departmentId);
 
        // return sysUserResponseChildrenList;
+        return null;
+    }
+
+    @Override
+    public JSONObject WXLogin(JSONObject jsonObject) {
+        String openid = jsonObject.getString("openid");
+        String phone = jsonObject.getString("phone");
         return null;
     }
 
