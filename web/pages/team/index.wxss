@@ -1,0 +1,26 @@
+/* pages/team/index.wxss */
+
+.container-block {
+  width: 100%;
+  position: absolute;
+}
+
+.divider-icon {
+  margin-right: 16rpx;
+}
+
+.grid-text {
+  margin-top: 8px;
+  color: #646566;
+  font-size: 12px;
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.tree-box {
+  width: 100%;
+  position: absolute;
+  top: 20px;
+  left: 0;
+  z-index: 999;
+}

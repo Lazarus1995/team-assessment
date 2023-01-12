@@ -1,0 +1,49 @@
+<!--pages/activity/create.wxml-->
+<block>
+  <van-field
+    label="主题"
+    model:value="{{ theme }}"
+    placeholder="请输入活动主题"
+    clearable
+    input-align="right"
+  />
+  <van-field
+    label="日期"
+    model:value="{{ currentDate }}"
+    clearable
+    input-align="right"
+    disabled
+  />
+  <view>
+    <view class="input-label">
+      <text>描述</text>
+    </view>
+    <view class="input-content">
+      <textarea
+        model:value="{{ description }}"
+        placeholder="相关描述"
+        bindinput="descriptionInput"
+      ></textarea>
+    </view>
+  </view>
+  <view>
+    <view class="input-label">
+      <text>照片</text>
+    </view>
+    <view class="input-content">
+      <van-uploader
+        max-count="1"
+        accept="image"
+        upload-text="图片"
+        image-fit="aspectFill"
+        file-list="{{ picsList }}"
+        bind:after-read="afterPicRead"
+        bind:delete="afterPicDel"
+      />
+    </view>
+  </view>
+  <view class="btn">
+    <van-button type="primary" block bind:click="saveActivity">保存</van-button>
+  </view>
+</block>
+

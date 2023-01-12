@@ -1,0 +1,94 @@
+/* pages/laws/index.wxss */
+
+.law-sider-tab {
+  display: flex;
+  flex-direction: row;
+  font-family: "Microsoft YaHei"
+}
+.law-sider-content {
+  width: 15%;
+  font-size: 24rpx;
+  background-color: #f7f8fa;
+}
+.law-sider-content view {
+  text-align: center;
+  height: 90rpx;
+  line-height: 90rpx;
+}
+.law-selected {
+  background-color: #fff;
+  border-left: 2px solid #E54847;
+  font-weight: bold;
+  color: #E54847;
+}
+.law-normal {
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #f2f2f2;
+}
+.law-container {
+  width: 85%;
+  margin: 0;
+}
+
+swiper {
+  height: 80vh;
+}
+
+.law-container {
+  height: 80vh;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.input-label {
+  color: #000000;
+}
+
+.input-content {
+  color: rgba(69, 90, 100, 0.6);
+}
+
+.input-label, .input-content {
+  margin: 0;
+  padding: 16px 16px 0 16px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+label {
+  margin-right: 16px;
+}
+
+.submit-container {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.submit-container button {
+  border-radius: 0;
+  width: 100%;
+}
+
+.left {
+  background-color: #07c160;
+}
+
+.right {
+  background-color: #ee0a24;
+}
+
+.left, .right {
+  height: inherit;
+  width: 60px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}

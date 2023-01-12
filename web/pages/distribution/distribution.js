@@ -8,6 +8,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+<<<<<<< HEAD
+=======
+    sortStatus: true,
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
     average: 0,
     queryData: {
       userInfo: MockData,
@@ -61,6 +65,15 @@ Page({
     })
   },
 
+<<<<<<< HEAD
+=======
+  sortList() {
+    this.setData({
+      sortStatus: !this.data.sortStatus
+    })
+  },
+
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
   /**
    * 生命周期函数--监听页面加载
    */

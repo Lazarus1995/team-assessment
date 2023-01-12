@@ -12,9 +12,15 @@
         title-class="title"
         desc-class="desc"
       >
+<<<<<<< HEAD
       <view slot="price-top">
         已过期，不能执行
       </view>
+=======
+      <!-- <view slot="price-top">
+        已过期，不能执行
+      </view> -->
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
       </van-card>
     </van-tab>
     <van-tab title="进行中({{ doing }})">

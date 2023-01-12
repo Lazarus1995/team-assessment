@@ -1,0 +1,17 @@
+<!--component/tree/index.wxml-->
+<view>
+  <!-- 一级菜单 -->
+  <view style="padding-left: {{ treeListIndex * 10 }}rpx;">
+    <view bindtap='tapTreeItem' data-item="{{ treeList }}">
+      <view>
+          <van-icon wx:if="{{ !treeList.leaf }}" name="play" size="10px" class="{{ collapse ? '' : 'nocollapse-icon'}}" />
+          <view class="tree-text">{{ treeList.departmentName }}</view>
+      </view>
+    </view>
+    <!-- 递归菜单 -->
+    <block wx:if="{{ treeList.children && !collapse }}">
+      <tree wx:for='{{ treeList.children }}' wx:key='id' treeList='{{ item }}' treeListIndex='{{ treeListIndex + 1 }}' bind:treeTap="treenodetap"></tree>
+    </block>
+  </view>
+</view>
+

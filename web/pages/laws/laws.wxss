@@ -22,7 +22,11 @@
 }
 
 label {
+<<<<<<< HEAD
   margin-right: 20px;
+=======
+  margin-right: 16px;
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
 }
 
 .submit-container {
@@ -55,6 +59,40 @@ label {
   font-size: 14px;
 }
 
+<<<<<<< HEAD
 .submitbtn::after {
   border: none
+=======
+.law-productNav{
+  display: flex;
+  flex-direction: row;
+  font-family: "Microsoft YaHei"
+}
+.law-left{
+  width: 25%;
+  font-size: 30rpx;
+  background-color: #f4f4f4;
+}
+.law-left view{
+  text-align: center;
+  height: 90rpx;
+  line-height: 90rpx;
+}
+.law-selected{
+  background-color: #fff;
+  border-left: 2px solid #E54847;
+  font-weight: bold;
+  color: #E54847;
+}
+.law-normal{
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #f2f2f2;
+}
+.law-right{
+  width:75%;
+  margin: 0;
+}
+swiper {
+  height: 500px;
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
 }

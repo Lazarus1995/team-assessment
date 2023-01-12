@@ -1,4 +1,10 @@
 {
+<<<<<<< HEAD
   "usingComponents": {},
+=======
+  "usingComponents": {
+    "tree": "../../component/tree/index"
+  },
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
   "navigationBarTitleText": "组织结构"
 }

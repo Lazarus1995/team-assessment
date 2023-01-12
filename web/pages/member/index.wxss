@@ -1,0 +1,25 @@
+/* pages/member/index.wxss */
+
+.input-label {
+  color: #646566;
+}
+
+.input-content {
+  color: #000000;
+}
+
+.input-label, .input-content {
+  margin: 0;
+  padding: 16px 16px 0 16px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+label {
+  margin-right: 20px;
+}
+
+.btn {
+  margin: 32rpx 32rpx 0 32rpx;
+}

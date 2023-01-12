@@ -12,7 +12,34 @@ Page({
     popupVisible: false,
     fileList: [],
     formData: {},
+<<<<<<< HEAD
     rulesList: [],
+=======
+    activeCollapse: [0],
+    rulesList: [
+      
+    ],
+    rl: [
+      {
+        type: '加分项',
+        icon: 'smile',
+        color: '#07c160',
+        children: [],
+      },
+      {
+        type: '扣分项',
+        icon: 'warning',
+        color: '#FF976A',
+        children: []
+      },
+      {
+        type: '否决项',
+        icon: 'clear',
+        color: '#ee0a24',
+        children: []
+      }
+    ],
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
     modifyInfo: {}
   },
 
@@ -74,17 +101,47 @@ Page({
       rulesList: this.data.rulesList
     })
   },
+<<<<<<< HEAD
 
   deleteImage(event) {
     const index = event.detail.index
     this.data.fileList.splice(index, 1)
     this.setData({
       fileList: this.data.fileList
+=======
+  
+  afterPicRead(e) {
+    let picsList = this.data.picsList
+    if (!picsList) {
+      picsList = []
+    }
+    picsList = picsList.concat(e.detail.file)
+    this.setData({
+      picsList
+    })
+  },
+  afterPicDel(e) {
+    let picsList = this.data.picsList
+    picsList.splice(e.detail.index, 1)
+    this.setData({
+      picsList
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
     })
   },
 
   saveData(e) {
+<<<<<<< HEAD
     this.setData({ dialogVisible: false })
+=======
+    console.log(e)
+    // this.setData({ dialogVisible: false })
+  },
+
+  changeCollapse(event) {
+    this.setData({
+      activeCollapse: event.detail
+    })
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
   },
 
   // async afterRead(event) {
@@ -118,7 +175,35 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+<<<<<<< HEAD
 
+=======
+    // 小立法列表请求
+    // args: departmentId
+    // wx.request({
+    //   url: 'http://192.168.101.2:80/api/law/list/' + 1,
+    //   success: (res) => {
+    //     console.log(res)
+    //     let _data = res.data.result
+    //     _data.forEach((val, idx) => {
+    //       if (val.lawType == 0) {
+    //         // 否决
+    //         this.data.rulesList[2].children.push(val)
+    //       } else if (val.lawType == 1) {
+    //         // 加分
+    //         this.data.rulesList[0].children.push(val)
+    //       } else {
+    //         // 减分
+    //         this.data.rulesList[1].children.push(val)
+    //       }
+    //     })
+    //   }
+    // })
+    // this.setData({
+    //   rulesList: this.data.rulesList
+    // })
+    // console.log(this.data.rulesList)
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
   },
 
   /**
@@ -149,10 +234,38 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+<<<<<<< HEAD
+=======
+    let _rulesList = this.data.rl
+    wx.request({
+      url: 'http://192.168.101.2:80/api/law/list/' + 1,
+      success: (res) => {
+        console.log(res)
+        let _data = res.data.result
+        _data.forEach((val, idx) => {
+          if (val.lawType == 0) {
+            // 否决
+            _rulesList[2].children.push(val)
+          } else if (val.lawType == 1) {
+            // 加分
+            _rulesList[0].children.push(val)
+          } else {
+            // 减分
+            _rulesList[1].children.push(val)
+          }
+        })
+      }
+    })
+    console.log("after", _rulesList)
+    // this.setData({
+    //   rulesList: _rulesList
+    // })
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
     this.setData({
       lawsList: this.mockData(['A', 'B', 'C', 'D', 'E', 'F']),
       rulesList: [
         {
+<<<<<<< HEAD
           info: '一、请安全正确佩戴安全帽',
           score: 1
         },
@@ -162,6 +275,75 @@ Page({
         }
       ]
     })
+=======
+          type: '加分项',
+          icon: 'smile',
+          color: '#07c160',
+          children: [
+            {
+              info: '一、安全正确佩戴安全帽',
+              score: 1,
+              createTime: null,
+              createUserId: null,
+              departmentId: 1,
+              lawContent: "小立法内容7",
+              lawId: 161176096475618500,
+              lawMonthCount: 0,
+              lawScore: 1,
+              lawType: 1,
+              updateTime: null,
+              updateUserId: null,
+            },
+            {
+              info: '二、高空作业正确系好安全绳',
+              score: 2,
+              createTime: null,
+createUserId: null,
+departmentId: 1,
+lawContent: "小立法内容7",
+lawId: 161176096475618500,
+lawMonthCount: 0,
+lawScore: 1,
+lawType: 1,
+updateTime: null,
+updateUserId: null,
+            }
+          ]
+        },
+        {
+          type: '扣分项',
+          icon: 'warning',
+          color: '#FF976A',
+          children: [
+            {
+              info: '一、未安全正确佩戴安全帽',
+              score: 1
+            },
+            {
+              info: '二、高空作业未正确系好安全绳',
+              score: 2
+            }
+          ]
+        },
+        {
+          type: '否决项',
+          icon: 'clear',
+          color: '#ee0a24',
+          children: [
+            {
+              info: '一、未准时上工5次以上',
+              score: 100
+            },
+            {
+              info: '二、携带危险物品进去工地',
+              score: 100
+            }
+          ]
+        }
+      ]
+    })
+    console.log("after", this.data.rulesList)
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
   },
 
   /**

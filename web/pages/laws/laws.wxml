@@ -2,6 +2,7 @@
 <view class="page-container">
   <van-tabs active="{{ active }}">
     <van-tab title="小立法项">
+<<<<<<< HEAD
       <van-cell-group>
         <van-cell wx:for="{{ rulesList }}" wx:key="index" title="{{ item.info }}" value="{{ item.score }}" />
       </van-cell-group>
@@ -15,6 +16,56 @@
       </van-index-bar>
     </van-tab>
     
+=======
+      <view class="law-productNav">
+        <view class="law-left">
+          <view class="{{ teamNumber == 0 ?'law-selected':'law-normal'}}" id="0" bindtap='switchNav'>班组一</view>
+          <view class="{{ teamNumber == 1 ?'law-selected':'law-normal'}}" id="1" bindtap='switchNav'>班组二</view>
+          <view class="{{ teamNumber == 2 ?'law-selected':'law-normal'}}" id="2" bindtap='switchNav'>班组三</view>
+        </view>
+        <view class='law-right'>
+          <view class='law-type'>
+            <!-- current:当前所在滑块的 index -->
+            <!-- vertical:滑动方向是否为纵向 -->
+            <swiper current='{{ currentTab }}' vertical='{{ true }}'>
+              <!-- catchtouchmove 阻止弹窗后滚动穿透 -->
+              <swiper-item id="0" catchtouchmove="false">
+                为您推荐
+              </swiper-item>
+              <swiper-item id="1" catchtouchmove="false">
+                手机
+              </swiper-item>
+              <swiper-item id="2" catchtouchmove="false">
+                电脑
+              </swiper-item>
+            </swiper> 
+          </view>
+        </view>
+      </view>
+      <van-collapse value="{{ activeCollapse }}" bind:change="changeCollapse">
+        <van-collapse-item wx:for="{{ rl }}" wx:for-item="item" wx:key="index" name="{{ index }}">
+          <view slot="title">
+            {{ item.type }}
+            <van-icon name="{{ item.icon }}" color="{{ item.color }}" />
+          </view>
+          <van-cell-group>
+            <van-cell wx:for="{{ item.children }}" wx:for-item="val" wx:key="idx" title="{{ val.lawContent }}" value="{{ val.score }}" />
+          </van-cell-group>
+        </van-collapse-item>
+      </van-collapse>
+    </van-tab>
+    <van-tab title="每日评分">
+        <view wx:for="{{ lawsList }}" wx:for-item="item" wx:key="index">
+          <van-index-anchor index="{{ item.index }}" />
+          <van-cell wx:for="{{ item.userList }}" wx:for-item="user" wx:key="user" data-name="{{ user }}" is-link bind:click="showDialog">
+            <view slot="title">
+              <view class="van-cell-text">{{ user }}</view>
+              <van-tag type="danger">已否决</van-tag>
+            </view>
+          </van-cell>
+        </view>
+    </van-tab>
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
     <van-tab title="项目修改">
       <van-swipe-cell wx:for="{{ rulesList }}" wx:key="index" right-width="{{ 60 }}" left-width="{{ 60 }}">
         <view slot="left" class="left" data-index="{{index}}" bindtap="showPopup">修改</view>
@@ -42,6 +93,7 @@
           <input name="username" placeholder="请输入组员姓名" value="{{ formData.username }}" />
         </view>
       </view>
+<<<<<<< HEAD
       <!-- <view class="input-container" bindtap="showPopup">
         <view class="input-label">
           <text>日期</text>
@@ -53,11 +105,20 @@
       <view class="input-container">
         <view class="input-label">
           <text>加/减分</text>
+=======
+      <view class="input-container">
+        <view class="input-label">
+          <text>类型</text>
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
         </view>
         <view class="input-content">
           <radio-group name="radio">
             <label><radio value="add"/>加分</label>
             <label><radio value="deduct"/>扣分</label>
+<<<<<<< HEAD
+=======
+            <label><radio value="remove"/>否决</label>
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
           </radio-group>
         </view>
       </view>
@@ -74,7 +135,11 @@
           <text>补充描述</text>
         </view>
         <view class="input-content">
+<<<<<<< HEAD
           <textarea placeholder="填写补充说明" style="height: 50px;"></textarea>
+=======
+          <textarea name="description" placeholder="填写补充说明" style="height: 50px;"></textarea>
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
         </view>
       </view>
       <view>
@@ -82,12 +147,28 @@
           <text>图片上传</text>
         </view>
         <view class="input-content">
+<<<<<<< HEAD
           <van-uploader file-list="{{ fileList }}" bind:after-read="afterRead" />
+=======
+          <van-uploader
+            max-count="1"
+            accept="image"
+            upload-text="图片"
+            image-fit="aspectFill"
+            file-list="{{ picsList }}"
+            bind:after-read="afterPicRead"
+            bind:delete="afterPicDel"
+          />
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
         </view>
       </view>
       <view class="submit-container">
         <van-button bindtap="closeDialog" color="#c0c0c0" style="width: 50%;">取消</van-button>
+<<<<<<< HEAD
         <van-button formType="submit" color="#1989fa"  style="width: 50%;">提交</van-button>
+=======
+        <van-button formType="submit" color="#1989fa" style="width: 50%;">提交</van-button>
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
       </view>
     </form>
   </van-dialog>
@@ -115,6 +196,10 @@
           </view>
         </view>
         <van-button formType="submit" type="primary" block>提交</van-button>
+<<<<<<< HEAD
       </form>
+=======
+    </form>
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
   </van-popup>
 </view>

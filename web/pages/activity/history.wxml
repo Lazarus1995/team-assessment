@@ -1,0 +1,16 @@
+<!--pages/activity/history.wxml-->
+<view>
+  <van-empty wx:if="{{ activityList.length == 0 }}" description="暂无记录"/>
+  <scroll-view wx:else="">
+    <van-card
+      wx:for="{{ activityList }}"
+      wx:key="index"
+      desc="活动内容: {{ item.content }}"
+      title="活动时间: {{ item.createTime }}"
+    >
+    <view slot="tags">
+      活动主题: {{ item.content }}
+    </view>
+    </van-card>
+  </scroll-view>
+</view>

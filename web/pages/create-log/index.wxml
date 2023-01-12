@@ -1,0 +1,10 @@
+<!--pages/create-log/index.wxml-->
+<form catchsubmit="formSubmit">
+  <van-field
+    label="部门"
+    model:value="{{ department }}"
+    placeholder="请输入所属部门"
+    clearable
+    input-align="right"
+  />
+</form>

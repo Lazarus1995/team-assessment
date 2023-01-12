@@ -1,0 +1,5 @@
+/* pages/info/index.wxss */
+
+.btn {
+  padding: 10px 16px;
+}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--pages/team/team.wxml-->
 <view>
     <view>
@@ -38,4 +39,17 @@
         组织结构
       </van-divider>
     </view>
+=======
+<view>
+  <!-- <view style="height: 100vh; background: burlywood;"></view> -->
+  <van-divider
+    contentPosition="center"
+    customStyle="font-size: 16px; padding: 0 10px"
+  >
+    组织框架
+  </van-divider>
+  <view>
+    <tree treeList="{{treeList}}" bind:treeTap="treeTap"></tree>
+  </view>
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
 </view>

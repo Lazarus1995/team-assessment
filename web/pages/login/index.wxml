@@ -1,0 +1,25 @@
+<!--pages/login/index.wxml-->
+<view class="container">
+  <image style="width: 181px;" src="../../images/dianjian.jpg" mode="aspectFit" />
+  <image style="width: 280px;"src="../../images/shuidian.jpg" mode="aspectFit" />
+  <view style="width: 80%;">
+    <van-field
+      label="手机号码"
+      model:value="{{ phone }}"
+      placeholder="请输入手机号码"
+      clearable
+      input-align="right"
+    />
+    <van-field
+      label="账户密码"
+      model:value="{{ password }}"
+      placeholder="请输入账户密码"
+      clearable
+      input-align="right"
+      password
+    />
+    <view class="btn">
+      <van-button type="primary" block bind:click="signIn">登录</van-button>
+    </view>
+  </view>
+</view>

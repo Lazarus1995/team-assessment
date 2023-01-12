@@ -1,0 +1,12 @@
+/* component/tree/index.wxss */
+.nocollapse-icon {
+  transform: rotate(90deg);
+}
+.tree-text {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+}
