@@ -5,20 +5,19 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum LogRatingStatusEnum {
-    UNCOMPLETE(0, "未完成"),
-    COMPLETED(1, "已完成"),
-    TIMEOUT(-1, "超时"),
-    ;
-    private Integer code;
+public enum SysScoreEnum {
+    TRUE(true, "是"),
+    FALSE(false, "否");
+
+    private Boolean code;
 
     private String desc;
 
-    public static LogRatingStatusEnum getByCode(Integer code) {
+    public static SysScoreEnum getByCode(Boolean code) {
         if (null == code) {
             return null;
         }
-        for (LogRatingStatusEnum ele : values()) {
+        for (SysScoreEnum ele : values()) {
             if (ele.code.equals(code)) {
                 return ele;
             }

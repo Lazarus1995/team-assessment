@@ -22,7 +22,10 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   mvc:
     throw-exception-if-no-handler-found: true
-    static-path-pattern: /static/**
+    static-path-pattern: /**
+  web:
+    resources:
+      static-locations: classpath:/
 druid:
   pool:
     initialSize: 10
@@ -54,7 +57,8 @@ pagehelper:
   params: count=countSql
 
 easyExcel:
-  templatePath: /template/判分模版.xlsx
+  templatePath: classpath:template.xlsx
+  demoPath: /root/2023-01-12.xlsx
 
 mybatis-plus:
   configuration:

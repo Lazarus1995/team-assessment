@@ -49,7 +49,7 @@ public class SysLawServiceImpl extends ServiceImpl<SysLawMapper, SysLaw>
      * @return
      */
     @Override
-    public List<SysLawResponse> getLawList(Long departmentId) {
+    public List<SysLawResponse> getLawList(Long departmentId,Integer lawType) {
         SysDepartment sysDepartment = sysDepartmentMapper.selectById(departmentId);
 
         //获取部门信息
@@ -58,10 +58,10 @@ public class SysLawServiceImpl extends ServiceImpl<SysLawMapper, SysLaw>
         //完整部门信息
         List<Long> tempList = getChildren(tempDepartmentList, departmentId, new ArrayList<>());
         List<SysLawResponse> result = new ArrayList<>();
-        for(Long tempDepartmentId : tempList){
+        for (Long tempDepartmentId : tempList) {
             List<SysLaw> tempSysLawTemp = sysLawMapper.selectList(Wrappers.lambdaQuery(SysLaw.class)
-                    .eq(SysLaw::getDepartmentId, tempDepartmentId));
-            if(tempSysLawTemp.size() > 0){
+                    .eq(SysLaw::getDepartmentId, tempDepartmentId).eq(lawType!=null,SysLaw::getLawType,lawType));
+            if (tempSysLawTemp.size() > 0) {
                 //当前小立法所属部门的完整结构,取数组第一个
                 Long tempId = tempSysLawTemp.get(0).getDepartmentId();
                 StringBuilder stringBuilder = new StringBuilder();
@@ -88,6 +88,10 @@ public class SysLawServiceImpl extends ServiceImpl<SysLawMapper, SysLaw>
                     SysDepartmentResponse sysDepartmentResponse = SysDepartmentResponse.convert(sysDepartment);
                     return sysDepartmentResponse;
                 }).collect(Collectors.toList());
+        if (result.size() == 0) {
+            tempDepartmentList.add(departmentId);
+            return tempDepartmentList;
+        }
         for (SysDepartmentResponse sysDepartmentResponse : result) {
             List<Long> children = getChildren(sysDepartmentList, sysDepartmentResponse.getId(), tempDepartmentList);
             if (Objects.isNull(children)) {

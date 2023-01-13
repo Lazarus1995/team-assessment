@@ -18,6 +18,8 @@ import java.util.List;
 @Service
 public interface SysUserService extends IService<SysUser> {
 
+    SysUserResponse login(SysUserRequest sysUserRequest) throws Exception;
+
     SysUserResponse getUser(Long userId);
 
     List<SysUserResponse> getUserList(SysUserRequest sysUserRequest);

@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Set;
 
 public class TokenUtils {
 
@@ -32,17 +33,17 @@ public class TokenUtils {
     }
 
     //密钥
-    public static final String SECRET = "youareapig??shabixiangpojie?";
+    public static final String SECRET = "youareapigrrshabixiangpojietyouareapigrrshabixiangpojietqwqwqwq";
     //过期时间:秒
     public static final int EXPIRE = 86400*1000;
 
     /**
      * 生成token
      *
-     * @param openId 小程序open_id
+     * @param phone 手机号
      * @return token
      */
-    public static String createToken(String sessionKey,String openId) {
+    public static String createToken(String phone) {
 
         Calendar nowTime = Calendar.getInstance();
         //过期时间
@@ -52,16 +53,21 @@ public class TokenUtils {
         JwtBuilder builder = Jwts.builder();
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("sessionKey", sessionKey);
-        hashMap.put("openId", openId);
-        hashMap.put("appId",appidStatic);
-        hashMap.put("time",System.currentTimeMillis());
+        //hashMap.put("phone", phone+"");
+        //hashMap.put("appId",appidStatic+"");
+        hashMap.put("timeout",String.valueOf(System.currentTimeMillis()));
 
-        return builder.setSubject("token")
-                .setClaims(hashMap)
+        builder.setSubject("token")
+                //.setClaims(hashMap)
                 .setExpiration(expireDate)
                 .signWith(SignatureAlgorithm.HS256, SECRET)
                 .compact();
+
+        Set<String> set = hashMap.keySet();
+        for (String key : set) {
+            builder.claim(key, hashMap.get(key));
+        }
+        return builder.compact();
     }
 
 
@@ -91,6 +97,7 @@ public class TokenUtils {
         try {
             Long time = getTime(token);
             Long now = System.currentTimeMillis();
+            System.out.println(time);
             if(now - time > EXPIRE){
                 return false;
             }else {
@@ -117,7 +124,11 @@ public class TokenUtils {
     }
 
     public static Long getTime(String token){
-        return Long.parseLong(getString(token, "time"));
+        return Long.parseLong(getString(token, "timeout"));
+    }
+
+    public static String getPhone(String phone){
+        return getString(phone, "phone");
     }
 
 }

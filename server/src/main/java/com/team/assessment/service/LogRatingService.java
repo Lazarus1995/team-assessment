@@ -3,6 +3,8 @@ package com.team.assessment.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.team.assessment.model.entry.LogRating;
 
+import java.util.List;
+
 
 /**
 * @author qu
@@ -11,4 +13,6 @@ import com.team.assessment.model.entry.LogRating;
 */
 public interface LogRatingService extends IService<LogRating> {
 
+
+    List<LogRating> getTodo(Long userId,Integer type);
 }

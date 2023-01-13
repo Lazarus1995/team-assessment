@@ -5,9 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotNull;
-import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,6 +19,11 @@ public class SysUserRequest {
      * 用户姓名
      */
     private String userName;
+
+    /**
+     * 用户密码
+     */
+    private String password;
 
     /**
      * 用户绑定手机号

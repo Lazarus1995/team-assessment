@@ -32,6 +32,8 @@
         <fastjson2.version>2.0.22</fastjson2.version>
         <jwt.verions>0.11.5</jwt.verions>
         <easyExcel.version>3.1.5</easyExcel.version>
+        <bcprov.version>1.57</bcprov.version>
+        <hutool.version>5.7.16</hutool.version>
     </properties>
 
 
@@ -128,13 +130,40 @@
             <artifactId>jjwt-impl</artifactId>
             <version>${jwt.verions}</version>
             <scope>runtime</scope>
+        </dependency><!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-gson -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-gson</artifactId>
+            <version>${jwt.verions}</version>
         </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
             <version>${easyExcel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>${bcprov.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.directory.studio</groupId>
+            <artifactId>org.apache.commons.codec</artifactId>
+            <version>1.8</version>
         </dependency>
 
     </dependencies>

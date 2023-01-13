@@ -1,8 +1,8 @@
 package com.team.assessment.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.team.assessment.common.enums.SysLawTypeEnum;
 import com.team.assessment.model.entry.SysLog;
+import com.team.assessment.model.vo.request.SysLogRequest;
 
 /**
 * @author qu
@@ -12,5 +12,6 @@ import com.team.assessment.model.entry.SysLog;
 public interface SysLogService extends IService<SysLog> {
 
 
+    void addLog(SysLogRequest sysLogRequest);
 
 }

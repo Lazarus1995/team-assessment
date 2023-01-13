@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.team.assessment.common.exception.CustomException;
 import com.team.assessment.config.enums.ErrorCode;
+import com.team.assessment.config.utils.AESUtil;
+import com.team.assessment.config.utils.TokenUtils;
 import com.team.assessment.dao.SysDepartmentMapper;
 import com.team.assessment.dao.SysDepartmentUserMapper;
 import com.team.assessment.dao.SysUserMapper;
@@ -40,6 +42,30 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     private SysDepartmentUserMapper sysDepartmentUserMapper;
 
 
+    @Override
+    public SysUserResponse login(SysUserRequest sysUserRequest) throws Exception {
+        String password = AESUtil.encrypt(sysUserRequest.getPassword());
+        SysUser sysUser = sysUserMapper.selectOne(Wrappers.<SysUser>lambdaQuery()
+                .eq(SysUser::getPhone, sysUserRequest.getPhone())
+                .eq(SysUser::getPassword, password));
+
+        if (Objects.nonNull(sysUser)) {
+            SysDepartmentUser sysDepartmentUser = sysDepartmentUserMapper.selectOne(Wrappers.<SysDepartmentUser>lambdaQuery()
+                    .eq(SysDepartmentUser::getUserId, sysUser.getUserId()));
+            String token = TokenUtils.createToken(sysUserRequest.getPhone());
+            return SysUserResponse.builder()
+                    .userId(sysUser.getUserId())
+                    .userName(sysUser.getUserName())
+                    .phone(sysUser.getPhone())
+                    .avatarUrl(sysUser.getAvatarUrl())
+                    .departmentId(sysDepartmentUser.getDepartmentId())
+                    .token(token)
+                    .build();
+        } else {
+            return null;
+        }
+    }
+
     /**
      * 查询用户信息
      *
@@ -56,7 +82,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
         //获取用户对应部门信息
         SysDepartmentUser sysDepartmentUser = sysDepartmentUserMapper.selectOne(Wrappers.<SysDepartmentUser>lambdaQuery()
                 .eq(SysDepartmentUser::getUserId, userId));
-        if(sysDepartmentUser == null){
+        if (sysDepartmentUser == null) {
             throw new CustomException(ErrorCode.SYS_USER_DEPARTMENT_NOT_FOUND.getCode(), ErrorCode.SYS_USER_DEPARTMENT_NOT_FOUND.getMessage());
         }
 
@@ -67,32 +93,33 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
         //完整部门信息
         StringBuilder stringBuilder = new StringBuilder();
-        String departmentStr = getParentDepartment(stringBuilder,tempDepartmentList,sysDepartmentUser.getDepartmentId());
+        String departmentStr = getParentDepartment(stringBuilder, tempDepartmentList, sysDepartmentUser.getDepartmentId());
         sysUserResponse.setDepartmentName(departmentStr);
         return sysUserResponse;
     }
 
     /**
      * 获取上级部门信息
+     *
      * @param sysDepartmentList
      * @param departmentId
      * @return
      */
-    private String getParentDepartment(StringBuilder stringBuilder,List<SysDepartment> sysDepartmentList,Long departmentId){
+    private String getParentDepartment(StringBuilder stringBuilder, List<SysDepartment> sysDepartmentList, Long departmentId) {
         //获取当前部门 ID 的 parentID
         SysDepartment sysDepartmentTemp = sysDepartmentList
                 .stream().filter(sysDepartment -> sysDepartment.getId().equals(departmentId)).findFirst().get();
 
         List<SysDepartment> result = sysDepartmentList.stream()
                 .filter(sysDepartment -> sysDepartment.getId().equals(sysDepartmentTemp.getParentId())).collect(Collectors.toList());
-        for(SysDepartment sysDepartment:result){
+        for (SysDepartment sysDepartment : result) {
             //添加叶子部门
-            if(stringBuilder.length() == 0){
+            if (stringBuilder.length() == 0) {
                 stringBuilder.append(sysDepartmentTemp.getDepartmentName());
             }
-            stringBuilder.insert(0,sysDepartment.getDepartmentName() + "/");
-            if(sysDepartment.getParentId()!=0){
-                getParentDepartment(stringBuilder,sysDepartmentList,sysDepartment.getParentId());
+            stringBuilder.insert(0, sysDepartment.getDepartmentName() + "/");
+            if (sysDepartment.getParentId() != 0) {
+                getParentDepartment(stringBuilder, sysDepartmentList, sysDepartment.getParentId());
             }
         }
         return stringBuilder.toString();
@@ -115,12 +142,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
 
     @Override
     public List<SysUserResponse> getUserListChildren(Long userId) {
-       // Long departmentId = sysUserMapper.selectById(userId).getDepartmentId();
+        // Long departmentId = sysUserMapper.selectById(userId).getDepartmentId();
 
         List<SysDepartment> sysDepartmentList = sysDepartmentMapper.selectList(null);
         //List<SysUserResponse> sysUserResponseChildrenList = getChildren(sysDepartmentList, departmentId);
 
-       // return sysUserResponseChildrenList;
+        // return sysUserResponseChildrenList;
         return null;
     }
 

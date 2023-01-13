@@ -1,22 +1,18 @@
-package com.team.assessment.model.entry;
+package com.team.assessment.model.vo.request;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.team.assessment.common.entry.BaseEntity;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 
 /**
- * @TableName sys_log
+ *
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-@TableName(value = "sys_log")
-public class SysLog extends BaseEntity implements Serializable {
+public class SysLogRequest implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -28,21 +24,25 @@ public class SysLog extends BaseEntity implements Serializable {
     private Long id;
 
     /**
+     * 日志记录用户 ID
+     */
+    private Long logUserId;
+
+    /**
      * 日志类型
      *
      * @see com.team.assessment.enums.SysLogTypeEnum
      */
     private Integer logType;
 
-    private String theme;
-
+    private MultipartFile file;
     /**
      * 补充说明
      */
     private String content;
 
-    /**
-     * 图片地址
-     */
-    private String picUrl;
+    private String theme;
+
+
+    private String createTime;
 }

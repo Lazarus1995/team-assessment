@@ -6,13 +6,17 @@
 
     <resultMap id="BaseResultMap" type="com.team.assessment.model.entry.SysLog">
             <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="logTime" column="log_time" jdbcType="TIMESTAMP"/>
             <result property="logUserId" column="log_user_id" jdbcType="BIGINT"/>
             <result property="logType" column="log_type" jdbcType="TINYINT"/>
+            <result property="updateUserId" column="update_user_id" jdbcType="BIGINT"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="createUserId" column="create_user_id" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,log_time,log_user_id,
-        log_type
+        log_type,update_user_id,update_time,
+        create_user_id,create_time
     </sql>
 </mapper>

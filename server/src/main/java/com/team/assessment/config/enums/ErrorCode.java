@@ -18,6 +18,8 @@ public enum ErrorCode {
     FILE_NULL(10004, "文件为空"),
     PIC_ERROR(10005, "图片出错"),
 
+    WECHAT_ERROR(10006, "微信出错"),
+
     // 功能辅助错误类型 20000
     SUPPORT_VERIFICATION_CODE_INVALID(20001, "验证码不正确"),
     SUPPORT_SMS_VERIFY_SENT_FAILED(20002, "手机验证码发送失败"),

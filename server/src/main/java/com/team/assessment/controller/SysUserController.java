@@ -34,6 +34,12 @@ public class SysUserController {
         return BaseResponse.success(sysUserService.getUserList(sysUserRequest));
     }
 
+    @PostMapping("/login")
+    public BaseResponse login(@RequestBody SysUserRequest sysUserRequest) throws Exception {
+
+        return BaseResponse.success(sysUserService.login(sysUserRequest));
+    }
+
     @GetMapping("/listChildren/{userId}")
     public BaseResponse getUserListChildren(@PathVariable Long userId) {
         //todo 还有 bug
@@ -57,11 +63,11 @@ public class SysUserController {
 
     @GetMapping("/WXLogin")
     public BaseResponse WXLogin(String code) throws IOException {
-
         JSONObject jsonObject = WechatUtil.getSessionKeyOrOpenId(code);
 
 
         //jsonObject.put("token", TokenUtils.createToken(jsonObject.get("session_key").toString(), jsonObject.get("openid").toString(), "wxac25927737cf3994"));
         return BaseResponse.success(jsonObject);
     }
+
 }

@@ -3,6 +3,7 @@ package com.team.assessment.model.vo.response;
 import com.team.assessment.config.utils.DateUtils;
 import com.team.assessment.model.entry.SysUser;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -12,6 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Accessors(chain = true)
 public class SysUserResponse {
     /**
@@ -43,6 +45,8 @@ public class SysUserResponse {
      * 从属部门名称
      */
     private String departmentName;
+
+    private String token;
 
     /**
      * 状态

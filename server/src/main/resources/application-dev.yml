@@ -12,5 +12,5 @@ spring:
 #swagger:
 #  enable: true
 WeChat:
-  appid: wxac25927737cf3994
-  secret: 8b40663cdfa970926cd8f6fafdf56597
+  appid: wxa7559ae265298124
+  secret: e125e80e8a6dc124a1aaefc16e7e1368

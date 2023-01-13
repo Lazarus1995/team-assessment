@@ -1,24 +1,22 @@
 package com.team.assessment.service.impl;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.team.assessment.common.entry.ExcelExportEntity;
 import com.team.assessment.common.entry.ExcelImageEntity;
+import com.team.assessment.common.enums.LogRatingStatusEnum;
 import com.team.assessment.common.enums.SysLawTypeEnum;
 import com.team.assessment.common.exception.CustomException;
 import com.team.assessment.config.enums.ErrorCode;
 import com.team.assessment.config.utils.DateUtils;
-import com.team.assessment.dao.LogLawProcessMapper;
-import com.team.assessment.dao.SysLawMapper;
-import com.team.assessment.dao.SysUserMapper;
-import com.team.assessment.dao.SysUserScoreMapper;
-import com.team.assessment.model.entry.LogLawProcess;
-import com.team.assessment.model.entry.SysLaw;
-import com.team.assessment.model.entry.SysUser;
-import com.team.assessment.model.entry.SysUserScore;
+import com.team.assessment.dao.*;
+import com.team.assessment.model.entry.*;
 import com.team.assessment.model.vo.request.LogLawProcessRequest;
+import com.team.assessment.model.vo.response.LogLawProcessResponse;
 import com.team.assessment.service.LogLawProcessService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,12 +24,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -57,10 +57,16 @@ public class LogLawProcessServiceImpl extends ServiceImpl<LogLawProcessMapper, L
     private SysUserMapper sysUserMapper;
 
     @Autowired
+    private LogRatingMapper logRatingMapper;
+
+    @Autowired
     private SysUserScoreMapper sysUserScoreMapper;
 
     @Value("${easyExcel.templatePath}")
     private String ExcelTemplatePath;
+
+    @Value("${easyExcel.demoPath}")
+    private String ExcelDemoPath;
 
     /**
      * 小立法评分日志
@@ -106,6 +112,7 @@ public class LogLawProcessServiceImpl extends ServiceImpl<LogLawProcessMapper, L
         logLawProcess.setContent(logLawProcessRequest.getContent());
         logLawProcess.setPicUrl(realpath.getPath());
         logLawProcess.setCreateUserId(logLawProcessRequest.getCreateUserId());
+        logLawProcess.setCreateTime(LocalDateTime.now());
         logLawProcessMapper.insert(logLawProcess);
 
         SysLawTypeEnum sysLawTypeEnum = SysLawTypeEnum.getByCode(logLawProcessRequest.getLawType());
@@ -143,6 +150,21 @@ public class LogLawProcessServiceImpl extends ServiceImpl<LogLawProcessMapper, L
             }
         }
 
+        SysLaw sysLaw = sysLawMapper.selectById(logLawProcessRequest.getLawId());
+        sysLawMapper.update(sysLaw, Wrappers.lambdaUpdate(SysLaw.class)
+                .set(SysLaw::getLawMonthCount, sysLaw.getLawMonthCount() + 1)
+                .eq(SysLaw::getLawId, logLawProcessRequest.getLawId()));
+
+        LogRating logRating = logRatingMapper.selectOne(Wrappers.lambdaQuery(LogRating.class)
+                .eq(LogRating::getUserId, logLawProcessRequest.getUserId())
+                .orderBy(true, false, LogRating::getCreateTime)
+                .last("limit 1"));
+        System.out.println(JSON.toJSONString(logRating));
+        if (Objects.nonNull(logRating) && logRating.getRatingStatus() == LogRatingStatusEnum.UNCOMPLETE.getCode()) {
+            logRatingMapper.update(logRating, Wrappers.lambdaUpdate(LogRating.class)
+                    .set(LogRating::getRatingStatus, LogRatingStatusEnum.COMPLETED.getCode())
+                    .eq(LogRating::getUserId, logLawProcessRequest.getUserId()));
+        }
     }
 
     /**
@@ -193,6 +215,59 @@ public class LogLawProcessServiceImpl extends ServiceImpl<LogLawProcessMapper, L
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<LogLawProcessResponse> getList(Long userId) {
+        List<SysUser> userList = sysUserMapper.selectList(null);
+
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        List<LogLawProcessResponse> result = logLawProcessMapper
+                .selectList(Wrappers.lambdaQuery(LogLawProcess.class)
+                        .eq(LogLawProcess::getCreateUserId, userId)
+                        .orderByDesc(LogLawProcess::getCreateTime)).stream().map(item -> {
+                    LogLawProcessResponse logLawProcessResponse = new LogLawProcessResponse();
+
+                    BeanUtils.copyProperties(item, logLawProcessResponse);
+                    logLawProcessResponse.setCreateTime(df.format(item.getCreateTime()));
+                    return logLawProcessResponse;
+                }).collect(Collectors.toList());
+        return result;
+    }
+
+
+    /**
+     * @param response
+     */
+    public void download1(HttpServletResponse response) throws IOException {
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+        String fileName = URLEncoder.encode("测试", "UTF-8").replaceAll("\\+", "%20");
+        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+        download2(response);
+    }
+
+    public void download2(HttpServletResponse res) throws IOException {
+        // 发送给客户端的数据
+        // 读取filename
+        File file = new File(ExcelDemoPath);
+        long length = file.length();
+        res.addHeader("Content-Length", String.valueOf(length));
+        OutputStream outputStream = res.getOutputStream();
+        byte[] buff = new byte[1024];
+        BufferedInputStream bis = null;
+        FileInputStream inputStream = new FileInputStream(file);
+        bis = new BufferedInputStream(inputStream);
+        int i = bis.read(buff);
+        while (i != -1) {
+            outputStream.write(buff, 0, buff.length);
+            outputStream.flush();
+            i = bis.read(buff);
+        }
+        bis.close();
+        outputStream.close();
+    }
+
 }
 
 

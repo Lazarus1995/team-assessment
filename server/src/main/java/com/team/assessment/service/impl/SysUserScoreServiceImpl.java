@@ -13,6 +13,7 @@ import com.team.assessment.service.SysUserScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,11 +46,13 @@ public class SysUserScoreServiceImpl extends ServiceImpl<SysUserScoreMapper, Sys
         //完整部门信息
         List<Long> tempList = getChildren(tempDepartmentList, departmentId, new ArrayList<>());
 
+        String departmentName = tempDepartmentList.stream().filter(item -> Objects.equals(item.getId(), departmentId))
+                .map(SysDepartment::getDepartmentName).collect(Collectors.joining());
         Long year = Long.parseLong(DateUtils.getNowYear()), month = Long.parseLong(DateUtils.getNowMonth());
         Integer totleScore = sysUserScoreMapper.getTotleScore(departmentId, year, month);
         Double scoreMoney;
         if (totalSalary != null && totleScore != null) {
-            scoreMoney = (double) (totleScore / totalSalary);
+            scoreMoney = ((double) totalSalary / (double) totleScore);
         } else {
             scoreMoney = 0.0;
         }
@@ -61,7 +64,10 @@ public class SysUserScoreServiceImpl extends ServiceImpl<SysUserScoreMapper, Sys
             sysScoreResponse.setUserName(item.get("userName").toString());
             int score = Integer.valueOf(item.get("score").toString());
             sysScoreResponse.setCurrentScore(score);
-            sysScoreResponse.setIssuedAmount(totalSalary != null && totleScore != null ? scoreMoney * score : 0.0);
+            sysScoreResponse.setIssuedAmount(totalSalary != null && totleScore != null ? new BigDecimal(scoreMoney * score).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() : 0.0);
+            sysScoreResponse.setVetoStatus(score == 0 ? true : false);
+            sysScoreResponse.setDepartmentId(departmentId);
+            sysScoreResponse.setDepartmentName(departmentName);
             return sysScoreResponse;
         }).collect(Collectors.toList());
 

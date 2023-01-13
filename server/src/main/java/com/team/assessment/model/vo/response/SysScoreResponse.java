@@ -21,4 +21,10 @@ public class SysScoreResponse implements Serializable {
 
     private Double issuedAmount;
 
+    private Long departmentId;
+
+    private String departmentName;
+
+    private Boolean vetoStatus;
+
 }

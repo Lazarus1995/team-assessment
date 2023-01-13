@@ -2,6 +2,7 @@ package com.team.assessment.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.team.assessment.model.entry.LogRating;
+import org.springframework.stereotype.Repository;
 
 /**
 * @author qu
@@ -9,6 +10,7 @@ import com.team.assessment.model.entry.LogRating;
 * @createDate 2023-01-09 18:02:37
 * @Entity generator.domain.LogRating
 */
+@Repository
 public interface LogRatingMapper extends BaseMapper<LogRating> {
 
 }
