@@ -46,3 +46,4 @@
     <van-button type="primary" block bind:click="saveActivity">保存</van-button>
   </view>
 </block>
+

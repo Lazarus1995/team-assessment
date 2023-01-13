@@ -1,4 +1,4 @@
-<!--pages/mine/mine.wxml-->
+<!--pages/mine/index.wxml-->
 <view wx:if="{{ !loginStatus }}" style="margin-top: 20rpx;">
   <van-card
     desc="{{ userInfo.departmentName }}"
@@ -22,21 +22,20 @@
       text="待办任务"
       badge="{{ task }}"
       link-type="navigateTo"
-      url="/pages/task/task"
+      url="/pages/task/index"
     />
     <van-grid-item
       icon="comment-o"
       text="系统通知"
       badge="{{ message }}"
       link-type="navigateTo"
-      url="/pages/message/message"
+      url="/pages/message/index"
     />
   </van-grid>
   <van-cell-group title="其他功能">
     <van-cell title="活动日志" is-link url="/pages/activity/index" />
-    <van-cell title="个人信息" is-link url="/pages/mine/account-info" />
-    <van-cell title="系统设置" is-link url="/pages/mine/setting" />
-    <van-cell title="退出登录" is-link bind:click="signOut" />
+    <van-cell title="个人信息" is-link url="/pages/info/index" />
+    <van-cell title="人员管理" is-link url="/pages/member/index" />
+    <van-cell title="系统设置" is-link url="/pages/setting/index" />
   </van-cell-group>
 </view>
-

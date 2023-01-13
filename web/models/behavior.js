@@ -1,5 +1,5 @@
 import { BehaviorWithStore } from 'mobx-miniprogram-bindings'
-import { activeTab, user } from './index'
+import { activeTab, userInfo } from './index'
 
 export const stoneBehavior = BehaviorWithStore({
   storeBindings: [
@@ -9,9 +9,9 @@ export const stoneBehavior = BehaviorWithStore({
       actions: ["updateActive"]
     },
     {
-      store: user,
-      fields: ["task", "message"],
-      actions: ["updateTask", "updateMsg"],
+      store: userInfo,
+      fields: ["userName", "userId", "departmentId", "departmentName", "phoneNumber", "avatarUrl", "taskNum", "messageNum"],
+      actions: ["updateUserName", "updateId", "updateDepartment", "updateDepartmentName", "updatePhone", "updateAvatar", "updateTask", "updateMsg"],
     }
   ]
 });

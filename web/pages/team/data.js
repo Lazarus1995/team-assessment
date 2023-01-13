@@ -1,156 +1,77 @@
 export const teamMember = {
-  "quarterly": [
-    {
-      title: '两季度管理',
-      name: '某某某',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }
-  ],
   "manager": [
     {
       title: '班组长',
       name: '赵小龙',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
+      avatarUrl: '../../images/banzu/zhaoxiaolong.png'
     },{
       title: '进班党员',
       name: '赵士辉',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
+      avatarUrl: '../../images/banzu/zhaoshihui.png'
     },{
       title: '进班业代',
       name: '张蛟',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
+      avatarUrl: '../../images/banzu/zhangjiao.png'
     },{
       title: '进班监理',
       name: '张兆毅',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
+      avatarUrl: '../../images/banzu/zhangzhaoshun.png'
     },{
       title: '进班设计',
       name: '刘浩杰',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
+      avatarUrl: '../../images/banzu/liuhaojie.png'
     },
   ],
   "member": [
     {
       title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
+      name: '付瑞彩',
+      avatarUrl: '../../images/banzu/1.png'
+    }, {
+      title: '',
+      name: '李胤泽',
+      avatarUrl: '../../images/banzu/2.png'
+    }, {
+      title: '',
+      name: '赵会甫',
+      avatarUrl: '../../images/banzu/3.png'
+    }, {
+      title: '',
+      name: '张可凤',
+      avatarUrl: '../../images/banzu/4.png'
+    }, {
+      title: '',
+      name: '王树新',
+      avatarUrl: '../../images/banzu/5.png'
+    }, {
+      title: '',
+      name: '田玉门',
+      avatarUrl: '../../images/banzu/6.png'
+    }, {
+      title: '',
+      name: '刘联',
+      avatarUrl: '../../images/banzu/7.png'
+    }, {
+      title: '',
+      name: '李荣敏',
+      avatarUrl: '../../images/banzu/8.png'
     }, {
       title: '',
       name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
+      avatarUrl: '../../images/banzu/9.png'
     }, {
       title: '',
       name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
+      avatarUrl: '../../images/banzu/10.png'
     }, {
       title: '',
       name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
+      avatarUrl: '../../images/banzu/11.png'
     }, {
       title: '',
       name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    }, {
-      title: '',
-      name: '张三',
-      avatarUrl: 'https://img.yzcdn.cn/vant/apple'
-    },
+      avatarUrl: '../../images/banzu/12.png'
+    }
   ]
 }
 

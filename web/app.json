@@ -1,29 +1,25 @@
 {
   "pages": [
+    "pages/login/index",
     "pages/team/index",
     "pages/laws/index",
-    "pages/laws/laws",
+    "pages/divide/index",
     "pages/mine/index",
-    "pages/task/task",
-    "pages/distribution/distribution",
+    "custom-tab-bar/index",
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/message/message",
-    "pages/login/login",
-    "pages/mine/setting",
-    "pages/mine/account-info",
-    "pages/mine/work-log",
-    "pages/mine/info",
-    "pages/create-log/index",
-    "pages/history-log/index",
+    "component/tree/index",
+    "pages/setting/index",
+    "pages/info/index",
     "pages/activity/index",
     "pages/activity/create",
-    "pages/activity/history"
+    "pages/activity/history",
+    "pages/member/index",
+    "pages/task/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "青岛地铁施工人员评分",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -47,10 +43,10 @@
         "selectedIconPath": "icons/_laws.png"
       },
       {
-        "pagePath": "pages/distribution/distribution",
+        "pagePath": "pages/divide/index",
         "text": "分配",
-        "iconPath": "icons/distribution.png",
-        "selectedIconPath": "icons/_distribution.png"
+        "iconPath": "icons/divide.png",
+        "selectedIconPath": "icons/_divide.png"
       },
       {
         "pagePath": "pages/mine/index",
@@ -95,6 +91,7 @@
     "van-row": "@vant/weapp/row/index",
     "van-col": "@vant/weapp/col/index",
     "van-search": "@vant/weapp/search/index",
-    "van-notice-bar": "@vant/weapp/notice-bar/index"
+    "van-notice-bar": "@vant/weapp/notice-bar/index",
+    "van-cascader": "@vant/weapp/cascader/index"
   }
 }

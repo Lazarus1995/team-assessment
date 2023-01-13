@@ -12,6 +12,9 @@ Page({
     popupVisible: false,
     fileList: [],
     formData: {},
+<<<<<<< HEAD
+    rulesList: [],
+=======
     activeCollapse: [0],
     rulesList: [
       
@@ -36,6 +39,7 @@ Page({
         children: []
       }
     ],
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
     modifyInfo: {}
   },
 
@@ -97,6 +101,14 @@ Page({
       rulesList: this.data.rulesList
     })
   },
+<<<<<<< HEAD
+
+  deleteImage(event) {
+    const index = event.detail.index
+    this.data.fileList.splice(index, 1)
+    this.setData({
+      fileList: this.data.fileList
+=======
   
   afterPicRead(e) {
     let picsList = this.data.picsList
@@ -113,10 +125,14 @@ Page({
     picsList.splice(e.detail.index, 1)
     this.setData({
       picsList
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
     })
   },
 
   saveData(e) {
+<<<<<<< HEAD
+    this.setData({ dialogVisible: false })
+=======
     console.log(e)
     // this.setData({ dialogVisible: false })
   },
@@ -125,6 +141,7 @@ Page({
     this.setData({
       activeCollapse: event.detail
     })
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
   },
 
   // async afterRead(event) {
@@ -158,6 +175,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+<<<<<<< HEAD
+
+=======
     // 小立法列表请求
     // args: departmentId
     // wx.request({
@@ -183,6 +203,7 @@ Page({
     //   rulesList: this.data.rulesList
     // })
     // console.log(this.data.rulesList)
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
   },
 
   /**
@@ -213,6 +234,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+<<<<<<< HEAD
+=======
     let _rulesList = this.data.rl
     wx.request({
       url: 'http://192.168.101.2:80/api/law/list/' + 1,
@@ -237,10 +260,22 @@ Page({
     // this.setData({
     //   rulesList: _rulesList
     // })
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
     this.setData({
       lawsList: this.mockData(['A', 'B', 'C', 'D', 'E', 'F']),
       rulesList: [
         {
+<<<<<<< HEAD
+          info: '一、请安全正确佩戴安全帽',
+          score: 1
+        },
+        {
+          info: '二、高空作业请系好安全绳',
+          score: 2
+        }
+      ]
+    })
+=======
           type: '加分项',
           icon: 'smile',
           color: '#07c160',
@@ -308,6 +343,7 @@ updateUserId: null,
       ]
     })
     console.log("after", this.data.rulesList)
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
   },
 
   /**

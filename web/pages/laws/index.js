@@ -1,7 +1,10 @@
 // pages/laws/index.js
-import { lawsData, memberData } from './data'
-Page({
+const util = require('../../utils/util.js')
+import { stoneBehavior } from '../../models/behavior'
+let app = getApp()
 
+Page({
+  behaviors: [stoneBehavior],
   /**
    * 页面的初始数据
    */
@@ -10,18 +13,30 @@ Page({
     siderTabCurrent: 0,
     activeCollapse: [],
     lawsList: [],
+    chooseDepartmentId: '',
+    // score
     membersList: [],
-    dialogVisible: false,
-    memberScore: {},
-    memberName: '',
+    scoreLaw: [],
+    scoreLawsScore: [],
+    scoreLawsIndex: [],
+    scoreDialog: false,
+    scoreUserName: '',
+    scoreUserId: '',
     scoreType: '',
-    lawInfo: '',
-    supDescription: '',
-    pictureList: [],
+    scoreLawContent: '',
+    scoreLawScore: '',
+    scoreLawId: '',
+    scoreSupply: '',
+    scorePicsList: [],
+    // modify
     modifyPopup: false,
-    modifyLawContent: '',
+    modeifyLawId: '',
     modeifyLawScore: 0,
-    modeifyLawId: ''
+    modifyLawContent: '',
+    // create
+    createPopup: false,
+    createLawScore: 0,
+    createDepartmentId: 0,
   },
 
   /**
@@ -43,81 +58,6 @@ Page({
   },
 
   /**
-   * 格式化后端请求数据
-   */
-  formatLaws(array) {
-    let belong = [], allBelong = [], result = []
-    array.forEach((val) => {
-      belong.push(val.belong)
-    })
-    allBelong = Array.from(new Set(belong))
-    allBelong.map(val => {
-      let temp = [], obj = {
-        belong: val,
-        children: []
-      }
-      array.map(i => {
-        if (val == i.belong) {
-          temp.push(i)
-        }
-      })
-      obj.children = this.formatLawsResult(temp)
-      result.push(obj)
-    })
-    return result
-  },
-  formatLawsResult(array) {
-    let addObj = {
-      type: '加分项',
-      icon: 'smile',
-      color: '#07c160',
-      children: []
-    }, minusObj = {
-      type: '扣分项',
-      icon: 'warning',
-      color: '#FF976A',
-      children: []
-    }, vetoObj = {
-      type: '否决项',
-      icon: 'clear',
-      color: '#ee0a24',
-      children: []
-    };
-    let result = []
-    array.map(val => {
-      if (val.lawType == 0) {
-        vetoObj.children.push(val)
-      } else if (val.lawType == 1) {
-        addObj.children.push(val)
-      } else {
-        minusObj.children.push(val)
-      }
-    })
-    result.push(addObj, minusObj, vetoObj)
-    return result
-  },
-  formatMember(array) {
-    let belong = [], allBelong = [], result = []
-    array.forEach((val) => {
-      belong.push(val.belong)
-    })
-    allBelong = Array.from(new Set(belong))
-    allBelong.map(val => {
-      let obj = {
-        belong: val,
-        children: []
-      }
-      array.map(i => {
-        if (val == i.belong) {
-          obj.children.push(i)
-        }
-      })
-      result.push(obj)
-    })
-    return result
-  },
-
-  /**
    * 折叠状态切换
    */
   changeCollapse(event) {
@@ -127,99 +67,125 @@ Page({
   },
 
   /**
-   * 每日评分Dialog状态切换
+   * 修改Popup状态切换
    */
-  showScoreDialog(e) {
-    this.setData({
-      dialogVisible: true,
-      memberName: e.target.dataset.name
-    });
-  },
-  closeScoreDialog() {
-    this.setData({ dialogVisible: false })
-  },
-
-  /**
-   * 图片相关
-   */
-  afterPicRead(e) {
-    let pictureList = this.data.pictureList
-    if (!pictureList) {
-      pictureList = []
-    }
-    pictureList = pictureList.concat(e.detail.file)
-    this.setData({
-      pictureList
-    })
-  },
-  afterPicDel(e) {
-    let pictureList = this.data.pictureList
-    pictureList.splice(e.detail.index, 1)
-    this.setData({
-      pictureList
-    })
-  },
-
-  /**
-   * 每日评分提交
-   */
-  submitScore() {
-    if (!this.data.scoreType) {
-      wx.showToast({
-        title: '请选择本次评分类别',
-        icon: 'none'
-      })
-      return
-    }
-
-    if (!this.data.lawInfo) {
-      wx.showToast({
-        title: '请选择本次评分条例',
-        icon: 'none'
-      })
-      return
-    }
-
-    if (this.data.pictureList.length == 0) {
-      wx.showToast({
-        title: '请上传一张本次评分的图片',
-        icon: 'none'
-      })
-      return
-    }
-    console.log(this.data)
-  },
-
   showModifyPopup(e) {
+    let _data = e.target.dataset
     this.setData({
       modifyPopup: true,
-      modifyLawContent: e.target.dataset.content,
-      modeifyLawScore: e.target.dataset.score,
-      modeifyLawId: e.target.dataset.id
+      modifyLawContent: _data.content,
+      modeifyLawScore: _data.score,
+      modeifyLawId: _data.id
     })
   },
 
+  /**
+   * 新增Popup状态切换
+   */
+  showCreatePopup(e) {
+    this.setData({
+      createPopup: true,
+      createDepartmentId: e.target.dataset.id
+    })
+  },
+
+  /**
+   * 修改评分Diglog状态切换
+  */
+  showScoreDialog(e) {
+    let _data = e.target.dataset
+    this.setData({
+      scoreDialog: true,
+      scoreUserName: _data.name,
+      scoreUserId: _data.id,
+      chooseDepartmentId: _data.department
+    })
+  },
+
+  /**
+   * 关闭Popup
+   */
+  closePopup(e) {
+    this.setData({
+      modifyPopup: false,
+      createPopup: false
+    })
+  },
+
+  /**
+   * 关闭Dialog
+   */
+  closeScoreDialog(e) {
+    this.setData({ scoreDialog: false })
+  },
+  
+
+  /**
+   * 小立法分数修改
+   */
   modifyScore(event) {
     this.setData({ modeifyLawScore: event.detail })
+  },
+
+  /**
+   * 小立法分数新建
+   */
+  createScore(event) {
+    this.setData({
+      createLawScore: event.detail
+    })
+  },
+
+  radioChange(e) {
+    this.setData({ scoreType: e.detail.value })
+    this.queryLawByDepartment(this.data.chooseDepartmentId)
+  },
+
+  /**
+   * 请求小立法
+   */
+  queryLaw() {
+    wx.request({
+      url: app.globalData.url + '/api/law/list',
+      header: {
+        token: wx.getStorageSync('token')
+      },
+      data: {
+        departmentId: 19,
+      },
+      success: (res) => {
+        if (res.data) {
+          console.log(res.data)
+          let _data = res.data.result
+          this.setData({
+            lawsList: util.formatLaws(_data)
+          })
+        }
+      }
+    })
   },
 
   /**
    * 修改小立法
    */
   handleModifyLaw() {
-    console.log(this.data.modeifyLawId, this.data.modeifyLawScore, this.data.modifyLawContent)
+    let modeifyInfo = {
+      lawId: this.data.modeifyLawId,
+      lawScore: this.data.modeifyLawScore,
+      lawContent: this.data.modifyLawContent
+    }
     wx.showLoading({
       title: '',
     })
     wx.request({
-      url: 'http://192.168.101.4:8090/api/law/update',
+      url: app.globalData.url + '/api/law/update',
       method: 'POST',
-      timeout: 10000,
+      header: {
+        token: wx.getStorageSync('token')
+      },
       data: {
-        lawId: this.data.modeifyLawId,
-        lawScore: this.data.modeifyLawScore,
-        lawContent: this.data.modifyLawContent
-        // userId: wx.getStorageSync('key')
+        ...modeifyInfo,
+        userId: this.data.userId || 1
       },
       success: (res) => {
         wx.hideLoading()
@@ -253,9 +219,11 @@ Page({
       title: '',
     })
     wx.request({
-      url: 'http://192.168.101.4:8090/api/law/delete',
+      url: app.globalData.url + '/api/law/delete',
       method: 'POST',
-      timeout: 10000,
+      header: {
+        token: wx.getStorageSync('token')
+      },
       data: {
         // userId: wx.getStorageSync('key')
         lawId: e.target.dataset.id
@@ -285,18 +253,184 @@ Page({
   },
 
   /**
-   * 请求小立法
+   * 新增小立法
    */
-  queryLaw() {
-    let departmentId = 9
+  createLaw(e) {
+    console.log(e.detail.value, this.data.createDepartmentId, this.data.createLawScore)
+    wx.showLoading({
+      title: '',
+    })
     wx.request({
-      url: 'http://192.168.101.4:8090/api/law/list/' + departmentId,
+      url: app.globalData.url + '/api/law/add',
+      method: 'POST',
+      header: {
+        token: wx.getStorageSync('token')
+      },
+      data: {
+        /**
+         * departmentId, lawType, lawScore, lawContent
+         */
+        ...e.detail.value,
+        departmentId: this.data.createDepartmentId,
+        lawScore: this.data.createLawScore,
+        // departmentId: '',
+        // userId: wx.getStorageSync('key')
+      },
       success: (res) => {
-        let _data = res.data.result
-        this.setData({
-          lawsList: this.formatLaws(_data)
+        wx.hideLoading()
+        if (res.statusCode == 200) {
+          wx.showToast({
+            title: '添加成功',
+            icon: 'success'
+          })
+          this.queryLaw()
+        } else {
+          wx.showToast({
+            title: '添加失败',
+            icon: 'error'
+          })
+        }
+      },
+      fail() {
+        wx.showToast({
+          title: '接口调用失败',
+          icon: 'error'
         })
       }
+    })
+    this.setData({ createPopup: false })
+  },
+
+  /**
+   * 每日评分
+   */
+  submitScore() {
+    wx.showLoading({
+      title: '',
+      icon: 'none'
+    })
+    console.log(this.data)
+    wx.uploadFile({
+      filePath: this.data.scorePicsList[0].url,
+      name: 'file',
+      header: {
+        "content-type": "multipart/form-data",
+        "token": wx.getStorageSync('token')
+      },
+      url: app.globalData.url + '/api/logLawProcess/addProcess',
+      formData: {
+        lawId: this.data.scoreLawId,
+        userId: this.data.scoreUserId,
+        lawType: this.data.scoreType,
+        content: this.data.scoreLawContent,
+        createUserId: this.data.userId || 1,
+        lawScore: this.data.scoreLawScore,
+      },
+      success: (res) => {
+        console.log(res)
+        if (res.statusCode == 200) {
+          wx.showToast({
+            title: '评分成功',
+            icon: 'success'
+          })
+        } else {
+          wx.showToast({
+            title: '评分失败',
+            icon: 'error'
+          })
+        }
+      },
+      fail() {
+        wx.showToast({
+          title: '接口调用失败',
+          icon: 'error'
+        })
+      }
+    })
+    wx.hideLoading()
+    this.setData({ scoreDialog: false })
+  },
+
+  /**
+   * 请求组员
+   */
+  queryMember() {
+    let departmentId = 19
+    wx.request({
+      url: app.globalData.url + '/api/userScore/list',
+      header: {
+        token: wx.getStorageSync('token')
+      },
+      data: {
+        departmentId: departmentId
+      },
+      success: (res) => {
+        if (res.data) {
+          let _data = res.data.result
+          this.setData({
+            membersList: util.formatMember(_data)
+          })
+        }
+      }
+    })
+  },
+
+  /**
+   * 获取评分人员当前部门条例
+   */
+  queryLawByDepartment(id) {
+    wx.request({
+      url: app.globalData.url + '/api/law/list',
+      header: {
+        token: wx.getStorageSync('token')
+      },
+      data: {
+        departmentId: id,
+        lawType: this.data.scoreType
+      },
+      success: (res) => {
+        if (res.data) {
+          let _data = res.data.result, content = [], score = [], index = []
+          _data.map(val => {
+            content.push(val.lawContent)
+            score.push(val.lawScore)
+            index.push(val.lawId)
+          })
+          this.setData({
+            scoreLaw: content,
+            scoreLawsScore: score,
+            scoreLawsIndex: index
+          })
+        }
+      }
+    })
+  },
+
+  bindPickerChange(e) {
+    let idx = e.detail.value
+    this.setData({
+      scoreLawContent: this.data.scoreLaw[idx],
+      scoreLawScore: this.data.scoreLawsScore[idx],
+      scoreLawId: this.data.scoreLawsIndex[idx]
+    })
+  },
+
+  afterPicRead(e) {
+    let picsList = this.data.scorePicsList
+    if (!picsList) {
+      picsList = []
+    }
+    picsList = picsList.concat(e.detail.file)
+    this.setData({
+      scorePicsList: picsList
+    })
+  },
+
+  afterPicDel(e) {
+    let picsList = this.data.scorePicsList
+    picsList.splice(e.detail.index, 1)
+    this.setData({
+      scorePicsList: picsList
     })
   },
 
@@ -304,13 +438,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // 请求数据
-    // let departmentId = wx.getStorageSync('departmentId')
     this.queryLaw()
-    this.setData({
-      // lawsList: this.formatLaws(lawsData),
-      membersList: this.formatMember(memberData)
-    })
+    this.queryMember()
   },
 
   /**

@@ -16,6 +16,12 @@
     <view class="table">
       <view class="table-header">
         <view>组员姓名</view>
+<<<<<<< HEAD
+        <view>当前分数</view>
+        <view>实发金额</view>
+      </view>
+      <scroll-view scroll-y="true" style="height: 70vh; margin-bottom: 20rpx;">
+=======
         <view bindtap="sortList">
           当前分数
           <van-icon wx:if="{{ sortStatus }}" name="arrow-down" />
@@ -24,13 +30,18 @@
         <view>实发金额</view>
       </view>
       <scroll-view scroll-y="true" style="height: 65vh; margin-bottom: 20rpx;">
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
         <view class="table-body" wx:for="{{ queryData.userInfo }}" wx:key="index">
           <view>{{ item.username }}</view>
           <view>{{ item.score }}</view>
           <view>{{ item.issued_amount }}</view>
         </view>
       </scroll-view>
+<<<<<<< HEAD
+      <van-button type="primary" block bindtap="downloadFile">块级元素</van-button>
+=======
       <van-button type="primary" block bindtap="downloadFile">下载</van-button>
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
     </view>
   </view>
   <view wx:else="">

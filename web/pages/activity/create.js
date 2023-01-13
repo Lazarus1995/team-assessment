@@ -1,9 +1,10 @@
 // pages/activity/create.js
-import WXAPI from 'apifm-wxapi'
-import util from '../../utils/util'
+import { stoneBehavior } from '../../models/behavior'
+const util = require("../../utils/util")
+const app = getApp()
 
 Page({
-
+  behaviors: [stoneBehavior],
   /**
    * 页面的初始数据
    */
@@ -14,7 +15,7 @@ Page({
     picsList: []
   },
 
-  async saveActivity() {
+  saveActivity() {
     if (!this.data.theme) {
       wx.showToast({
         title: '请填写本次活动主题',
@@ -29,49 +30,44 @@ Page({
       })
       return
     }
-
-    const extJsonStr = {}
-    extJsonStr['主题'] = this.data.theme
-    extJsonStr['日期'] = this.data.currentDate
-    extJsonStr['描述'] = this.data.description
-    // ? 是否添加其他用户标识 
-
-    // 图片上传-批量
-    if (this.data.picsList) {
-      for (let index = 0; index < this.data.picsList.length; index++) {
-        const pic = this.data.picsList[index];
-        const res = await WXAPI.uploadFile(wx.getStorageSync('token'), pic.url)
-        if (res.code == 0) {
-          extJsonStr['file' + index] = res.data.url
+    console.log(this.data.picsList)
+    wx.uploadFile({
+      filePath: this.data.picsList[0].url,
+      name: 'file',
+      header: {
+        "content-type": "multipart/form-data",
+        "token": wx.getStorageSync('token')
+      },
+      url: app.globalData.url + '/api/log/add',
+      formData: {
+        logUserId: this.data.userId || 1,
+        theme: this.data.theme,
+        createTime: this.data.currentDate,
+        content: this.data.description,
+      },
+      success: (res) => {
+        if (res.statusCode == 200) {
+          wx.showToast({
+            title: '新建成功',
+            icon: 'success'
+          }, wx.redirectTo({
+            url: '/pages/activity/history',
+          }))
+        } else {
+          wx.showToast({
+            title: '新建失败',
+            icon: 'error'
+          })
         }
-      }
-    }
-
-    const res = await WXAPI.addComment({
-      token: wx.getStorageSync('token'),
-      type: 1,
-      extJsonStr: JSON.stringify(extJsonStr),
-      content: this.data.content
-    })
-
-    console.log(res)
-
-    if (res.code === 0) {
-      wx.showToast({
-        title: '提交成功',
-        icon: 'success'
-      })
-      setTimeout(() => {
-        wx.navigateBack({
-          delta: 0,
+      },
+      fail() {
+        wx.showToast({
+          title: '接口调用失败',
+          icon: 'error'
         })
-      }, 1000);
-    } else {
-      wx.showToast({
-        title: res.msg,
-        icon: 'error'
-      })
-    }
+      }
+    })
+    wx.hideLoading()
   },
 
   afterPicRead(e) {
@@ -92,9 +88,7 @@ Page({
     })
   },
 
-  descriptionInput() {
-
-  },
+  descriptionInput() {},
 
   /**
    * 生命周期函数--监听页面加载

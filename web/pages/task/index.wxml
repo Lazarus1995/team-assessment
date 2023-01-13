@@ -1,0 +1,45 @@
+<!--pages/task/index.wxml-->
+<view class="task-container">
+  <van-tabs active="{{ active }}">
+    <van-tab title="待完成({{ waitList.length || 0 }})">
+      <view
+        wx:if="{{ waitList.length > 0 }}"
+      >
+        <van-card
+          wx:for="{{ waitList }}"
+          wx:key="index"
+          tag="{{ item.status }}"
+          title="{{ item.taskName }}"
+          desc="{{ item.taskTime }}"
+          custom-class="task"
+          title-class="title"
+          desc-class="desc"
+        >
+        </van-card>
+      </view>
+      <van-empty wx:else="" description="暂无任务" />
+    </van-tab>
+    <van-tab title="已超时({{ doing.length || 0 }})">
+      <van-empty description="暂无任务" />
+    </van-tab>
+    <van-tab title="已完成({{ finishList.length || 0 }})">
+      <view>
+        <van-card
+          wx:for="{{ finishList }}"
+          wx:key="index"
+          tag="{{ item.status }}"
+          title="{{ item.taskName }}"
+          desc="{{ item.taskTime }}"
+          custom-class="task"
+          title-class="title"
+          desc-class="desc"
+        >
+        <view slot="price">
+          {{ item.content }}
+        </view>
+        </van-card>
+      </view>
+    </van-tab>
+  </van-tabs>
+</view>
+

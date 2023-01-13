@@ -1,9 +1,10 @@
-const CONFIG = require('config.js')
-// const AUTH = require('utils/auth')
 // app.js
+const CONFIG = require('config.js')
+
 App({
   onLaunch() {
-    const that = this;
+
+    // 检查版本
     const updateManager = wx.getUpdateManager()
     updateManager.onUpdateReady(function () {
       wx.showModal({
@@ -55,47 +56,12 @@ App({
     });
   },
 
-  // 自动登录
   onShow() {
-    // const session_key = wx.getStorageSync('session_key')
-    // if (session_key == null || session_key == "") {
-    //   let that = this
-    //   wx.login({
-    //     success: (res) => {
-    //       if (res.code) {
-    //         wx.request({
-    //           url: 'http://192.168.101.2:80/api/user/WXLogin',
-    //           data: {
-    //             code: res.code
-    //           },
-    //           success: function(res) {
-    //             let data = res.data.result
-    //             that.globalData.session_key = data.session_key
-    //             wx.setStorageSync('session_key', data.session_key)
-    //           }
-    //         })
-    //       } else {
-    //         console.log('获取用户登录状态失败!', res.errMsg)
-    //       }
-    //     },
-    //   })
-    // } else {
-    //   this.globalData.session_key = session_key
-    // }
-
-    // AUTH.checkHasLogined().then(isLogined => {
-    //   if (!isLogined) {
-    //     AUTH.authorize().then( aaa => {
-    //       AUTH.bindSeller()
-    //     })
-    //   } else {
-    //     AUTH.bindSeller()
-    //   }
-    // })
+    
   },
 
   globalData: {
-    userInfo: null,
-    session_key: ''
+    userInfo: '',
+    url: CONFIG.query_ip
   }
 })

@@ -5,7 +5,6 @@ Page({
   options: {
     "styleIsolation": "shared"
   },
-
   behaviors: [stoneBehavior],
   /**
    * 页面的初始数据
@@ -27,10 +26,10 @@ Page({
         "info": ""
       },
       {
-        "pagePath": "/pages/distribution/distribution",
+        "pagePath": "/pages/divide/index",
         "text": "分配",
-        "iconPath": "../icons/distribution.png",
-        "selectedIconPath": "../icons/_distribution.png",
+        "iconPath": "../icons/divide.png",
+        "selectedIconPath": "../icons/_divide.png",
         "info": ""
       },
       {
@@ -38,11 +37,14 @@ Page({
         "text": "我的",
         "iconPath": "../icons/mine.png",
         "selectedIconPath": "../icons/_mine.png",
-        "info": "3"
+        "info": ""
       }
     ]
   },
 
+  /**
+   * tabBar切换
+   */
   onChange(event) {
     this.updateActive(event.detail)
     wx.switchTab({
@@ -53,8 +55,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad() {
-    console.log("tabBar onLoad", this.data)
+  onLoad(options) {
+    console.log(this.data)
   },
 
   /**
@@ -68,7 +70,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    
+
   },
 
   /**

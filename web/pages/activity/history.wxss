@@ -1,1 +1,5 @@
 /* pages/activity/history.wxss */
+
+.van-empty {
+  height: 80vh;
+}

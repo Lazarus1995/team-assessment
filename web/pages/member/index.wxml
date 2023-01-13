@@ -1,0 +1,58 @@
+<!--pages/member/index.wxml-->
+<block>
+  <van-field
+    label="成员姓名"
+    model:value="{{ userName }}"
+    placeholder="请输入成员姓名"
+    clearable
+    input-align="right"
+  />
+  <van-field
+    label="手机号码"
+    model:value="{{ userPhone }}"
+    placeholder="请输入成员手机号码"
+    clearable
+    input-align="right"
+  />
+  
+  <van-field
+    value="{{ fieldValue }}"
+    is-link
+    readonly
+    label="所属部门"
+    placeholder="请选择新成员所属部门"
+    bind:tap="onClick"
+  />
+  <van-popup show="{{ show }}" round position="bottom">
+    <van-cascader
+      wx:if="{{ show }}"
+      value="{{ cascaderValue }}"
+      title="请选择所属部门"
+      options="{{ options }}"
+      bind:close="onClose"
+      bind:finish="onFinish"
+      field-names="{{ fieldNames }}"
+    />
+  </van-popup>
+  <view>
+    <view class="input-label">
+      <text>成员照片</text>
+    </view>
+    <view class="input-content">
+      <van-uploader
+        max-count="1"
+        accept="image"
+        upload-text="图片"
+        image-fit="aspectFill"
+        file-list="{{ picsList }}"
+        bind:after-read="afterPicRead"
+        bind:delete="afterPicDel"
+      />
+    </view>
+  </view>
+  <view class="btn">
+    <van-button type="primary" block bind:click="saveActivity">保存</van-button>
+  </view>
+</block>
+
+

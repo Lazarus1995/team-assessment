@@ -1,14 +1,10 @@
 {
-  "name": "teamration",
+  "name": "team-rating-v1",
   "version": "1.0.0",
-  "description": "Qingdao Metro team member scoring management",
+  "description": "",
   "main": ".eslintrc.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://gitee.com/wszdf/teamration.git"
   },
   "author": "wxg",
   "license": "ISC",

@@ -1,51 +1,43 @@
 // pages/mine/index.js
 import { stoneBehavior } from '../../models/behavior'
+let app = getApp()
+
 Page({
   behaviors: [stoneBehavior],
   /**
    * 页面的初始数据
    */
   data: {
-    loginStatus: wx.getStorageSync('session_key') ? true : false,
-    userInfo: {
-      // username: "张三",
-      // status: "在岗",
-      // apartment: "二建-15号线-一标段-一工区-始发井工点-文明施工班组",
-      // userAvatar: "https://img.yzcdn.cn/vant/cat.jpeg",
-    }
+    loginStaus: wx.getStorageSync('token') ? true : false,
+    userInfo: {}
   },
 
-  signOut() {
-    wx.showLoading({
-      title: '',
+  queryDepartmentName(id) {
+    wx.request({
+      url: app.globalData.url + '/api/user/get/' + id,
+      header: {
+        token: wx.getStorageSync('token')
+      },
+      success: (res) => {
+        this.setData({
+          userInfo: {...this.data.userInfo, departmentName: res.data.result.departmentName}
+        })
+      }
     })
-    wx.removeStorageSync('session_key')
-
-    wx.hideLoading()
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let _status = ""
-    wx.request({
-      url: 'http://192.168.101.4:8090/api/user/get/1',
-      success: (res) => {
-        let _data = res.data.result
-        if (_data.status == 0) {
-          _data.status = "禁用"
-        } else if (_data.status == 1) {
-          _data.status = "在职"
-        } else {
-          _data.status = "删除"
-        }
-        this.setData({
-          userInfo: _data
-        })
+    this.setData({
+      userInfo: {
+        userName: this.data.userName,
+        departmentName: this.data.departmentName,
+        avatarUrl: this.data.avatarUrl
       }
     })
-    console.log(this.data.userInfo)
+    this.queryDepartmentName(this.data.userId || 1)
   },
 
   /**

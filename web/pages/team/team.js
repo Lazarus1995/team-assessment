@@ -5,6 +5,28 @@ Page({
    * 页面的初始数据
    */
   data: {
+<<<<<<< HEAD
+    swiperList: ['red', 'yellow', 'blue'],
+    teamStructure: {
+      name: "二建分",
+      children: [
+        {
+          name: "15号线",
+          "children": [
+
+          ]
+        }, {
+          name: "7号线",
+          children: [
+            {
+              name: ""
+            }
+          ]
+        }
+      ]
+    }
+  },
+=======
     treeList: {
       departmentName: '一标段',
       id: 0,
@@ -122,6 +144,7 @@ Page({
     },
   },
 
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
   /**
    * 生命周期函数--监听页面加载
    */

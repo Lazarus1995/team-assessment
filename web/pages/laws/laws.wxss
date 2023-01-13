@@ -22,7 +22,11 @@
 }
 
 label {
+<<<<<<< HEAD
+  margin-right: 20px;
+=======
   margin-right: 16px;
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
 }
 
 .submit-container {
@@ -55,6 +59,10 @@ label {
   font-size: 14px;
 }
 
+<<<<<<< HEAD
+.submitbtn::after {
+  border: none
+=======
 .law-productNav{
   display: flex;
   flex-direction: row;
@@ -86,4 +94,5 @@ label {
 }
 swiper {
   height: 500px;
+>>>>>>> 42743731fd91d5b167efb6adc6b239b05a3aada4
 }

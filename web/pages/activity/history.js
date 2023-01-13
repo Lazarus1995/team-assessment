@@ -1,14 +1,49 @@
 // pages/activity/history.js
-import WXAPI from 'apifm-wxapi'
-Page({
+import { stoneBehavior } from '../../models/behavior'
+const app = getApp()
 
+Page({
+  behaviors: [stoneBehavior],
   /**
    * 页面的初始数据
    */
   data: {
     activityList: [],
-    page: 1,
-    pageSize: 20
+  },
+
+  getActivityList() {
+    wx.showLoading({
+      title: '加载中...',
+    })
+    wx.request({
+      url: app.globalData.url + '/api/log/list',
+      header: {
+        token: wx.getStorageSync('token')
+      },
+      data: {
+        userId: this.data.userId || 1
+      },
+      success: (res) => {
+        if (res.statusCode == 200) {
+          console.log(res)
+          this.setData({
+            activityList: res.data.result
+          })
+        } else {
+          wx.showToast({
+            title: '获取历史失败',
+            icon: 'error'
+          })
+        }
+      },
+      fail() {
+        wx.showToast({
+          title: '接口调用失败',
+          icon: 'error'
+        })
+      }
+    })
+    wx.hideLoading()
   },
 
   /**
@@ -17,19 +52,6 @@ Page({
   onLoad(options) {
     this.getActivityList()
   },
-
-  async getActivityList() {
-    wx.showLoading({
-      title: '加载中...',
-    })
-
-    const res = await WXAPI.goodsCategory()
-
-    console.log(res)
-
-    wx.hideLoading()
-  },
-
 
   /**
    * 生命周期函数--监听页面初次渲染完成

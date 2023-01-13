@@ -3,18 +3,14 @@
   <van-empty wx:if="{{ activityList.length == 0 }}" description="暂无记录"/>
   <scroll-view wx:else="">
     <van-card
-      wx:for="{{currentGoods}}" wx:key="id"
-      price="{{item.minPrice}}"
-      desc="{{item.numberSells ? '已售' + item.numberSells : ''}}"
-      tag="{{item.gotScore ? item.gotScore + '积分' : ''}}"
-      title="{{item.name}}"
-      thumb="{{item.pic}}"
-      thumb-link="{{ goodsDetailPage.url(item) }}"
+      wx:for="{{ activityList }}"
+      wx:key="index"
+      desc="活动内容: {{ item.content }}"
+      title="活动时间: {{ item.createTime }}"
     >
-      <view class="goods-btn" slot="footer">
-        <van-icon wx:if="{{ item.propertyIds || item.hasAddition }}" name="add" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
-        <van-icon wx:else name="shopping-cart-o" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
-      </view>
+    <view slot="tags">
+      活动主题: {{ item.content }}
+    </view>
     </van-card>
   </scroll-view>
 </view>

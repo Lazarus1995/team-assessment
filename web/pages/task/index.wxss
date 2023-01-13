@@ -1,0 +1,30 @@
+/* pages/task/index.wxss */
+
+.task-container {
+  background-color: #f1f1f1;
+  height: 100vh;
+}
+
+.task {
+  background-color: #ffffff;
+  margin: 20rpx;
+  border-radius: 20rpx;
+}
+
+.van-card__thumb {
+  width: 100rpx !important;
+}
+
+.van-card__header, .van-card__thumb, .van-card__content {
+  height: 140rpx !important;
+  min-height: 140rpx !important;
+}
+
+.title {
+  font-size: large;
+  margin-bottom: 20rpx;
+}
+
+.van-empty {
+  height: calc(100vh - 100px);
+}

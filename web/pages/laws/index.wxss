@@ -1,4 +1,5 @@
 /* pages/laws/index.wxss */
+
 .law-sider-tab {
   display: flex;
   flex-direction: row;
@@ -30,11 +31,11 @@
 }
 
 swiper {
-  height: 100vh;
+  height: 80vh;
 }
 
 .law-container {
-  height: 100vh;
+  height: 80vh;
 }
 
 .input-container {

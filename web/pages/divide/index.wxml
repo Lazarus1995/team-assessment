@@ -1,0 +1,44 @@
+<!--pages/divide/index.wxml-->
+<view class="page-container">
+  <van-cell-group>
+    <van-field
+      model:value="{{ totalAmount }}"
+      clearable
+      label="总金额"
+      placeholder="请输入下发总金额"
+      use-button-slot
+      bind:change="onChange"
+    >
+      <van-button slot="button" size="small" type="primary" bindtap="handleCalculation">确定</van-button>
+    </van-field>
+  </van-cell-group>
+
+  <view wx:if="{{ visible }}">
+    <view class="table">
+      <view class="table-header">
+        <view>组员姓名</view>
+        <view>当前分数</view>
+        <view>实发金额</view>
+      </view>
+      <scroll-view scroll-y="true" style="height: 65vh; margin-bottom: 20rpx;">
+        <view class="table-body" wx:for="{{ salaryInfo }}" wx:key="index">
+          <view>{{ item.userName }}</view>
+          <view>{{ item.currentScore }}</view>
+          <view>{{ item.issuedAmount }}</view>
+        </view>
+      </scroll-view>
+      <van-button type="primary" block bindtap="downloadFile">下载</van-button>
+    </view>
+  </view>
+  <view wx:else="">
+    <van-empty description="暂无数据" />
+  </view>
+  <van-dialog
+    use-slot
+    title="提示"
+    show="{{ showDialog }}"
+    custom-class="my-custom-class"
+  >
+    此功能正在施工, 当前下载为示例文件
+  </van-dialog>
+</view>

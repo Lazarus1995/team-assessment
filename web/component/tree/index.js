@@ -14,7 +14,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    collapse: false // 每个tree组件对应自己的collapse属性；（true:折叠/false:展开;）
+    collapse: true // 每个tree组件对应自己的collapse属性；（true:折叠/false:展开;）
   },
 
   /**
@@ -22,7 +22,6 @@ Component({
    */
   methods: {
     tapTreeItem: function(e) { // 点击项
-      console.log(e)
       var item = e.currentTarget.dataset.item;
       if (item.children !== undefined) { // 其下有子节点，可折叠展开操作
         this.setData({ // 折叠展开操作
