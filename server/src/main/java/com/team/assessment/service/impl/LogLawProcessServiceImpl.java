@@ -196,7 +196,13 @@ public class LogLawProcessServiceImpl extends ServiceImpl<LogLawProcessMapper, L
 //            ExcelImageEntity excelImageEntity = new ExcelImageEntity();
 //            excelImageEntity.setFile(new File(logLawProcess.getPicUrl()));
 //            excelEntity.setPic(excelImageEntity);
-            excelEntity.setPic(new File(logLawProcess.getPicUrl()));
+            try{
+                File file = new File(logLawProcess.getPicUrl());
+                excelEntity.setPic(file);
+            }catch(Exception e){
+                excelEntity.setPic(null);
+                e.printStackTrace();
+            }
             //todo shit
             excelEntity.setCreateTime(logLawProcess.getCreateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             return excelEntity;

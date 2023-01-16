@@ -1,18 +1,12 @@
 package com.team.assessment.controller;
 
-import com.alibaba.excel.util.FileUtils;
 import com.team.assessment.common.response.BaseResponse;
 import com.team.assessment.model.vo.request.LogLawProcessRequest;
 import com.team.assessment.service.LogLawProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 
@@ -31,7 +25,7 @@ public class LogLawProcessController {
         return BaseResponse.success();
     }
 
-    @PostMapping("/download")
+    @PostMapping("/downloadbeta")
     public void download(Long userId, HttpServletResponse response) throws IOException {
         // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
@@ -42,22 +36,22 @@ public class LogLawProcessController {
         logLawProcessService.download(response,userId);
     }
 
-    @GetMapping("/downloadbeta")
-    public ResponseEntity download(HttpServletResponse response) throws IOException {
-
-        String fileName = "2023-01-12(示例文件).xlsx";
-        File file = new File("/root/2023-01-12.xlsx");
-        //设置响应头
-        HttpHeaders headers = new HttpHeaders();
-        //下载显示的文件名，解决中文名称乱码问题
-        String downloadFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
-        //通知浏览器以下载方式(attachment)打开文件
-        headers.setContentDispositionFormData("attachment", downloadFileName);
-        //定义以二进制流数据(最常见的文件下载)的形式下载返回文件数据
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        //使用spring mvc框架的ResponseEntity对象封装返回下载数据
-        return new ResponseEntity(FileUtils.readFileToByteArray(file), headers, HttpStatus.OK);
-    }
+//    @GetMapping("/downloadbeta")
+//    public ResponseEntity download(HttpServletResponse response) throws IOException {
+//
+//        String fileName = "2023-01-12(示例文件).xlsx";
+//        File file = new File("/root/2023-01-12.xlsx");
+//        //设置响应头
+//        HttpHeaders headers = new HttpHeaders();
+//        //下载显示的文件名，解决中文名称乱码问题
+//        String downloadFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+//        //通知浏览器以下载方式(attachment)打开文件
+//        headers.setContentDispositionFormData("attachment", downloadFileName);
+//        //定义以二进制流数据(最常见的文件下载)的形式下载返回文件数据
+//        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+//        //使用spring mvc框架的ResponseEntity对象封装返回下载数据
+//        return new ResponseEntity(FileUtils.readFileToByteArray(file), headers, HttpStatus.OK);
+//    }
 
     @GetMapping("/getList/{userId}")
     public BaseResponse getList(@PathVariable Long userId) {

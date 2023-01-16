@@ -57,7 +57,7 @@ pagehelper:
   params: count=countSql
 
 easyExcel:
-  templatePath: /Users/qu/template.xlsx
+  templatePath: /mnt/template.xlsx
   demoPath: /root/2023-01-12.xlsx
 
 mybatis-plus:
