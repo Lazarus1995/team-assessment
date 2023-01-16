@@ -1,8 +1,6 @@
 package com.team.assessment.config.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.team.assessment.common.exception.CustomException;
-import com.team.assessment.config.enums.ErrorCode;
 import io.jsonwebtoken.InvalidClaimException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -22,10 +20,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         Map<String, Object> map = new HashMap<>();
         try {
             //这里尽行token验证，捕获异常，正常的话也不需要处理，直接抛出异常，由统一异常处理类进行处理，然后返回给前端统一数据类型。
-            boolean result = TokenUtils.verify(token);
-            if (!result) {
-                throw new CustomException(ErrorCode.SYS_USER_AUTHENTICATION_FAILED.getCode(), ErrorCode.SYS_USER_AUTHENTICATION_FAILED.getMessage());
-            }
+//            boolean result = TokenUtils.verify(token);
+//            if (!result) {
+//                throw new CustomException(ErrorCode.SYS_USER_AUTHENTICATION_FAILED.getCode(), ErrorCode.SYS_USER_AUTHENTICATION_FAILED.getMessage());
+//            }
             return true;
         }
 //        catch (SignatureVerificationException e) {

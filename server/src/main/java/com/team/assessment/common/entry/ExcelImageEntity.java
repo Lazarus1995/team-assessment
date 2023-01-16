@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.net.URL;
+import java.io.File;
 
 @Getter
 @Setter
@@ -15,5 +15,5 @@ import java.net.URL;
 @ColumnWidth(100 / 8)
 public class ExcelImageEntity {
 
-    private URL url;
+    private File file;
 }

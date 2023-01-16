@@ -1,11 +1,11 @@
 package com.team.assessment.service.impl;
 
+import cn.hutool.core.lang.generator.UUIDGenerator;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.team.assessment.common.entry.ExcelExportEntity;
-import com.team.assessment.common.entry.ExcelImageEntity;
+import com.team.assessment.common.entry.ExcelListEntity;
 import com.team.assessment.common.enums.LogRatingStatusEnum;
 import com.team.assessment.common.enums.SysLawTypeEnum;
 import com.team.assessment.common.exception.CustomException;
@@ -24,11 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.io.File;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -176,8 +172,8 @@ public class LogLawProcessServiceImpl extends ServiceImpl<LogLawProcessMapper, L
     @Override
     public void download(Long userId) {
         //需要填充的时间，月初和当前
-        String monthTime = DateUtils.formatDate(DateUtils.getFirstDay());
-        String nowTime = DateUtils.formatDate(new Date());
+        String monthTime = DateUtils.formatDate(DateUtils.getFirstDay()) + " 00:00:00";
+        String nowTime = DateUtils.formatDate(new Date()) + " 00:00:00";
         //判分人名称
         SysUser sysUser = sysUserMapper.selectById(userId);
         String createUserName = sysUser.getUserName();
@@ -186,34 +182,32 @@ public class LogLawProcessServiceImpl extends ServiceImpl<LogLawProcessMapper, L
                 .eq(LogLawProcess::getCreateUserId, userId)
                 .between(LogLawProcess::getCreateTime, monthTime, nowTime));
 
-        List<ExcelExportEntity> excelExportEntities = logLawProcessesList.stream().map(logLawProcess -> {
-            ExcelExportEntity excelExportEntity = new ExcelExportEntity();
+        List<ExcelListEntity> excelListEntity = logLawProcessesList.stream().map(logLawProcess -> {
+            ExcelListEntity excelEntity = new ExcelListEntity();
 
             SysLaw sysLaw = sysLawMapper.selectById(logLawProcess.getLawId());
-            excelExportEntity.setLawContent(sysLaw.getLawContent());
-            excelExportEntity.setLawType(SysLawTypeEnum.getByCode(logLawProcess.getLawType()).getDesc());
-            excelExportEntity.setCreateUserName(createUserName);
+            excelEntity.setLawContent(sysLaw.getLawContent());
+            excelEntity.setLawType(SysLawTypeEnum.getByCode(logLawProcess.getLawType()).getDesc());
+            excelEntity.setCreateUserName(createUserName);
+            excelEntity.setUserName(sysUserMapper.selectById(logLawProcess.getUserId()).getUserName());
             //添加图片
-            try {
-                ExcelImageEntity excelImageEntity = new ExcelImageEntity();
-                excelImageEntity.setUrl(new URL(logLawProcess.getPicUrl()));
-
-            } catch (MalformedURLException e) {
-                excelExportEntity.setPic(null);
-            }
+//            ExcelImageEntity excelImageEntity = new ExcelImageEntity();
+//            excelImageEntity.setFile(new File(logLawProcess.getPicUrl()));
+//            excelEntity.setPic(excelImageEntity);
+            excelEntity.setPic(new File(logLawProcess.getPicUrl()));
             //todo shit
-            //excelExportEntity.setCreataTime(DateUtils.formatDate(logLawProcess.getCreateTime()));
-            return excelExportEntity;
+            excelEntity.setCreateTime(logLawProcess.getCreateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            return excelEntity;
         }).collect(Collectors.toList());
 
-        try {
-            //导出文件名
-            String fileName = URLEncoder.encode("评分日志", "UTF-8").replaceAll("\\+", "%20")
-                    + DateUtils.formatDate(new Date()) + ".xlsx";
-            EasyExcel.write(fileName).withTemplate(ExcelTemplatePath).sheet().doFill(excelExportEntities);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+//        ExcelExportEntity excelExportEntities = new ExcelExportEntity();
+//        excelExportEntities.setMonth(DateUtils.formatDate(DateUtils.getFirstDay()));
+//        excelExportEntities.setNow(DateUtils.formatDate(new Date()));
+        //excelExportEntities.setExcelListEntityList(excelListEntity);
+        //导出文件名
+        String fileName = "/Users/qu/Downloads/"+ new UUIDGenerator().next() + ".xlsx";
+//                    + DateUtils.formatDate(new Date()) + ".xlsx";
+        EasyExcel.write(fileName).withTemplate(ExcelTemplatePath).sheet().doFill(excelListEntity);
     }
 
     @Override
@@ -238,35 +232,35 @@ public class LogLawProcessServiceImpl extends ServiceImpl<LogLawProcessMapper, L
     /**
      * @param response
      */
-    public void download1(HttpServletResponse response) throws IOException {
-        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setCharacterEncoding("utf-8");
-        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
-        String fileName = URLEncoder.encode("测试", "UTF-8").replaceAll("\\+", "%20");
-        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
-        download2(response);
-    }
-
-    public void download2(HttpServletResponse res) throws IOException {
-        // 发送给客户端的数据
-        // 读取filename
-        File file = new File(ExcelDemoPath);
-        long length = file.length();
-        res.addHeader("Content-Length", String.valueOf(length));
-        OutputStream outputStream = res.getOutputStream();
-        byte[] buff = new byte[1024];
-        BufferedInputStream bis = null;
-        FileInputStream inputStream = new FileInputStream(file);
-        bis = new BufferedInputStream(inputStream);
-        int i = bis.read(buff);
-        while (i != -1) {
-            outputStream.write(buff, 0, buff.length);
-            outputStream.flush();
-            i = bis.read(buff);
-        }
-        bis.close();
-        outputStream.close();
-    }
+//    public void download1(HttpServletResponse response) throws IOException {
+//        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+//        response.setCharacterEncoding("utf-8");
+//        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+//        String fileName = URLEncoder.encode("测试", "UTF-8").replaceAll("\\+", "%20");
+//        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+//        download2(response);
+//    }
+//
+//    public void download2(HttpServletResponse res) throws IOException {
+//        // 发送给客户端的数据
+//        // 读取filename
+//        File file = new File(ExcelDemoPath);
+//        long length = file.length();
+//        res.addHeader("Content-Length", String.valueOf(length));
+//        OutputStream outputStream = res.getOutputStream();
+//        byte[] buff = new byte[1024];
+//        BufferedInputStream bis = null;
+//        FileInputStream inputStream = new FileInputStream(file);
+//        bis = new BufferedInputStream(inputStream);
+//        int i = bis.read(buff);
+//        while (i != -1) {
+//            outputStream.write(buff, 0, buff.length);
+//            outputStream.flush();
+//            i = bis.read(buff);
+//        }
+//        bis.close();
+//        outputStream.close();
+//    }
 
 }
 

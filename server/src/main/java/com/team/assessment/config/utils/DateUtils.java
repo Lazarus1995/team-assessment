@@ -247,11 +247,16 @@ public class DateUtils {
      * @return
      */
     public static Date getFirstDay() {
-        Calendar cale = Calendar.getInstance();
+//        Calendar cale = Calendar.getInstance();
+//        int lastDay = cale.getActualMaximum(Calendar.DAY_OF_MONTH);//获取月最大天数
+//        cale.set(Calendar.DAY_OF_MONTH, lastDay);//设置日历中月份的最大天数
+//        return cale.getTime();
 
-        int lastDay = cale.getActualMaximum(Calendar.DAY_OF_MONTH);//获取月最大天数
-        cale.set(Calendar.DAY_OF_MONTH, lastDay);//设置日历中月份的最大天数
-        return cale.getTime();
+        Calendar firstDay = Calendar.getInstance();
+        firstDay.set(Calendar.DAY_OF_MONTH, 1);
+        firstDay.set(Calendar.HOUR_OF_DAY, 0);
+        firstDay.set(Calendar.MINUTE, 0);
+        return firstDay.getTime();
     }
 
     /**
