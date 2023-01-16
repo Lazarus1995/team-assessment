@@ -25,7 +25,7 @@ public class LogLawProcessController {
         return BaseResponse.success();
     }
 
-    @PostMapping("/downloadbeta")
+    @GetMapping("/downloadbeta")
     public void download(Long userId, HttpServletResponse response) throws IOException {
         // 这里注意 有同学反应使用swagger 会导致各种问题，请直接用浏览器或者用postman
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

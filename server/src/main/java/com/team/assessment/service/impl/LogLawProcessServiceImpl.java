@@ -178,6 +178,9 @@ public class LogLawProcessServiceImpl extends ServiceImpl<LogLawProcessMapper, L
         String nowTime = DateUtils.formatDate(new Date()) + " 00:00:00";
         //判分人名称
         SysUser sysUser = sysUserMapper.selectById(userId);
+        if(Objects.isNull(sysUser)){
+            throw new CustomException(ErrorCode.SYS_USER_NOT_FOUND.getCode(), ErrorCode.SYS_USER_NOT_FOUND.getMessage());
+        }
         String createUserName = sysUser.getUserName();
 
         List<LogLawProcess> logLawProcessesList = logLawProcessMapper.selectList(Wrappers.lambdaQuery(LogLawProcess.class)
