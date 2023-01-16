@@ -5,6 +5,8 @@ import com.team.assessment.model.entry.LogLawProcess;
 import com.team.assessment.model.vo.request.LogLawProcessRequest;
 import com.team.assessment.model.vo.response.LogLawProcessResponse;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -18,7 +20,7 @@ public interface LogLawProcessService extends IService<LogLawProcess> {
      */
     void addPorcess(LogLawProcessRequest logLawProcessRequest);
 
-    void download(Long userId);
+    public void download(HttpServletResponse response, Long userId) throws IOException;
 //
 //    void download1(HttpServletResponse response) throws IOException;
 

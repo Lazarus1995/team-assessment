@@ -24,7 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -170,7 +172,7 @@ public class LogLawProcessServiceImpl extends ServiceImpl<LogLawProcessMapper, L
      * @return
      */
     @Override
-    public void download(Long userId) {
+    public void download(HttpServletResponse response, Long userId) throws IOException {
         //需要填充的时间，月初和当前
         String monthTime = DateUtils.formatDate(DateUtils.getFirstDay()) + " 00:00:00";
         String nowTime = DateUtils.formatDate(new Date()) + " 00:00:00";
@@ -205,9 +207,9 @@ public class LogLawProcessServiceImpl extends ServiceImpl<LogLawProcessMapper, L
 //        excelExportEntities.setNow(DateUtils.formatDate(new Date()));
         //excelExportEntities.setExcelListEntityList(excelListEntity);
         //导出文件名
-        String fileName = "/Users/qu/Downloads/"+ new UUIDGenerator().next() + ".xlsx";
+        String fileName = new UUIDGenerator().next() + ".xlsx";
 //                    + DateUtils.formatDate(new Date()) + ".xlsx";
-        EasyExcel.write(fileName).withTemplate(ExcelTemplatePath).sheet().doFill(excelListEntity);
+        EasyExcel.write(response.getOutputStream()).withTemplate(ExcelTemplatePath).sheet().doFill(excelListEntity);
     }
 
     @Override
