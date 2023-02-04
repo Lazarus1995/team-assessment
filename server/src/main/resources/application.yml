@@ -2,6 +2,7 @@
 server:
   tomcat:
     uri-encoding: UTF-8
+    max-http-header-size: 8096
     max-threads: 1000
     min-spare-threads: 30
   port: 8080
