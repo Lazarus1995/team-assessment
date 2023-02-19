@@ -1,16 +1,14 @@
 spring:
   datasource:
-    url: jdbc:mysql://10.34.100.253:3306/team_assessment?allowMultiQueries=true&useUnicode=true&useSSL=false&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/team_assessment?allowMultiQueries=true&useUnicode=true&useSSL=false&characterEncoding=UTF-8
     username: root
-    password: Gguu2342nITcC49
+    password: 34d90879740311bb
 
-#logging:
-#  config: classpath:logback-spring.xml
-#  level:
-#    com.trade.training: info
-#
-#swagger:
-#  enable: false
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    com.team.assessment: info
+
 WeChat:
   appid: wxa7559ae265298124
   secret: e125e80e8a6dc124a1aaefc16e7e1368

@@ -27,6 +27,8 @@ spring:
   web:
     resources:
       static-locations: classpath:/
+  tracer:
+    enabled: true
 druid:
   pool:
     initialSize: 10
@@ -64,3 +66,10 @@ easyExcel:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
+
+tracer:
+  isSkipJdk: true
+  target-class-list:
+    - full-class-name: com.team.assessment.config.utils.DateUtils
+      target-method-list:
+        - methodName: formatDateTime

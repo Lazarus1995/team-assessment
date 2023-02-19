@@ -53,11 +53,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
             SysDepartmentUser sysDepartmentUser = sysDepartmentUserMapper.selectOne(Wrappers.<SysDepartmentUser>lambdaQuery()
                     .eq(SysDepartmentUser::getUserId, sysUser.getUserId()));
             String token = TokenUtils.createToken(sysUserRequest.getPhone());
+
+            //获取部门信息
+            List<SysDepartment> tempDepartmentList = sysDepartmentMapper.selectList(null);
+
+            //完整部门信息
+            StringBuilder stringBuilder = new StringBuilder();
+            String departmentStr = getParentDepartment(stringBuilder, tempDepartmentList, sysDepartmentUser.getDepartmentId());
+
             return SysUserResponse.builder()
                     .userId(sysUser.getUserId())
                     .userName(sysUser.getUserName())
                     .phone(sysUser.getPhone())
                     .avatarUrl(sysUser.getAvatarUrl())
+                    .departmentName(departmentStr)
                     .departmentId(sysDepartmentUser.getDepartmentId())
                     .token(token)
                     .build();
