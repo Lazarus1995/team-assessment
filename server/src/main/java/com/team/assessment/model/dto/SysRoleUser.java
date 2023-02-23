@@ -1,10 +1,19 @@
 package com.team.assessment.model.dto;
 
-import com.team.assessment.model.entry.SysRole;
+import lombok.Data;
 
+@Data
 public class SysRoleUser {
 
     public Long userId;
 
-    public SysRole sysRole;
+    public String userName;
+
+    private String avatarUrl;
+
+    private Integer status;
+
+    private String roleName;
+
+    private Integer roleId;
 }

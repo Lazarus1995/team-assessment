@@ -14,8 +14,9 @@ public class SysDepartmentController {
 
     @GetMapping("/get/{departmentId}")
     public BaseResponse getDepartment(@PathVariable Long departmentId){
-        return BaseResponse.success();
+        return BaseResponse.success(sysDepartmentService.getDepartment(departmentId));
     }
+
     @GetMapping("/list")
     public BaseResponse getDepartmentList(){
         return BaseResponse.success();

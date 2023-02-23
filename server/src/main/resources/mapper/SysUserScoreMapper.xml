@@ -27,9 +27,11 @@
         FROM sys_user_score s
                  left join sys_user u on s.user_id = u.user_id
                  left join sys_department_user sdu on s.user_id = sdu.user_id
+                 left join sys_role_user sru on s.user_id = sru.user_id
         where sdu.department_id = #{departmentId}
           and s.year = #{year}
           and s.month = #{month}
+          and sru.role_id = 4
     </select>
 
     <select id="getUserScoreList" resultType="map">
@@ -37,8 +39,10 @@
         from sys_user_score s
                  left join sys_user u on s.user_id = u.user_id
                  left join sys_department_user sdu on s.user_id = sdu.user_id
+                 left join sys_role_user sru on s.user_id = sru.user_id
         where sdu.department_id = #{departmentId}
           and s.year = #{year}
           and s.month = #{month}
+          and sru.role_id = 4
     </select>
 </mapper>
